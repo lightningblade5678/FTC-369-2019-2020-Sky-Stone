@@ -44,12 +44,27 @@ public class TestBot {
         frontRight = hardwareMap.get(DcMotor.class, "");
         //NOTE: fill "" with device name
 
+        //sets motor modes
         backLeft.setMode(r);
         backRight.setMode(r);
         frontLeft.setMode(r);
         frontRight.setMode(r);
 
     }
+
+    /*
+        Sets modes of all motors
+        Sets mode to r
+    */
+    public void setMode(DcMotor.RunMode r) {
+        //sets motor modes
+        backLeft.setMode(r);
+        backRight.setMode(r);
+        frontLeft.setMode(r);
+        frontRight.setMode(r);
+    }
+
+}
 
 
 }
