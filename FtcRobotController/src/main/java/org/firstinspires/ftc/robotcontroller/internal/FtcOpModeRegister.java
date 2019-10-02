@@ -38,7 +38,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.ConceptNullOp;
 
 /**
  * {@link FtcOpModeRegister} is responsible for registering opmodes for use in an FTC game.
- * @see #register(OpModeManager) test
+ * @see #register(OpModeManager)
  */
 public class FtcOpModeRegister implements OpModeRegister {
 
