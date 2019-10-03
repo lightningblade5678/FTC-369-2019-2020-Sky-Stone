@@ -6,7 +6,6 @@ package org.firstinspires.ftc.teamcode;
  */
 
 import com.qualcomm.robotcore.hardware.*; //imports robot-core hardware, imports all of them for convenience
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class TestBot {
 
@@ -20,7 +19,6 @@ public class TestBot {
     //initialize other vars
 
     private HardwareMap hardwareMap;//map of where all the hardware is at, used to "link" motors to DCMotor class
-    private ElapsedTime passTime;//"clock" to keep track of passed time
 
     //constructor(s)
 
@@ -64,7 +62,4 @@ public class TestBot {
         frontRight.setMode(r);
     }
 
-}
-
-
-}
+}//NOTE need to create a setAll method for all motor nodes
