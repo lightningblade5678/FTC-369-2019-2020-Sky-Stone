@@ -55,6 +55,9 @@ public class TestOpMode extends LinearOpMode {
 
         runMotorWithEncoder(10,0.6, 5);//run motors
 
+        //updates telemetry
+        telemetry.addData("Status: ","Done!");
+        telemetry.update();
     }
 
     /*
