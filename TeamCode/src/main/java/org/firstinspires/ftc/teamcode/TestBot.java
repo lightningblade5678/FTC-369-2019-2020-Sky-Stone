@@ -62,4 +62,22 @@ public class TestBot {
         frontRight.setMode(r);
     }
 
+
+    /*
+        Sets power of all motors to a single value, mostly here for convenience
+     */
+    public void setPower(double p) {
+        setPower(p,p);//reduces repetition
+    }
+
+    /*
+        Sets power of all motors on the left and right sides
+     */
+    public void setPower(double l, double r){
+        backRight.setPower(r);
+        frontRight.setPower(r);
+        backLeft.setPower(l);
+        frontLeft.setPower(l);
+    }
+
 }//NOTE need to create a setAll method for all motor nodes
