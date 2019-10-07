@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+//Reference : https://github.com/ftctechnh/ftc_app/wiki/Creating-and-Running-an-Op-Mode-(Android-Studio)
+
 /*
     Test class to run OpMode for TestBot
     Use for basic movement tests
@@ -34,6 +36,7 @@ public class TestOpMode extends LinearOpMode {
         Runs "Operation" to move robot
         Moves motors and inits TestBot
      */
+    @Override//overrides opMode
     public void runOpMode() {
 
         //updates telemetry (phone data)
