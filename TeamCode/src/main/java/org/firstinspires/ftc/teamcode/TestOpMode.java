@@ -1,15 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.*;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+//Reference : https://github.com/ftctechnh/ftc_app/wiki/Creating-and-Running-an-Op-Mode-(Android-Studio)
+
 /*
     Test class to run OpMode for TestBot
     Use for basic movement tests
 */
+@Autonomous(name = "testLinearOpMode")
 public class TestOpMode extends LinearOpMode {
 
     //initialize vars
@@ -32,15 +36,15 @@ public class TestOpMode extends LinearOpMode {
         Runs "Operation" to move robot
         Moves motors and inits TestBot
      */
+    @Override//overrides opMode
     public void runOpMode() {
 
         //updates telemetry (phone data)
         telemetry.addData("Status: ","Initializing Bot");
         telemetry.update();
 
-        bot.init(hardwareMap, DcMotor.RunMode.STOP_AND_RESET_ENCODER);//initializes motors for bot
-        bot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//previous init set motors to reset, this sets it to a "real" encoder
-
+        bot.init(hardwareMap, DcMotor.RunMode.RUN_WITHOUT_ENCODER);//initializes motors for bot
+        //Run with raw motor input for lower complexity on this test
         //starts active runmode, end init
 
         //updates telemetry
@@ -53,7 +57,7 @@ public class TestOpMode extends LinearOpMode {
         telemetry.addData("Status: ","Running...");
         telemetry.update();
 
-        runMotorWithEncoder(10,0.6, 5);//run motors
+        runSingleDirection(1,3);//run motors
 
         //updates telemetry
         telemetry.addData("Status: ","Done!");
@@ -63,37 +67,15 @@ public class TestOpMode extends LinearOpMode {
     /*
         Work method that rotates motor with encoder
      */
-    private void runMotorWithEncoder(int distance, double speed, double time){
+    private void runSingleDirection(double power, double time){
+        if(opModeIsActive()) {//checks for active opMode before proceding
+            bot.setPower(power);//sets all wheel power to power to start movemenmt
+            passTime.reset();//resets timer back to 0 for counting purposes
+            while(passTime.seconds() < time);//waits until time is out
 
-        if(opModeIsActive()){
-
-            //sets target pos
-            bot.frontRight.setTargetPosition(distance);
-            bot.frontLeft.setTargetPosition(distance);
-            bot.backLeft.setTargetPosition(distance);
-            bot.backRight.setTargetPosition(distance);
-
-            bot.setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets mode to active mode
-
-            passTime.reset();//resets clock to 0
-
-            bot.frontRight.setPower(speed);
-            bot.frontLeft.setPower(speed);
-            bot.backLeft.setPower(speed);
-            bot.backRight.setPower(speed);
-
-            while(passTime.seconds() < time)//idles until time is out
-
-            //sets all motor power to 0 to make sure bot is stopped
-            bot.frontRight.setPower(0);
-            bot.frontLeft.setPower(0);
-            bot.backLeft.setPower(0);
-            bot.backRight.setPower(0);
-
-            bot.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets mode back to encoder
-
-        }//checks for active opmode
-
+            bot.setPower(power);//resets bot
+        }
+        //Note: making a separate "Wheels" class may be convenient for restoring the state of wheel rotation instead of setting to 0
     }
 
 }

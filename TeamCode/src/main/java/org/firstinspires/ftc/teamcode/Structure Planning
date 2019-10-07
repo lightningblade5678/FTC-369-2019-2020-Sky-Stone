@@ -1,0 +1,18 @@
+This document is used to plan the structure of our code
+This is to:
+    a. Prevent the code from being a spaghetti coded, unorganized mess
+    b. Make life easier for future years to read our code
+
+Start Code Planning:
+
+    Robot.class:
+       -Wheel.class
+            -4 Motors + manipulation methods
+       -Arm.class
+            -Motor(s) for running arm + Associated Methods
+       -Intake.class
+            -2 Motors to run intake system
+            -Pressure/Light sensor for detecting successful intake
+       -Sensors
+
+    OpMode.class
