@@ -36,10 +36,10 @@ public class TestBot {
         hardwareMap = hardMap;//sets
 
         //sets motors
-        backLeft = hardwareMap.get(DcMotor.class, "");
-        backRight = hardwareMap.get(DcMotor.class, "");
-        frontLeft = hardwareMap.get(DcMotor.class, "");
-        frontRight = hardwareMap.get(DcMotor.class, "");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         //NOTE: fill "" with device name
 
         //sets motor modes
