@@ -28,10 +28,10 @@ public class TestTeleOp extends LinearOpMode {
         passTime.reset();//sets timer to 0
 
         while(passTime.seconds() < 20){
-            bot.setPower(gamepad1.left_stick_y,gamepad1.right_stick_y);
-        }
+            bot.setPower(gamepad1.left_stick_y,gamepad1.right_stick_y);//moves left side to left stick and right side to right stick
+        }//runs teleOp for 20 seconds
 
-        bot.setPower(0);
+        bot.setPower(0);//resets motors to 0 power
 
     }
 
