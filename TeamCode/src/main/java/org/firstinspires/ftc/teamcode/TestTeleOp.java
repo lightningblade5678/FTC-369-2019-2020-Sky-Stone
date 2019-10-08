@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 /*
     This is a test class used to test remote control (Teleop)
-    All this class does is move left/Right motors based on imput
+    All this class does is move left/Right motors based on input
  */
 
 @TeleOp(name = "testTeleOp")
@@ -28,7 +28,15 @@ public class TestTeleOp extends LinearOpMode {
         passTime.reset();//sets timer to 0
 
         while(passTime.seconds() < 20){
-            bot.setPower((gamepad1.left_stick_y/Math.abs(gamepad1.left_stick_y)),(gamepad1.right_stick_y/Math.abs(gamepad1.right_stick_y)));//moves left side to left stick and right side to right stick
+
+            /*
+            Following lines equation:
+
+            Joystick Input = JI
+            JI / |JI| + 1
+             */
+
+            bot.setPower((gamepad1.left_stick_y/Math.abs(gamepad1.left_stick_y) + 1),(gamepad1.right_stick_y/Math.abs(gamepad1.right_stick_y) + 1));//moves left side to left stick and right side to right stick
         }//runs teleOp for 20 seconds
 
         bot.setPower(0);//resets motors to 0 power
