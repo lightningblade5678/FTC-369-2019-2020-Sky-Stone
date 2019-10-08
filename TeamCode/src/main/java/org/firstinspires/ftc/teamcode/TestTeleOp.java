@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     All this class does is move left/Right motors based on imput
  */
 
-@TeleOp
+@TeleOp(name = "testTeleOp")
 public class TestTeleOp extends LinearOpMode {
 
     private TestBot bot = new TestBot();//robot with all the motors
@@ -28,7 +28,7 @@ public class TestTeleOp extends LinearOpMode {
         passTime.reset();//sets timer to 0
 
         while(passTime.seconds() < 20){
-            bot.setPower(gamepad1.left_stick_y,gamepad1.right_stick_y);//moves left side to left stick and right side to right stick
+            bot.setPower((gamepad1.left_stick_y/Math.abs(gamepad1.left_stick_y)),(gamepad1.right_stick_y/Math.abs(gamepad1.right_stick_y)));//moves left side to left stick and right side to right stick
         }//runs teleOp for 20 seconds
 
         bot.setPower(0);//resets motors to 0 power
