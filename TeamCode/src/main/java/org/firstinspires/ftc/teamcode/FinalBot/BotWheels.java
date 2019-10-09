@@ -51,5 +51,5 @@ public class BotWheels {
     }//sets the power of an individual motor
 
     //start work methods
-    
+
 }
