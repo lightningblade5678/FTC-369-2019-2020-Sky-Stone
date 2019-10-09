@@ -36,7 +36,7 @@ public class TestTeleOp extends LinearOpMode {
             JI / |JI| + 1
              */
 
-            bot.setPower((gamepad1.left_stick_y/Math.abs(gamepad1.left_stick_y) + 1),(gamepad1.right_stick_y/Math.abs(gamepad1.right_stick_y) + 1));//moves left side to left stick and right side to right stick
+            bot.setPower((gamepad1.left_stick_y/Math.abs(gamepad1.left_stick_y+1)),(gamepad1.right_stick_y/Math.abs(gamepad1.right_stick_y+1)));//moves left side to left stick and right side to right stick
         }//runs teleOp for 20 seconds
 
         bot.setPower(0);//resets motors to 0 power
