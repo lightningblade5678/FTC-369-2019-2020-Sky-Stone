@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.FinalBot;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 
@@ -11,7 +13,7 @@ public class FinalBot {
     public BotWheels getWheels(){
         return wheels;
     }//gets the wheels for external use if required
-    
+
     public BotIntake intake;
     public BotArm arm;
 
@@ -62,6 +64,12 @@ public class FinalBot {
         //implement code here
 
     }//attempts to fetch a block until a certain amount of time
+
+    public void intake(double timeout, Color color){
+
+        //implement code here
+
+    }//attempts to fetch a block matching the color profile, use for green path
 
     public void grab(){
 
