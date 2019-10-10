@@ -32,12 +32,19 @@ public class FinalBot {
         //implement code here
 
     }//moves bot by x/y values
+    /*
+        Assume x/y are in inches
+        x and y move relative to the front of the bot:
+            -x = side to side relative to forward
+            -y = forward and back
+     */
+
 
     public void rotate(double degree) {
 
         //implement code here
 
-    }//rotates bot by degree
+    }//rotates bot by degree rotates counterclockwise IE: unit circle
 
     public void placeBlock(double height){
 
