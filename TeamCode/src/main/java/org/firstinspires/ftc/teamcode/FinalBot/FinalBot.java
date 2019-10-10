@@ -62,6 +62,7 @@ public class FinalBot {
 
         //implement code here
 
-    }//moves bot arm to grab tray on the ground
+    }//moves bot arm to grab tray on the ground, when called again, release tray
+
 
 }
