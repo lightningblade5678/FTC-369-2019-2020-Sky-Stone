@@ -34,6 +34,8 @@ public class FinalBot {
 
     }//basic constructor used to set all parts of the bot
 
+    //start work methods
+
     public void move(double x, double y) {
 
         //implement code here
