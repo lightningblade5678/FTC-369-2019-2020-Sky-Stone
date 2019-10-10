@@ -7,6 +7,11 @@ public class FinalBot {
 
     //motors
     private BotWheels wheels;//movement is handled internally
+
+    public BotWheels getWheels(){
+        return wheels;
+    }//gets the wheels for external use if required
+    
     public BotIntake intake;
     public BotArm arm;
 
