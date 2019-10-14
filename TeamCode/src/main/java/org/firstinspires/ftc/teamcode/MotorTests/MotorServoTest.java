@@ -47,6 +47,7 @@ public class MotorServoTest extends LinearOpMode {
             telemetry.addData("Finished Testing Motor: ",hardwareMap.getNamesOf(motors.get(i))+"| Press b to continue");
             telemetry.update();
             while(!gamepad1.b);//stalls until b is pressed
+            wait(300);
 
         }//loops through all motors
 
@@ -65,6 +66,7 @@ public class MotorServoTest extends LinearOpMode {
             telemetry.addData("Finished Testing Servo: ",hardwareMap.getNamesOf(servo.get(i))+"| Press b to continue");
             telemetry.update();
             while(!gamepad1.b);//stalls until b is pressed
+            wait(300);
 
         }//loops through all servos
     }
