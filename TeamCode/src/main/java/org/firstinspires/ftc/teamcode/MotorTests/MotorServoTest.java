@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 /*
     This class is used to test all the motors/servos on the bot
  */
@@ -15,12 +16,19 @@ import java.util.ArrayList;
 @TeleOp(name = "Motor Test")
 public class MotorServoTest extends LinearOpMode {
 
-    ArrayList<DcMotor> motors = (ArrayList<DcMotor>) hardwareMap.getAll(DcMotor.class);
-    ArrayList<Servo> servo = (ArrayList<Servo>) hardwareMap.getAll(Servo.class);
+    LinkedList<DcMotor> motors = null;
+    LinkedList<Servo> servo = null;
     private ElapsedTime passTime = new ElapsedTime(0);//"clock" to keep track of passed time
 
     @Override//overrides opMode
     public void runOpMode() {
+
+        try{
+            motors = (LinkedList<DcMotor>) hardwareMap.getAll(DcMotor.class);
+            servo = (LinkedList<Servo>) hardwareMap.getAll(Servo.class);
+        }catch (NullPointerException e){
+
+        }
 
         for(int i = 0; i < motors.size(); i++){
 
@@ -48,7 +56,8 @@ public class MotorServoTest extends LinearOpMode {
             servo.get(i).setPosition(1);
             wait(300);
 
-            servo.get(i).setPosition(0);
+            servo.get(i).setPosition(0
+            );
             wait(300);
 
             telemetry.addData("Finished Testing Servo: ",hardwareMap.getNamesOf(servo.get(i))+"| Press b to continue");
