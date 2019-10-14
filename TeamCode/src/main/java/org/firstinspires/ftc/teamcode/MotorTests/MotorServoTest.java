@@ -13,7 +13,7 @@ import java.util.LinkedList;
     This class is used to test all the motors/servos on the bot
  */
 
-@TeleOp(name = "Motor Test")
+@TeleOp(name = "MotorServo Test")
 public class MotorServoTest extends LinearOpMode {
 
     LinkedList<DcMotor> motors = null;
@@ -33,6 +33,7 @@ public class MotorServoTest extends LinearOpMode {
         for(int i = 0; i < motors.size(); i++){
 
             telemetry.addData("Testing Motor: ",hardwareMap.getNamesOf(motors.get(i))+"| Press b to continue");
+            telemetry.update();
             while(!gamepad1.b);//stalls until b is pressed
 
             motors.get(i).setPower(-1);
@@ -44,6 +45,7 @@ public class MotorServoTest extends LinearOpMode {
             motors.get(i).setPower(0);
 
             telemetry.addData("Finished Testing Motor: ",hardwareMap.getNamesOf(motors.get(i))+"| Press b to continue");
+            telemetry.update();
             while(!gamepad1.b);//stalls until b is pressed
 
         }//loops through all motors
@@ -51,6 +53,7 @@ public class MotorServoTest extends LinearOpMode {
         for(int i = 0; i < servo.size(); i++){
 
             telemetry.addData("Testing Servo: ",hardwareMap.getNamesOf(servo.get(i))+"| Press b to continue");
+            telemetry.update();
             while(!gamepad1.b);//stalls until b is pressed
 
             servo.get(i).setPosition(1);
@@ -60,6 +63,7 @@ public class MotorServoTest extends LinearOpMode {
             wait(300);
 
             telemetry.addData("Finished Testing Servo: ",hardwareMap.getNamesOf(servo.get(i))+"| Press b to continue");
+            telemetry.update();
             while(!gamepad1.b);//stalls until b is pressed
 
         }//loops through all servos
