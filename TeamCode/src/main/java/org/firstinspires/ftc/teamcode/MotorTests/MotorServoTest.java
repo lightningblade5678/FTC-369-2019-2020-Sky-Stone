@@ -56,8 +56,7 @@ public class MotorServoTest extends LinearOpMode {
             servo.get(i).setPosition(1);
             wait(300);
 
-            servo.get(i).setPosition(0
-            );
+            servo.get(i).setPosition(0);
             wait(300);
 
             telemetry.addData("Finished Testing Servo: ",hardwareMap.getNamesOf(servo.get(i))+"| Press b to continue");
