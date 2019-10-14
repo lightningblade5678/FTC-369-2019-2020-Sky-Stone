@@ -1,0 +1,38 @@
+This file is a file to note the rotations needed for mechanim wheel movement
+
+Forward:
+
+    front
+        left:   +
+        right:  +
+    back
+        left:   +
+        right;  +
+
+Backward:
+
+    front
+        left:   -
+        right:  -
+    back
+        left:   -
+        right;  -
+
+
+Right:
+
+    front
+        left:   +
+        right:  -
+    back
+        left:   -
+        right;  +
+
+Left:
+
+    front
+        left:   -
+        right:  +
+    back
+        left:   +
+        right;  -

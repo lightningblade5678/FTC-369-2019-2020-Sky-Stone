@@ -3,7 +3,11 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.Hardware;
 
 public class FinalBot {
 
@@ -23,6 +27,22 @@ public class FinalBot {
     private Gyroscope gyro;
 
     //constructors
+
+    public FinalBot(HardwareMap map){
+
+        wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
+        //initializes botWheels
+
+        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(TouchSensor.class,"intakeTouch"));
+        //initializes intake motors and touch sensor(can replace with distance sensor in the future)
+
+        /*[!]*/arm = new  BotArm(null);//placeholder replace null later (!)
+
+        color = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
+
+        gyro = map.get(Gyroscope.class, "gyroscope");
+
+    }//basic constructor for initializing from a hardWareMap
 
     public FinalBot(BotWheels wheels, BotIntake intake, BotArm arm){
 

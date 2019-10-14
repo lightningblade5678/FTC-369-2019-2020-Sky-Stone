@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class BotIntake {
 
-    TouchSensor touch;//touch sensor to detect a successful intake
+    TouchSensor touch;//touch sensor to detect a successful intake, can also use a distance sensor instead
 
     DcMotor[] motors = new DcMotor[2];//motors for the intake system
     //0:Left
