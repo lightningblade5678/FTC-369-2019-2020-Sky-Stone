@@ -52,4 +52,8 @@ public class BotWheels {
 
     //start work methods
 
+    public void moveRelativeX(double distance, double power){
+
+    }//moves relative to the bots 'x' axis or left/right that distance left/right
+
 }

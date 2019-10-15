@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import android.hardware.Sensor;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /*
@@ -12,16 +13,16 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class BotIntake {
 
-    TouchSensor touch;//touch sensor to detect a successful intake
+    DistanceSensor touch;//Distance sensor to detect a successful intake
 
     DcMotor[] motors = new DcMotor[2];//motors for the intake system
     //0:Left
     //1:Right
 
-    public BotIntake(DcMotor left, DcMotor right, TouchSensor touch){
+    public BotIntake(DcMotor left, DcMotor right, DistanceSensor dist){
         motors[0] = left;
         motors[1] = right;
-        this.touch = touch;
+        this.touch = dist;
     }//basic constructor to create objects
 
     public void intakeStart(){
