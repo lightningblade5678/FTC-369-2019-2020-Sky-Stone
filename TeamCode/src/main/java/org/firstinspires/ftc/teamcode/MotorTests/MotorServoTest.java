@@ -154,7 +154,7 @@ public class MotorServoTest extends LinearOpMode {
                 if(i >= m){
                     i = 0;//loops back around
                 }else if(i < 0){
-                    i = m;//loops back around
+                    i = m-1;//loops back around
                 }//wraps i around min and max values
 
             }//continues until x is pressed
