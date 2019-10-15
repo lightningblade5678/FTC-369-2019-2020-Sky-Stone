@@ -14,7 +14,7 @@ import java.util.LinkedList;
     This class is used to test the distance sensor
  */
 
-@Autonomous(name = "testLinearOpMode")
+@Autonomous(name = "DistanceSensorTest")
 public class DistanceSensorTest extends LinearOpMode {
 
     DistanceSensor dist = null;
