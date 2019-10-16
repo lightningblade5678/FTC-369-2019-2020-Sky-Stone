@@ -141,6 +141,8 @@ public class MotorServoTest extends LinearOpMode {
                     telemetry.update();
                     while(!gamepad1.b);//waits for b input
 
+                    wait(300);
+
                 }//tests for DPAD input
 
                 int m = 0;
