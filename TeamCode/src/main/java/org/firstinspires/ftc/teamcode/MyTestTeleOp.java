@@ -17,7 +17,7 @@ public class MyTestTeleOp extends OpMode {
     private BotWheels wheels = new BotWheels(hardwareMap.dcMotor.get("frontLeft"),hardwareMap.dcMotor.get("frontRight"),
                                hardwareMap.dcMotor.get("backLeft"),hardwareMap.dcMotor.get("backRight"));
     private BotIntake intake = new BotIntake(hardwareMap.dcMotor.get("intakeLeft"),hardwareMap.dcMotor.get("intakeRight"),
-                                hardwareMap.touchSensor.get(""));
+                                hardwareMap.touchSensor.get("hmmm"));
     private BotArm arm = new BotArm(new DcMotor []{hardwareMap.dcMotor.get("swing")});
 
 
@@ -37,7 +37,7 @@ public class MyTestTeleOp extends OpMode {
         double power;
         double turn;
 
-        double force = g
+        double force;
 
     }
 
