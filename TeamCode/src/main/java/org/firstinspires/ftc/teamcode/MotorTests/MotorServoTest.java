@@ -37,9 +37,9 @@ public class MotorServoTest extends LinearOpMode {
         telemetry.addData("Choose Testing Mode: ","A to test all, B to selectively test");
         telemetry.update();
 
-        while(!a || !b) {//stalls for either a or b input
+        while(!a && !b) {//stalls for either a or b input
             a = gamepad1.a;
-            b = gamepad2.b;
+            b = gamepad1.b;
         }//saves a/b inputs
 
         if(a) {
@@ -94,7 +94,7 @@ public class MotorServoTest extends LinearOpMode {
             a = false;
             b = false;
 
-            while(!a || !b){
+            while(!a && !b){
                 a = gamepad1.a;
                 b = gamepad1.b;
             }//waits for a or b input
