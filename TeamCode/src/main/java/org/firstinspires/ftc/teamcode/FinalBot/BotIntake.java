@@ -5,6 +5,9 @@ import android.hardware.Sensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 /*
     This class simply controls the intake system with motors/sensor
@@ -26,21 +29,17 @@ public class BotIntake {
     }//basic constructor to create objects
 
     public void intakeStart(){
-
-        //insert code here
-
+        /*(!)*/motors[0].setPower(1);//replace 1 with -1 or 1 depending on motor setup
+        /*(!)*/motors[1].setPower(1);//replace 1 with -1 or 1 depending on motor setup
     }//Starts the intake system
 
     public void intakeStop(){
-
-        //insert code here
-
+        motors[0].setPower(0);
+        motors[1].setPower(0);
     }//stops the intake system
 
-    public boolean intake(){
+    public boolean intakeFill(){
+        /*(!)*/return touch.getDistance(DistanceUnit.INCH) <= 2;//returns if distance between block and sensor is less that 2in, adjust values later
+    }//returns true if intake contains a block
 
-        //insert code here
-        return false;
-
-    }//intakes a block, returns true if a block is intaken, false if not. Use the touch sensor to determine if a block is in the bay
 }

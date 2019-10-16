@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Hardware;
 
 public class FinalBot {
@@ -43,7 +44,7 @@ public class FinalBot {
 
         gyro = map.get(Gyroscope.class, "gyroscope");
 
-    }//basic constructor for initializing from a hardWareMap
+    }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
     public FinalBot(BotWheels wheels, BotIntake intake, BotArm arm){
 
@@ -82,17 +83,26 @@ public class FinalBot {
 
     }//places block from internal storage onto tower
 
-    public void intake(double timeout){
+    public boolean intake(double timeout){
+        ElapsedTime time = new ElapsedTime(0);//timer to attempt a blind intake for
+        wheels.setPower(1);//wheels run until end of method
+
+        time.reset();//resets time to 0
+        intake.intakeStart();//starts intake system
+
+        while(!intake.intakeFill() && time.seconds() < timeout)//runs until intake is filled, or time has timed out
+
+        wheels.setPower(0);//stops wheels
+        intake.intakeStop();//stops intake
+
+        return intake.intakeFill();//returns whether or not a block has been been inputted into bay
+    }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns true if at end of method, block is in bay
+
+    public boolean intake(double timeout, Color color){
 
         //implement code here
-
-    }//attempts to fetch a block until a certain amount of time, exits if block is already in bay
-
-    public void intake(double timeout, Color color){
-
-        //implement code here
-
-    }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay
+        return false;
+    }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
 
     public void grab(){
 
