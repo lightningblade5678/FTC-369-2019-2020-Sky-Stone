@@ -113,7 +113,7 @@ public class MotorServoTest extends LinearOpMode {
                 telemetry.addData("Controls:","X to EXIT, B to TEST, DPAD L/R to select");
                 telemetry.update();
 
-                while(!gamepad1.x || !gamepad1.b || !gamepad1.dpad_left || !gamepad1.dpad_right);//waits for DPAD input
+                while(!gamepad1.x && !gamepad1.b && !gamepad1.dpad_left && !gamepad1.dpad_right);//waits for DPAD input
 
                 if(gamepad1.dpad_right){
                     i++;
