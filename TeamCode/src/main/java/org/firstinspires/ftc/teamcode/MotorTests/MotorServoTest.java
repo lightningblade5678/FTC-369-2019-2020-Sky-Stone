@@ -105,9 +105,9 @@ public class MotorServoTest extends LinearOpMode {
 
             while(!gamepad1.x) {
                 if (a) {
-                    telemetry.addData("Testing:",servo.get(i));
+                    telemetry.addData("Testing:",hardwareMap.getNamesOf(servo.get(i)));
                 } else if (b) {
-                    telemetry.addData("Testing:",motors.get(i));
+                    telemetry.addData("Testing:",hardwareMap.getNamesOf(motors.get(i)));
                 }//adds telemetry data based on selection
 
                 telemetry.addData("Controls:","X to EXIT, B to TEST, DPAD L/R to select");
