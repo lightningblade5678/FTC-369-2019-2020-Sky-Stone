@@ -42,6 +42,8 @@ public class MotorServoTest extends LinearOpMode {
             b = gamepad1.b;
         }//saves a/b inputs
 
+        wait(300);
+
         if(a) {
 
             for (int i = 0; i < motors.size(); i++) {
@@ -100,7 +102,7 @@ public class MotorServoTest extends LinearOpMode {
             }//waits for a or b input
 
             int i = 0;
-
+            wait(300);
 
 
             while(!gamepad1.x) {
@@ -118,9 +120,16 @@ public class MotorServoTest extends LinearOpMode {
                 if(gamepad1.dpad_right){
                     i++;
 
+                    while(gamepad1.dpad_right);
+
                 }else if(gamepad1.dpad_left){
                     i--;
+
+                    while(gamepad1.dpad_left);
+
                 }else if(gamepad1.b){
+
+                    wait(300);
 
                     telemetry.addData("Testing:","START");
                     telemetry.update();
