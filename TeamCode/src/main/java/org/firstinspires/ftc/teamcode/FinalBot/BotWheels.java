@@ -74,7 +74,7 @@ public class BotWheels {
         }
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        setPower(Math.abs(power));//sets power and begins run
+        setPower(power);//sets power and begins run
 
         while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
 
@@ -82,7 +82,34 @@ public class BotWheels {
 
         setMode(temp);//resets runmode back to original
 
-    }//moves relative to the bots 'y' axis or up/down
+    }//moves relative to the bots 'y' axis or up/down, bias up
+
+    public void moveRelativeX(double distance, double power){
+
+        DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
+
+        int[] xTargets = new int[wheels.length];//creates an array of x target count rotations
+
+        xTargets[0] = wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH );
+        xTargets[1] = wheels[1].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH );//reversed target motor LOC
+        xTargets[2] = wheels[2].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH );//reversed target motor LOC
+        xTargets[3] = wheels[3].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH );
+
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        setPower(0, power);
+        setPower(1, -power);
+        setPower(2, -power);
+        setPower(3, power);//sets power of the bot
+
+        while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+
+        setPower(0);//stops wheels command is done
+
+        setMode(temp);//resets runmode back to original
+
+    }//moves bot relative to X axis, or left/right bias right
 
 
 
