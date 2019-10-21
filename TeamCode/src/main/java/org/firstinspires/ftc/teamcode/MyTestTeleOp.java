@@ -3,18 +3,25 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 
 @TeleOp
 public class MyTestTeleOp extends OpMode {
 
-    public DcMotor frontLeft;
-    public DcMotor backLeft;
-    public DcMotor frontRight;
-    public DcMotor backRight;
+    private DcMotor frontLeft;
+    private DcMotor backLeft;
+    private DcMotor frontRight;
+    private DcMotor backRight;
 
-    public DcMotor intakeMotorRight;
-    public DcMotor intakeMotorLeft;
+    private DcMotor intakeMotorRight;
+    private DcMotor intakeMotorLeft;
+
+    private Servo finger;
+
+    private DcMotor arm;
+    private Servo wrist;
+    private Servo hand;
 
     @Override
 
@@ -30,6 +37,11 @@ public class MyTestTeleOp extends OpMode {
         intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
         intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
 
+        finger = hardwareMap.get(Servo.class, "finger");
+
+        arm = hardwareMap.get(DcMotor.class,"arm");
+        wrist = hardwareMap.get(Servo.class,"wrist");
+        hand = hardwareMap.get(Servo.class,"hand");
 
         telemetry.addData("Status", "Initialized");
 
@@ -74,7 +86,7 @@ public class MyTestTeleOp extends OpMode {
 
         }
 
-        if(gamepad1.left_stick_x == 1 || gamepad1.left_stick_y == 1){
+        if(gamepad1.left_stick_x == -1 || gamepad1.left_stick_y == -1){
 
             frontLeft.setPower(-1);
             frontRight.setPower(1);
@@ -83,7 +95,7 @@ public class MyTestTeleOp extends OpMode {
 
         }
 
-        if(gamepad1.left_stick_x == -1 || gamepad1.left_stick_y == -1){
+        if(gamepad1.left_stick_x == 1 || gamepad1.left_stick_y == 1){
 
             frontLeft.setPower(1);
             frontRight.setPower(-1);
@@ -94,16 +106,66 @@ public class MyTestTeleOp extends OpMode {
 
         if(gamepad2.right_trigger == 1){
 
-            double x = -1;
+            if(intakeMotorRight.getPower() == 1){
 
-            //intakeMotorLeft.intakeStart();
-            intakeMotorRight.setPower(-1*x);
+                intakeMotorRight.setPower(0);
+                intakeMotorLeft.setPower(0);
 
+            }
+            else{
+
+                intakeMotorRight.setPower(1);
+                intakeMotorLeft.setPower(1);
+
+            }
+
+        }
+
+        if(gamepad2.a){
+
+            if(finger.getPosition() == 0) {
+                finger.setPosition(1);
+            }
+            else{
+                finger.setPosition(0);
+            }
+
+        }
+
+        if(gamepad2.x){
+
+            if(arm.getPower() == 0) {
+                arm.setPower(1);
+            }
+            else{
+                arm.setPower(0);
+            }
+
+        }
+
+        if(gamepad2.y){
+
+            if(wrist.getPosition() == 0) {
+                wrist.setPosition(1);
+            }
+            else{
+                wrist.setPosition(0);
+            }
+        }
+
+        if(gamepad2.b){
+
+            if(hand.getPosition() == 0) {
+                hand.setPosition(1);
+            }
+            else{
+                hand.setPosition(0);
+            }
         }
 
     }
 
-    public void allMotors(double x){
+    private void allMotors(double x){
 
         frontLeft.setPower(x);
         frontRight.setPower(x);
