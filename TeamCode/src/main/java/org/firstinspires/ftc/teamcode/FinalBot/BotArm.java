@@ -5,13 +5,16 @@ package org.firstinspires.ftc.teamcode.FinalBot;
  */
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class BotArm {
 
     DcMotor[] motors;//motors utilised by the bot
+    Servo[] servos;//servos to be used by the bot
 
-    public BotArm(DcMotor[] motors){
+    public BotArm(DcMotor[] motors, Servo[] servos){
         this.motors = motors;
+        this.servos = servos;
     }//basic constructor to make a motor
 
     //start work method

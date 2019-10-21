@@ -37,7 +37,7 @@ public class FinalBot {
         intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"));
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new  BotArm(null);//placeholder replace null later (!)
+        /*[!]*/arm = new  BotArm(null, null);//placeholder replace null later (!)
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 

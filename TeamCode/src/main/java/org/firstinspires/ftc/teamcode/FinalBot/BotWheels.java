@@ -8,6 +8,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class BotWheels {
 
+    //constants (taken from demo programs)
+    private final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
+    private final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    private final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    private final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * 3.1415);
+
+    /*!*/private final double distanceModX = 1;//how much to modify distance based off of calibration software
+    /*!*/private final double distanceModY = 1;
+    //
+
     private DcMotor[] wheels = new DcMotor[4];//an array storing the wheels of the bot
     /*
     0: Front left
@@ -52,8 +62,28 @@ public class BotWheels {
 
     //start work methods
 
-    public void moveRelativeX(double distance, double power){
+    public void moveRelativeY(double distance, double power){
 
-    }//moves relative to the bots 'x' axis or left/right that distance left/right
+        DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
+
+        int[] yTargets = new int[wheels.length];//creates an array of x target count rotations
+
+        for(int i = 0; i < yTargets.length; i++){
+            yTargets[i] = wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH);//sets target count LOC for each wheel
+        }
+
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setPower(Math.abs(power));//sets power and begins run
+
+        while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+
+        setPower(0);//stops wheels command is done
+
+        setMode(temp);//resets runmode back to original
+
+    }//moves relative to the bots 'y' axis or up/down
+
+
 
 }
