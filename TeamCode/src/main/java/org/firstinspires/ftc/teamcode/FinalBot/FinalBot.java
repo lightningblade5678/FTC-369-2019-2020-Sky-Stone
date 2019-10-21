@@ -97,7 +97,7 @@ public class FinalBot {
         return intake.intakeFill();//returns whether or not a block has been been inputted into bay
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns true if at end of method, block is in bay
 
-    public boolean intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/ ){
+    public boolean intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
 
         //sets wheels to move l/r
 
@@ -117,16 +117,26 @@ public class FinalBot {
 
         wheels.setPower(0);
 
-        intake(timeout-time.seconds());//attepts to intake block with time left
+        if(useArm) {
+            grabBlock();//attempts to grab block via arm
+        }else{
+            intake(timeout - time.seconds());//attepts to intake block with time left
+        }
 
         return false;
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
 
-    public void grab(){
+    public void grabTray(){
 
         //implement code here
 
     }//moves bot arm to grab tray on the ground, when called again, release tray
+
+    public void grabBlock(){
+
+        //implement code here
+
+    }//grabs a block and places into storage
 
 
 }
