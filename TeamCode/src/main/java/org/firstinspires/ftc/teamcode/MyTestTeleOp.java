@@ -4,10 +4,13 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp
 public class MyTestTeleOp extends OpMode {
+
+    private ElapsedTime passTime = new ElapsedTime(0);
 
     private DcMotor frontLeft;
     private DcMotor backLeft;
@@ -136,8 +139,12 @@ public class MyTestTeleOp extends OpMode {
 
             if(arm.getPower() == 0) {
                 arm.setPower(1);
+                wait(1000);
+                arm.setPower(0);
             }
             else{
+                arm.setPower(-1);
+                wait(1000);
                 arm.setPower(0);
             }
 
@@ -172,6 +179,11 @@ public class MyTestTeleOp extends OpMode {
         backLeft.setPower(x);
         backRight.setPower(x);
 
+    }
+
+    private void wait(int ms){
+        passTime.reset();
+        while(passTime.milliseconds() < ms);//waits for ms
     }
 
 }
