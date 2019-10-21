@@ -2,14 +2,13 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import android.graphics.Color;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Hardware;
+import android.graphics.Color;
 
 public class FinalBot {
 
@@ -25,7 +24,7 @@ public class FinalBot {
 
     //sensors
 
-    private ColorSensor color;
+    private ColorSensor colors;
     private Gyroscope gyro;
 
     //constructors
@@ -35,12 +34,12 @@ public class FinalBot {
         wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
         //initializes botWheels
 
-        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(DistanceSensor.class,"intakeDistance"));
+        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"));
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
         /*[!]*/arm = new  BotArm(null);//placeholder replace null later (!)
 
-        color = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
+        colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
         gyro = map.get(Gyroscope.class, "gyroscope");
 
@@ -98,9 +97,28 @@ public class FinalBot {
         return intake.intakeFill();//returns whether or not a block has been been inputted into bay
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns true if at end of method, block is in bay
 
-    public boolean intake(double timeout, Color color){
+    public boolean intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/ ){
 
-        //implement code here
+        //sets wheels to move l/r
+
+        wheels.setPower(0, dir);//frontleft
+        wheels.setPower(1, -dir);//frontright
+
+        wheels.setPower(2, -dir);//backleft
+        wheels.setPower(3, dir);//backright
+
+        //starts timer
+
+        ElapsedTime time = new ElapsedTime(0);
+        time.reset();
+
+        colors.enableLed(true);
+        for(float[] hsvValues = {0F, 0F, 0F};time.seconds() < timeout && (hsvValues[0] >= 0 && hsvValues[0] <= 100 && hsvValues[1] > .1 && hsvValues[1] < .5 && hsvValues[2] > .005 && hsvValues[2] < .6);Color.RGBToHSV(colors.red(), colors.green(), colors.blue(), hsvValues) );
+
+        wheels.setPower(0);
+
+        intake(timeout-time.seconds());//attepts to intake block with time left
+
         return false;
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
 
