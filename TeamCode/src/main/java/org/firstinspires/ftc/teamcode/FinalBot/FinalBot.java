@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import android.graphics.Color;
 
 public class FinalBot {
 
@@ -59,7 +58,14 @@ public class FinalBot {
 
     public void move(double x, double y) {
 
-        //implement code here
+        double steps = 0.1;//move in steps of 0.1 inches (diagonally)
+        double target = Math.sqrt( Math.abs(x*x) + Math.abs(y*y) );//sets diagonal target
+        double angle = Math.atan(y/x);//use later
+
+        for(double i = 0; i < target; i+= steps){
+            wheels.moveRelativeY(Math.tan(angle)*x, Math.abs(y)/y);//moves y
+            wheels.moveRelativeX(y/Math.tan(angle), Math.abs(x)/x);//moves x
+        }
 
     }//moves bot by x/y values
     /*
