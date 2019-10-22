@@ -58,7 +58,7 @@ public class FinalBot {
 
     public void move(double x, double y) {
 
-        double steps = 0.1;//move in steps of 0.1 inches (diagonally)
+        /*!*/double steps = 0.1;//move in steps of 0.1 inches (diagonally)
         double target = Math.sqrt( Math.abs(x*x) + Math.abs(y*y) );//sets diagonal target
         double angle = Math.atan(y/x);//use later
 
