@@ -5,6 +5,7 @@ import android.graphics.Color;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -24,7 +25,7 @@ public class FinalBot {
     //sensors
 
     private ColorSensor colors;
-    private Gyroscope gyro;
+    private GyroSensor gyro;
 
     //constructors
 
@@ -40,7 +41,7 @@ public class FinalBot {
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
-        gyro = map.get(Gyroscope.class, "gyroscope");
+        gyro = map.get(GyroSensor.class, "gyroscope");
 
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
@@ -78,9 +79,26 @@ public class FinalBot {
 
     public void rotate(double degree) {
 
-        //implement code here (use a gyro, not math to calculate degrees)
+        double target = gyro.getHeading()+degree;
 
-    }//rotates bot by degree rotates counterclockwise IE: unit circle
+        wheels.setPower(0,Math.abs(degree)/degree);
+        wheels.setPower(1,-Math.abs(degree)/degree);
+        wheels.setPower(2,Math.abs(degree)/degree);
+        wheels.setPower(3,-Math.abs(degree)/degree);//sets wheels to rotate clockwise if degree is positive
+
+        if(degree >= 0){//clockwise
+
+            while(gyro.getHeading() < target);//waits until degree is greater than or equal to target loc
+
+        }else{//counterclockwise
+
+            while(gyro.getHeading() > target);//waits until degree is less than or equal to target loc
+
+        }
+
+        wheels.setPower(0);//done
+
+    }//rotates bot by degree rotates clockwise IE: compass
 
     public void placeBlock(double height){
 
