@@ -69,9 +69,9 @@ public class BotWheels {
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        for(int i = 0; i < wheels.length; i++){
+        for(int i = 2; i < wheels.length; i++){
             wheels[i].setTargetPosition(wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
-        }
+        }//NOTE: only the back 2 motors have encoders
 
         setPower(power);//sets power and begins run
 
@@ -90,8 +90,9 @@ public class BotWheels {
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
-        wheels[1].setTargetPosition(wheels[1].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
+        /*NOTE: only the back 2 wheels have encoders*/
+        //wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
+        //wheels[1].setTargetPosition(wheels[1].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
         wheels[2].setTargetPosition(wheels[2].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
         wheels[3].setTargetPosition(wheels[3].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
 
