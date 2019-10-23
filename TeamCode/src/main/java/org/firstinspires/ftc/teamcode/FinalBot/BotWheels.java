@@ -14,8 +14,8 @@ public class BotWheels {
     private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
-    /*!*/private final double distanceModX = 1;//how much to modify distance based off of calibration software
-    /*!*/private final double distanceModY = 1;
+    /*!*/private static final double distanceModX = 1;//how much to modify distance based off of calibration software
+    /*!*/private static final double distanceModY = 1;
     //
 
     private DcMotor[] wheels = new DcMotor[4];//an array storing the wheels of the bot
