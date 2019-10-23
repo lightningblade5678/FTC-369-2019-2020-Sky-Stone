@@ -8,6 +8,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class BotWheels {
 
+    //constants (taken from demo programs)
+    private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder is 1440, neverest classic 40 are 1120
+    private static final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
+    private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
+
+    /*!*/private final double distanceModX = 1;//how much to modify distance based off of calibration software
+    /*!*/private final double distanceModY = 1;
+    //
+
     private DcMotor[] wheels = new DcMotor[4];//an array storing the wheels of the bot
     /*
     0: Front left
@@ -52,8 +62,53 @@ public class BotWheels {
 
     //start work methods
 
+    public void moveRelativeY(double distance, double power){
+
+        DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
+
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
+
+        for(int i = 2; i < wheels.length; i++){
+            wheels[i].setTargetPosition(wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
+        }//NOTE: only the back 2 motors have encoders
+
+        setPower(power);//sets power and begins run
+
+        while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+
+        setPower(0);//stops wheels command is done
+
+        setMode(temp);//resets runmode back to original
+
+    }//moves relative to the bots 'y' axis or up/down, bias up
+
     public void moveRelativeX(double distance, double power){
 
-    }//moves relative to the bots 'x' axis or left/right that distance left/right
+        DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
+
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        /*NOTE: only the back 2 wheels have encoders*/
+        //wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
+        //wheels[1].setTargetPosition(wheels[1].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
+        wheels[2].setTargetPosition(wheels[2].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
+        wheels[3].setTargetPosition(wheels[3].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
+
+        setPower(0, power);
+        setPower(1, -power);
+        setPower(2, -power);
+        setPower(3, power);//sets power of the bot
+
+        while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+
+        setPower(0);//stops wheels command is done
+
+        setMode(temp);//resets runmode back to original
+
+    }//moves bot relative to X axis, or left/right bias right
+
+
 
 }

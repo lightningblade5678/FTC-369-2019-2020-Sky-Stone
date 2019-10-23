@@ -5,10 +5,10 @@ import android.graphics.Color;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import android.graphics.Color;
 
 public class FinalBot {
 
@@ -25,7 +25,7 @@ public class FinalBot {
     //sensors
 
     private ColorSensor colors;
-    private Gyroscope gyro;
+    private GyroSensor gyro;
 
     //constructors
 
@@ -37,11 +37,11 @@ public class FinalBot {
         intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"));
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new  BotArm(null);//placeholder replace null later (!)
+        /*[!]*/arm = new  BotArm(null, null);//placeholder replace null later (!)
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
-        gyro = map.get(Gyroscope.class, "gyroscope");
+        gyro = map.get(GyroSensor.class, "gyroscope");
 
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
@@ -59,7 +59,27 @@ public class FinalBot {
 
     public void move(double x, double y) {
 
-        //implement code here
+        if(x != 0 && y != 0) {
+
+            /*!*/
+            double steps = 0.1;//move in steps of 0.1 inches (diagonally)
+            double target = Math.sqrt(Math.abs(x * x) + Math.abs(y * y));//sets diagonal target
+            double angle = Math.atan(y / x);//use later
+
+            for (double i = 0; i < target; i += steps) {
+                wheels.moveRelativeY(Math.sin(angle) * steps, Math.abs(y) / y);//moves y
+                wheels.moveRelativeX(Math.cos(angle) * steps, Math.abs(x) / x);//moves x
+            }//moves the bots in a "staircase" with a overall linear traverse of steps inches
+
+        }else if(x == 0){//if is simple linear grid motion just call the methods
+
+            wheels.moveRelativeY(y, Math.abs(y)/y);
+
+        }else if(y == 0){
+
+            wheels.moveRelativeX(x, Math.abs(x)/x);
+
+        }
 
     }//moves bot by x/y values
     /*
@@ -69,12 +89,39 @@ public class FinalBot {
             -y = forward and back
      */
 
+    public void rotate(double degree){
+        rotate(degree,1);
+    }//helper method for simplicity
 
-    public void rotate(double degree) {
 
-        //implement code here (use a gyro, not math to calculate degrees)
+    public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
-    }//rotates bot by degree rotates counterclockwise IE: unit circle
+        double target = gyro.getHeading()+degree;
+
+        wheels.setPower(0,Math.abs(degree)/degree*speed);
+        wheels.setPower(1,-Math.abs(degree)/degree*speed);
+        wheels.setPower(2,Math.abs(degree)/degree*speed);
+        wheels.setPower(3,-Math.abs(degree)/degree*speed);//sets wheels to rotate clockwise if degree is positive
+
+        if(degree >= 0){//clockwise
+
+            while(gyro.getHeading() < target);//waits until degree is greater than or equal to target loc
+
+        }else{//counterclockwise
+
+            while(gyro.getHeading() > target);//waits until degree is less than or equal to target loc
+
+        }
+
+        wheels.setPower(0);//done
+
+        double threshold = 5;//5 degree error threshold
+
+        if(Math.abs(gyro.getHeading() - target) > threshold){
+            rotate(degree, speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
+        }//corrects any errors above threshold
+
+    }//rotates bot by degree rotates clockwise IE: compass
 
     public void placeBlock(double height){
 
@@ -123,7 +170,7 @@ public class FinalBot {
             intake(timeout - time.seconds());//attepts to intake block with time left
         }
 
-        return false;
+        return intake.intakeFill();//returns whether or not intake has successfully in-took a block
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
 
     public void grabTray(){
