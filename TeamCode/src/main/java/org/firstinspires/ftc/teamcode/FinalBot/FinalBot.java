@@ -59,14 +59,27 @@ public class FinalBot {
 
     public void move(double x, double y) {
 
-        /*!*/double steps = 0.1;//move in steps of 0.1 inches (diagonally)
-        double target = Math.sqrt( Math.abs(x*x) + Math.abs(y*y) );//sets diagonal target
-        double angle = Math.atan(y/x);//use later
+        if(x != 0 && y != 0) {
 
-        for(double i = 0; i < target; i+= steps){
-            wheels.moveRelativeY(Math.sin(angle)*steps, Math.abs(y)/y);//moves y
-            wheels.moveRelativeX( Math.cos(angle)*steps, Math.abs(x)/x);//moves x
-        }//moves the bots in a "staircase" with a overall linear traverse of steps inches
+            /*!*/
+            double steps = 0.1;//move in steps of 0.1 inches (diagonally)
+            double target = Math.sqrt(Math.abs(x * x) + Math.abs(y * y));//sets diagonal target
+            double angle = Math.atan(y / x);//use later
+
+            for (double i = 0; i < target; i += steps) {
+                wheels.moveRelativeY(Math.sin(angle) * steps, Math.abs(y) / y);//moves y
+                wheels.moveRelativeX(Math.cos(angle) * steps, Math.abs(x) / x);//moves x
+            }//moves the bots in a "staircase" with a overall linear traverse of steps inches
+
+        }else if(x == 0){//if is simple linear grid motion just call the methods
+
+            wheels.moveRelativeY(y, Math.abs(y)/y);
+
+        }else if(y == 0){
+
+            wheels.moveRelativeX(x, Math.abs(x)/x);
+
+        }
 
     }//moves bot by x/y values
     /*
