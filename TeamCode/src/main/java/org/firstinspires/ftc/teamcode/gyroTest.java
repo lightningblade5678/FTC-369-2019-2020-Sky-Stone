@@ -47,7 +47,6 @@ public class gyroTest extends LinearOpMode {
         telemetry.addData("Finished","");
         telemetry.update();
 
-
         while (time.seconds() < 60){
 
            /*
@@ -62,6 +61,7 @@ public class gyroTest extends LinearOpMode {
             telemetry.addData("DETECTING", "MOTION");
             }
 
+
             else{
                 frontLeft.setPower(0);
                 telemetry.addData("DETECTING", "NOTHING");
@@ -69,16 +69,14 @@ public class gyroTest extends LinearOpMode {
             telemetry.update();
             */
 
-
            //       **Detects heading of gyro
            int heading;
-            heading = mainGyro.getHeading();
-            telemetry.addData("Heading", heading);
-            telemetry.update();
+           heading = mainGyro.getHeading();
+           telemetry.addData("Heading", heading);
+           telemetry.addData("Time Left", time);
+           telemetry.update();
 
 
         }
-
-
     }
 }
