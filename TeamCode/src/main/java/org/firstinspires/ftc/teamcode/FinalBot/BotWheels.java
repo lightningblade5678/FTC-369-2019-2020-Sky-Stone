@@ -9,10 +9,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class BotWheels {
 
     //constants (taken from demo programs)
-    private final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder is 1440, neverest classic 40 are 1120
-    private final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
-    private final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    private final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
+    private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder is 1440, neverest classic 40 are 1120
+    private static final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
+    private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
+    private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
     /*!*/private final double distanceModX = 1;//how much to modify distance based off of calibration software
     /*!*/private final double distanceModY = 1;
@@ -67,7 +67,7 @@ public class BotWheels {
         DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
 
-        setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
 
         for(int i = 2; i < wheels.length; i++){
             wheels[i].setTargetPosition(wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
