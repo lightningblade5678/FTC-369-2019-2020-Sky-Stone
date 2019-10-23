@@ -66,7 +66,7 @@ public class FinalBot {
         for(double i = 0; i < target; i+= steps){
             wheels.moveRelativeY(Math.sin(angle)*steps, Math.abs(y)/y);//moves y
             wheels.moveRelativeX( Math.cos(angle)*steps, Math.abs(x)/x);//moves x
-        }
+        }//moves the bots in a "staircase" with a overall linear traverse of steps inches
 
     }//moves bot by x/y values
     /*
@@ -97,6 +97,12 @@ public class FinalBot {
         }
 
         wheels.setPower(0);//done
+
+        double threshold = 5;//5 degree error threshold
+
+        if(Math.abs(gyro.getHeading() - target) > threshold){
+            rotate(degree);
+        }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
 
