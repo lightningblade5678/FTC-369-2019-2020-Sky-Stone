@@ -90,14 +90,14 @@ public class FinalBot {
      */
 
 
-    public void rotate(double degree) {
+    public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
         double target = gyro.getHeading()+degree;
 
-        wheels.setPower(0,Math.abs(degree)/degree);
-        wheels.setPower(1,-Math.abs(degree)/degree);
-        wheels.setPower(2,Math.abs(degree)/degree);
-        wheels.setPower(3,-Math.abs(degree)/degree);//sets wheels to rotate clockwise if degree is positive
+        wheels.setPower(0,Math.abs(degree)/degree*speed);
+        wheels.setPower(1,-Math.abs(degree)/degree*speed);
+        wheels.setPower(2,Math.abs(degree)/degree*speed);
+        wheels.setPower(3,-Math.abs(degree)/degree*speed);//sets wheels to rotate clockwise if degree is positive
 
         if(degree >= 0){//clockwise
 
@@ -114,7 +114,7 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.getHeading() - target) > threshold){
-            rotate(degree);
+            rotate(degree, 0.5);//try again but slower
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
