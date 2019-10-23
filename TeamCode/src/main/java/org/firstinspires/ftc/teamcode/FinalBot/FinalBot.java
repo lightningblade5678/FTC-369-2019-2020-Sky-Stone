@@ -89,6 +89,10 @@ public class FinalBot {
             -y = forward and back
      */
 
+    public void rotate(double degree){
+        rotate(degree,1);
+    }//helper method for simplicity
+
 
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
@@ -114,7 +118,7 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.getHeading() - target) > threshold){
-            rotate(degree, 0.5);//try again but slower
+            rotate(degree, 0.5);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
