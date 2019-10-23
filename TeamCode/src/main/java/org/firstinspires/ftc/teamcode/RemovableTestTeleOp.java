@@ -6,19 +6,18 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-
 @TeleOp
-public class MyTestTeleOp extends OpMode {
-
+public class RemovableTestTeleOp extends OpMode{
     private ElapsedTime passTime = new ElapsedTime(0);
 
-    private DcMotor frontLeft;
+    /*private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
+     */
 
-    private DcMotor intakeMotorRight;
-    private DcMotor intakeMotorLeft;
+    //private DcMotor intakeMotorRight;
+    //private DcMotor intakeMotorLeft;
 
     private Servo finger;
 
@@ -32,19 +31,24 @@ public class MyTestTeleOp extends OpMode {
 
         telemetry.addData("Status", "Initializing");
 
+        /*
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
+         */
 
-        intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
-        intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
+        //intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
+        //intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
 
         finger = hardwareMap.get(Servo.class, "finger");
 
         arm = hardwareMap.get(DcMotor.class,"arm");
+
+
         wrist = hardwareMap.get(Servo.class,"wrist");
         hand = hardwareMap.get(Servo.class,"hand");
+
 
         telemetry.addData("Status", "Initialized");
 
@@ -54,6 +58,7 @@ public class MyTestTeleOp extends OpMode {
 
         int i = 1;
 
+        /*
         if(gamepad1.right_stick_y == 1){
 
             telemetry.addData("Direction","Forwards");
@@ -78,7 +83,9 @@ public class MyTestTeleOp extends OpMode {
             backLeft.setPower(1);
             backRight.setPower(-1);
 
+
         }
+
 
         if(gamepad1.right_stick_x == 1){
 
@@ -88,6 +95,8 @@ public class MyTestTeleOp extends OpMode {
             frontRight.setPower(-1);
             backLeft.setPower(-1);
             backRight.setPower(1);
+
+
 
         }
 
@@ -107,11 +116,14 @@ public class MyTestTeleOp extends OpMode {
             backLeft.setPower(1);
             backRight.setPower(-1);
 
-        }
 
+
+        }
+        */
+        /*
         if(gamepad2.right_trigger == 1){
 
-            if(intakeMotorRight.getPower() == 1){
+            if(intakeMotorRight.getPower() == -0.5){
 
                 intakeMotorRight.setPower(0);
                 intakeMotorLeft.setPower(0);
@@ -119,12 +131,42 @@ public class MyTestTeleOp extends OpMode {
             }
             else{
 
-                intakeMotorRight.setPower(1);
-                intakeMotorLeft.setPower(1);
+                intakeMotorRight.setPower(-0.5);
+                intakeMotorLeft.setPower(0.5);
 
             }
 
         }
+        */
+        /*
+        if(gamepad2.dpad_left){
+
+            intakeMotorRight.setPower(-0.1);
+            intakeMotorLeft.setPower(0.1);
+
+        }
+        if(gamepad2.dpad_up){
+
+            intakeMotorRight.setPower(-0.5);
+            intakeMotorLeft.setPower(0.5);
+
+        }
+        if(gamepad2.dpad_right){
+
+            intakeMotorRight.setPower(-1);
+            intakeMotorLeft.setPower(1);
+
+        }
+        if(gamepad2.dpad_down){
+
+            intakeMotorRight.setPower(0);
+            intakeMotorLeft.setPower(0);
+
+        }
+        */
+
+
+
 
         if(gamepad2.a){
 
@@ -136,6 +178,7 @@ public class MyTestTeleOp extends OpMode {
             }
 
         }
+
 
         if(gamepad2.x){
 
@@ -153,6 +196,9 @@ public class MyTestTeleOp extends OpMode {
             i *= -1;
 
         }
+
+
+
 
         if(gamepad2.y){
 
@@ -174,8 +220,11 @@ public class MyTestTeleOp extends OpMode {
             }
         }
 
+
+
     }
 
+    /*
     private void allMotors(double x){
 
         frontLeft.setPower(x);
@@ -185,9 +234,12 @@ public class MyTestTeleOp extends OpMode {
 
     }
 
+     */
+
     private void wait(int ms){
         passTime.reset();
         while(passTime.milliseconds() < ms);//waits for ms
     }
 
 }
+
