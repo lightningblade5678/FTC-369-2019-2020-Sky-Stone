@@ -153,7 +153,7 @@ public class FinalBot {
             intake(timeout - time.seconds());//attepts to intake block with time left
         }
 
-        return false;
+        return intake.intakeFill();//returns whether or not intake has successfully in-took a block
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
 
     public void grabTray(){
