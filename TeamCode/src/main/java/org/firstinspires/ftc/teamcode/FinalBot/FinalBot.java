@@ -96,6 +96,10 @@ public class FinalBot {
 
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
+        gyro.calibrate();
+
+        while(gyro.isCalibrating());//waits until gyro finishes calibrating
+
         double target = gyro.getHeading()+degree;
 
         wheels.setPower(0,Math.abs(degree)/degree*speed);
