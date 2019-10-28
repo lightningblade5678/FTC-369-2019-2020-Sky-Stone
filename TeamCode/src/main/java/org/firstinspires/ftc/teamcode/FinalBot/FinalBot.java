@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class FinalBot {
 
@@ -37,7 +38,7 @@ public class FinalBot {
         intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"));
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new  BotArm(null, null);//placeholder replace null later (!)
+        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(Servo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
@@ -69,7 +70,7 @@ public class FinalBot {
 
             /*!*/
             double steps = 0.1;//move in steps of 0.1 inches (diagonally)
-            double target = Math.sqrt(Math.abs(x * x) + Math.abs(y * y));//sets diagonal target
+            double target = Math.sqrt((x * x) + (y * y));//sets diagonal target
             double angle = Math.atan(y / x);//use later
 
             for (double i = 0; i < target; i += steps) {
