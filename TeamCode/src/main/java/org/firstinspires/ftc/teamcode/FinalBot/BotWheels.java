@@ -14,6 +14,16 @@ public class BotWheels {
     private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
+    /*
+    NOTE:
+        front and back motors for this robot are different
+        front are tetrix at 152RPM
+        back are AndyMark NeveRest Classic 40s at 160RPM
+
+        torque differences as of yet have not been taken into account
+    
+     */
+
     /*!*/private static final double distanceModX = 1;//how much to modify distance based off of calibration software
     /*!*/private static final double distanceModY = 1;
     //
@@ -75,6 +85,9 @@ public class BotWheels {
 
         setPower(power);//sets power and begins run
 
+        setPower(2, power*0.95);
+        setPower(3,power*0.95);
+
         while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
 
         setPower(0);//stops wheels command is done
@@ -98,8 +111,8 @@ public class BotWheels {
 
         setPower(0, power);
         setPower(1, -power);
-        setPower(2, -power);
-        setPower(3, power);//sets power of the bot
+        setPower(2, -power*0.95);
+        setPower(3, power*0.95);//sets power of the bot
 
         while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
 

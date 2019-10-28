@@ -100,8 +100,8 @@ public class FinalBot {
 
         wheels.setPower(0,Math.abs(degree)/degree*speed);
         wheels.setPower(1,-Math.abs(degree)/degree*speed);
-        wheels.setPower(2,Math.abs(degree)/degree*speed);
-        wheels.setPower(3,-Math.abs(degree)/degree*speed);//sets wheels to rotate clockwise if degree is positive
+        wheels.setPower(2,(Math.abs(degree)/degree*0.95)*speed);
+        wheels.setPower(3,(-Math.abs(degree)/degree*0.95)*speed);//sets wheels to rotate clockwise if degree is positive
 
         if(degree >= 0){//clockwise
 
@@ -151,8 +151,8 @@ public class FinalBot {
         wheels.setPower(0, dir);//frontleft
         wheels.setPower(1, -dir);//frontright
 
-        wheels.setPower(2, -dir);//backleft
-        wheels.setPower(3, dir);//backright
+        wheels.setPower(2, -dir*0.95);//backleft
+        wheels.setPower(3, dir*0.95);//backright
 
         //starts timer
 
