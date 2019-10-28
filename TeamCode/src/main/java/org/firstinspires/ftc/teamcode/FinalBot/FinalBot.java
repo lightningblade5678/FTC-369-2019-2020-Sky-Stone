@@ -59,6 +59,12 @@ public class FinalBot {
 
     public void move(double x, double y) {
 
+        double threshold = 5;//5 degree error threshold
+
+        calibrateGryo();
+
+        double heading = gyro.getHeading();
+
         if(x != 0 && y != 0) {
 
             /*!*/
@@ -69,15 +75,30 @@ public class FinalBot {
             for (double i = 0; i < target; i += steps) {
                 wheels.moveRelativeY(Math.sin(angle) * steps, Math.abs(y) / y);//moves y
                 wheels.moveRelativeX(Math.cos(angle) * steps, Math.abs(x) / x);//moves x
+
+                if(Math.abs(gyro.getHeading()-heading) > threshold){
+                    rotate(heading-gyro.getHeading());
+                    calibrateGryo();
+                    heading = gyro.getHeading();
+                }//corrects course if bot gets thrown off heading
+
             }//moves the bots in a "staircase" with a overall linear traverse of steps inches
 
         }else if(x == 0){//if is simple linear grid motion just call the methods
 
             wheels.moveRelativeY(y, Math.abs(y)/y);
 
+            if(Math.abs(gyro.getHeading()-heading) > threshold){
+                rotate(heading-gyro.getHeading());
+            }//corrects course if bot is thrown off heading
+
         }else if(y == 0){
 
             wheels.moveRelativeX(x, Math.abs(x)/x);
+
+            if(Math.abs(gyro.getHeading()-heading) > threshold){
+                rotate(heading-gyro.getHeading());
+            }//corrects course if bot is thrown off heading
 
         }
 
@@ -96,9 +117,7 @@ public class FinalBot {
 
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
-        gyro.calibrate();
-
-        while(gyro.isCalibrating());//waits until gyro finishes calibrating
+        calibrateGryo();
 
         double target = gyro.getHeading()+degree;
 
@@ -122,7 +141,7 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.getHeading() - target) > threshold){
-            rotate(degree, speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
+            rotate(target-gyro.getHeading(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
@@ -189,5 +208,9 @@ public class FinalBot {
 
     }//grabs a block and places into storage
 
+    public void calibrateGryo(){
+        gyro.calibrate();//starts gyro calibration
+        while(gyro.isCalibrating());//waits until gyro finishes calibrating
+    }//calibrates the gyroscope
 
 }
