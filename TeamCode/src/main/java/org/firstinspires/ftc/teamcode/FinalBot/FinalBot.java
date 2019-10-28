@@ -61,7 +61,7 @@ public class FinalBot {
 
         double threshold = 5;//5 degree error threshold
 
-        calibrateGryo();
+        calibrateGyro();
 
         double heading = gyro.getHeading();
 
@@ -78,7 +78,7 @@ public class FinalBot {
 
                 if(Math.abs(gyro.getHeading()-heading) > threshold){
                     rotate(heading-gyro.getHeading());
-                    calibrateGryo();
+                    calibrateGyro();
                     heading = gyro.getHeading();
                 }//corrects course if bot gets thrown off heading
 
@@ -117,7 +117,7 @@ public class FinalBot {
 
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
-        calibrateGryo();
+        calibrateGyro();
 
         double target = gyro.getHeading()+degree;
 
@@ -208,7 +208,7 @@ public class FinalBot {
 
     }//grabs a block and places into storage
 
-    public void calibrateGryo(){
+    public void calibrateGyro(){
         gyro.calibrate();//starts gyro calibration
         while(gyro.isCalibrating());//waits until gyro finishes calibrating
     }//calibrates the gyroscope
