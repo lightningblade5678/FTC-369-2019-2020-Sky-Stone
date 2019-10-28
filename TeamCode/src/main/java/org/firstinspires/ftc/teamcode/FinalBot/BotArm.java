@@ -18,14 +18,13 @@ public class BotArm {
     }//basic constructor to make a motor
 
     //start work method
-
-    public void rotateHorizontal(double degree){
+    public void rotateWrist(double degree){
 
         //insert code here
+        
+    }
 
-    }//rotates the arm on the platform
-
-    public void rotateVertical(double degree){
+    public void rotateBase(double degree){
 
         //insert code here
 
