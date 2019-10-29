@@ -189,6 +189,7 @@ public class FinalBot {
         wheels.setPower(0);
 
         if(useArm) {
+            //rotate bot 180 degrees [!]
             grabBlock();//attempts to grab block via arm
         }else{
             intake(timeout - time.seconds());//attepts to intake block with time left
@@ -199,15 +200,34 @@ public class FinalBot {
 
     public void grabTray(){
 
-        //implement code here
+        /*
+        arm.baseMotor.setPower(???); //set for ??? rotations
+        arm.wristServo.setPosition(???); //set to ??? position
+        wheels.setPower(???); //set for ??? time/rotations
+
+        arm.wristServo.setPosition(???); //release tray from wrist
+        arm.baseMotor.setPower(???); //move arm up from tray
+        */
+
 
     }//moves bot arm to grab tray on the ground, when called again, release tray
 
     public void grabBlock(){
 
-        //implement code here
+        /*
 
-    }//grabs a block and places into storage
+        wheels.setPower(???); //set for ??? rotations
+        arm.baseMotor.setPower(???); //set for ??? rotations
+        arm.wristServo.setPosition(???); //set to ??? position
+        arm.handGrab(); // grab block
+
+        arm.baseMotor.setPower(???); //set for ??? rotations
+        arm.wristServo.setPosition(???); //set to ??? position
+        arm.handGrab(); // release block
+
+        */
+
+    }//grabs a block from behind robot and places into storage
 
     public void calibrateGyro(){
         gyro.calibrate();//starts gyro calibration
