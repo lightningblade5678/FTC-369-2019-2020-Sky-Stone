@@ -170,11 +170,11 @@ public class RemovableTestTeleOp extends OpMode{
 
         if(gamepad2.a){
 
-            if(finger.getPosition() == 0) {
-                finger.setPosition(1);
+            if(finger.getPosition() != 0) {
+                finger.setPosition(0);
             }
             else{
-                finger.setPosition(0);
+                finger.setPosition(1);
             }
 
         }
@@ -202,21 +202,21 @@ public class RemovableTestTeleOp extends OpMode{
 
         if(gamepad2.y){
 
-            if(wrist.getPosition() == 0) {
-                wrist.setPosition(1);
+            if(wrist.getPosition() != 0) {
+                wrist.setPosition(0);
             }
             else{
-                wrist.setPosition(0);
+                wrist.setPosition(1);
             }
         }
 
         if(gamepad2.b){
 
-            if(hand.getPosition() == 0) {
-                hand.setPosition(1);
+            if(hand.getPosition() != 0) {
+                hand.setPosition(0);
             }
             else{
-                hand.setPosition(0);
+                hand.setPosition(1);
             }
         }
 
