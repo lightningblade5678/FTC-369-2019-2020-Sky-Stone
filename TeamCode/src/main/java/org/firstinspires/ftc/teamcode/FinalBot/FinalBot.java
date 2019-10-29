@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.Servo;
 
 public class FinalBot {
 
@@ -37,7 +38,7 @@ public class FinalBot {
         intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"));
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new  BotArm(null, null);//placeholder replace null later (!)
+        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(Servo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
@@ -59,25 +60,46 @@ public class FinalBot {
 
     public void move(double x, double y) {
 
+        double threshold = 5;//5 degree error threshold
+
+        calibrateGyro();
+
+        double heading = gyro.getHeading();
+
         if(x != 0 && y != 0) {
 
             /*!*/
             double steps = 0.1;//move in steps of 0.1 inches (diagonally)
-            double target = Math.sqrt(Math.abs(x * x) + Math.abs(y * y));//sets diagonal target
+            double target = Math.sqrt((x * x) + (y * y));//sets diagonal target
             double angle = Math.atan(y / x);//use later
 
             for (double i = 0; i < target; i += steps) {
                 wheels.moveRelativeY(Math.sin(angle) * steps, Math.abs(y) / y);//moves y
                 wheels.moveRelativeX(Math.cos(angle) * steps, Math.abs(x) / x);//moves x
+
+                if(Math.abs(gyro.getHeading()-heading) > threshold){
+                    rotate(heading-gyro.getHeading());
+                    calibrateGyro();
+                    heading = gyro.getHeading();
+                }//corrects course if bot gets thrown off heading
+
             }//moves the bots in a "staircase" with a overall linear traverse of steps inches
 
         }else if(x == 0){//if is simple linear grid motion just call the methods
 
             wheels.moveRelativeY(y, Math.abs(y)/y);
 
+            if(Math.abs(gyro.getHeading()-heading) > threshold){
+                rotate(heading-gyro.getHeading());
+            }//corrects course if bot is thrown off heading
+
         }else if(y == 0){
 
             wheels.moveRelativeX(x, Math.abs(x)/x);
+
+            if(Math.abs(gyro.getHeading()-heading) > threshold){
+                rotate(heading-gyro.getHeading());
+            }//corrects course if bot is thrown off heading
 
         }
 
@@ -96,12 +118,14 @@ public class FinalBot {
 
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
+        calibrateGyro();
+
         double target = gyro.getHeading()+degree;
 
         wheels.setPower(0,Math.abs(degree)/degree*speed);
         wheels.setPower(1,-Math.abs(degree)/degree*speed);
-        wheels.setPower(2,Math.abs(degree)/degree*speed);
-        wheels.setPower(3,-Math.abs(degree)/degree*speed);//sets wheels to rotate clockwise if degree is positive
+        wheels.setPower(2,(Math.abs(degree)/degree*0.95)*speed);
+        wheels.setPower(3,(-Math.abs(degree)/degree*0.95)*speed);//sets wheels to rotate clockwise if degree is positive
 
         if(degree >= 0){//clockwise
 
@@ -118,7 +142,7 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.getHeading() - target) > threshold){
-            rotate(degree, speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
+            rotate(target-gyro.getHeading(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
@@ -151,8 +175,8 @@ public class FinalBot {
         wheels.setPower(0, dir);//frontleft
         wheels.setPower(1, -dir);//frontright
 
-        wheels.setPower(2, -dir);//backleft
-        wheels.setPower(3, dir);//backright
+        wheels.setPower(2, -dir*0.95);//backleft
+        wheels.setPower(3, dir*0.95);//backright
 
         //starts timer
 
@@ -165,6 +189,7 @@ public class FinalBot {
         wheels.setPower(0);
 
         if(useArm) {
+            //rotate bot 180 degrees [!]
             grabBlock();//attempts to grab block via arm
         }else{
             intake(timeout - time.seconds());//attepts to intake block with time left
@@ -175,15 +200,38 @@ public class FinalBot {
 
     public void grabTray(){
 
-        //implement code here
+        /*
+        arm.baseMotor.setPower(???); //set for ??? rotations
+        arm.wristServo.setPosition(???); //set to ??? position
+        wheels.setPower(???); //set for ??? time/rotations
+
+        arm.wristServo.setPosition(???); //release tray from wrist
+        arm.baseMotor.setPower(???); //move arm up from tray
+        */
+
 
     }//moves bot arm to grab tray on the ground, when called again, release tray
 
     public void grabBlock(){
 
-        //implement code here
+        /*
 
-    }//grabs a block and places into storage
+        wheels.setPower(???); //set for ??? rotations
+        arm.baseMotor.setPower(???); //set for ??? rotations
+        arm.wristServo.setPosition(???); //set to ??? position
+        arm.handGrab(); // grab block
 
+        arm.baseMotor.setPower(???); //set for ??? rotations
+        arm.wristServo.setPosition(???); //set to ??? position
+        arm.handGrab(); // release block
+
+        */
+
+    }//grabs a block from behind robot and places into storage
+
+    public void calibrateGyro(){
+        gyro.calibrate();//starts gyro calibration
+        while(gyro.isCalibrating());//waits until gyro finishes calibrating
+    }//calibrates the gyroscope
 
 }

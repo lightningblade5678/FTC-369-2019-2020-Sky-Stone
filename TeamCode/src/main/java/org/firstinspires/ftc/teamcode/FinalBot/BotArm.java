@@ -9,32 +9,45 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class BotArm {
 
-    DcMotor[] motors;//motors utilised by the bot
-    Servo[] servos;//servos to be used by the bot
+    public DcMotor baseMotor;
+    public Servo wristServo;
+    public Servo handServo;
 
-    public BotArm(DcMotor[] motors, Servo[] servos){
-        this.motors = motors;
-        this.servos = servos;
+    public BotArm(DcMotor base, Servo wrist, Servo hand){
+    base = baseMotor;
+    wrist = wristServo;
+    hand = handServo;
     }//basic constructor to make a motor
 
     //start work method
 
-    public void rotateHorizontal(double degree){
+    public void rotateWrist(double wristDegree){
 
-        //insert code here
+        if(wristServo.getPosition() == 1){ // value may vary [!]
+            wristServo.setPosition(0);
 
-    }//rotates the arm on the platform
+        } else if(wristServo.getPosition() == 0){ // value may vary [!]
+            wristServo.setPosition(1);
+        }
 
-    public void rotateVertical(double degree){
+    }//detects if wrist is in grabbing position or placing position and inverts results
+
+
+    public void rotateBase(double baseDegree){
 
         //insert code here
 
     }//rotates the arm up/down
 
-    public void grab(){
+    public void handGrab(){
 
-        //insert code here
+    if(handServo.getPosition() == 1){ // value may vary [!]
+        handServo.setPosition(0);
 
-    }//toggles if the claw is "grabbed" or not and negates its mode
+    } else if(handServo.getPosition() == 0){ // value may vary [!]
+        handServo.setPosition(1);
+    }
+
+    }//detects if hand is closed or not and inverts results
 
 }
