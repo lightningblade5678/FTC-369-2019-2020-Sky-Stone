@@ -17,7 +17,6 @@ public class MyTestTeleOp extends OpMode {
     private DcMotor frontRight;
     private DcMotor backRight;
 
-    /*
     private DcMotor intakeMotorRight;
     private DcMotor intakeMotorLeft;
 
@@ -26,7 +25,7 @@ public class MyTestTeleOp extends OpMode {
     private DcMotor arm;
     private Servo wrist;
     private Servo hand;
-     */
+
     @Override
 
     public void init(){
@@ -38,7 +37,7 @@ public class MyTestTeleOp extends OpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
 
-        /*
+
         intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
         intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
 
@@ -46,12 +45,8 @@ public class MyTestTeleOp extends OpMode {
 
         arm = hardwareMap.get(DcMotor.class,"arm");
 
-
         wrist = hardwareMap.get(Servo.class,"wrist");
         hand = hardwareMap.get(Servo.class,"hand");
-
-         */
-
 
         telemetry.addData("Status", "Initialized");
 
@@ -104,8 +99,6 @@ public class MyTestTeleOp extends OpMode {
             backLeft.setPower(-1);
             backRight.setPower(1);
 
-
-
         }
 
         if(gamepad1.left_stick_x < 0 || gamepad1.left_stick_y < 0){
@@ -128,7 +121,6 @@ public class MyTestTeleOp extends OpMode {
 
         }
 
-        /*
         if(gamepad2.right_trigger == 1){
 
             if(intakeMotorRight.getPower() == -0.5){
@@ -219,10 +211,6 @@ public class MyTestTeleOp extends OpMode {
                 hand.setPosition(1);
             }
         }
-
-
-         */
-
 
     }
 

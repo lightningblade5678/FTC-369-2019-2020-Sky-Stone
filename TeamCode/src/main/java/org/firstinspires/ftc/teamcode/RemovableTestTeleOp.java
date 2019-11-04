@@ -10,36 +10,35 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class RemovableTestTeleOp extends OpMode{
     private ElapsedTime passTime = new ElapsedTime(0);
 
-    /*private DcMotor frontLeft;
+    private DcMotor frontLeft;
     private DcMotor backLeft;
     private DcMotor frontRight;
     private DcMotor backRight;
-     */
 
-    //private DcMotor intakeMotorRight;
-    //private DcMotor intakeMotorLeft;
+    /*
+    private DcMotor intakeMotorRight;
+    private DcMotor intakeMotorLeft;
 
     private Servo finger;
 
     private DcMotor arm;
     private Servo wrist;
     private Servo hand;
-
+     */
     @Override
 
     public void init(){
 
         telemetry.addData("Status", "Initializing");
 
-        /*
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-         */
 
-        //intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
-        //intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
+        /*
+        intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
+        intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
 
         finger = hardwareMap.get(Servo.class, "finger");
 
@@ -48,6 +47,8 @@ public class RemovableTestTeleOp extends OpMode{
 
         wrist = hardwareMap.get(Servo.class,"wrist");
         hand = hardwareMap.get(Servo.class,"hand");
+
+         */
 
 
         telemetry.addData("Status", "Initialized");
@@ -58,23 +59,22 @@ public class RemovableTestTeleOp extends OpMode{
 
         int i = 1;
 
-        /*
-        if(gamepad1.right_stick_y == 1){
+        if (gamepad1.right_stick_y > 0){
 
             telemetry.addData("Direction","Forwards");
 
-            allMotors(1);
+            allMotors(gamepad1.right_stick_y);
 
         }
-        if(gamepad1.right_stick_y == -1){
+        if (gamepad1.right_stick_y < 0){
 
             telemetry.addData("Direction","Backwards");
 
-            allMotors(-1);
+            allMotors(gamepad1.right_stick_y);
 
         }
 
-        if(gamepad1.right_stick_x == -1){
+        if (gamepad1.right_stick_x < 0){
 
             telemetry.addData("Direction","Strafe Left");
 
@@ -86,8 +86,14 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
+        if(gamepad1.right_stick_x + gamepad1.right_stick_y + gamepad1.left_stick_y + gamepad1.left_stick_x == 0){
 
-        if(gamepad1.right_stick_x == 1){
+            allMotors(0);
+
+        }
+
+
+        if(gamepad1.right_stick_x > 0){
 
             telemetry.addData("Direction","Strafe Right");
 
@@ -100,7 +106,7 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad1.left_stick_x == -1 || gamepad1.left_stick_y == -1){
+        if(gamepad1.left_stick_x < 0 || gamepad1.left_stick_y < 0){
 
             frontLeft.setPower(-1);
             frontRight.setPower(1);
@@ -109,7 +115,7 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad1.left_stick_x == 1 || gamepad1.left_stick_y == 1){
+        if(gamepad1.left_stick_x > 0 || gamepad1.left_stick_y > 0){
 
             frontLeft.setPower(1);
             frontRight.setPower(-1);
@@ -119,7 +125,7 @@ public class RemovableTestTeleOp extends OpMode{
 
 
         }
-        */
+
         /*
         if(gamepad2.right_trigger == 1){
 
@@ -137,8 +143,7 @@ public class RemovableTestTeleOp extends OpMode{
             }
 
         }
-        */
-        /*
+
         if(gamepad2.dpad_left){
 
             intakeMotorRight.setPower(-0.1);
@@ -163,10 +168,6 @@ public class RemovableTestTeleOp extends OpMode{
             intakeMotorLeft.setPower(0);
 
         }
-        */
-
-
-
 
         if(gamepad2.a){
 
@@ -197,9 +198,6 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-
-
-
         if(gamepad2.y){
 
             if(wrist.getPosition() != 0) {
@@ -221,10 +219,11 @@ public class RemovableTestTeleOp extends OpMode{
         }
 
 
+         */
+
 
     }
 
-    /*
     private void allMotors(double x){
 
         frontLeft.setPower(x);
@@ -234,12 +233,9 @@ public class RemovableTestTeleOp extends OpMode{
 
     }
 
-     */
-
     private void wait(int ms){
         passTime.reset();
         while(passTime.milliseconds() < ms);//waits for ms
     }
 
 }
-
