@@ -35,7 +35,7 @@ public class FinalBot {
         wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
         //initializes botWheels
 
-        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"));
+        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"),map.get(Servo.class, "finger"));
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
         /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(Servo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
@@ -154,6 +154,9 @@ public class FinalBot {
     }//places block from internal storage onto tower
 
     public boolean intake(double timeout){
+
+        intake.toggleFinger();//ensures intake is open if needed
+
         ElapsedTime time = new ElapsedTime(0);//timer to attempt a blind intake for
         wheels.setPower(1);//wheels run until end of method
 
@@ -165,10 +168,14 @@ public class FinalBot {
         wheels.setPower(0);//stops wheels
         intake.intakeStop();//stops intake
 
+        intake.toggleFinger();//closes/opens intake
+
         return intake.intakeFill();//returns whether or not a block has been been inputted into bay
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns true if at end of method, block is in bay
 
     public boolean intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
+
+        intake.toggleFinger();//ensures intake is open if needed
 
         //sets wheels to move l/r
 
@@ -194,6 +201,8 @@ public class FinalBot {
         }else{
             intake(timeout - time.seconds());//attepts to intake block with time left
         }
+
+        intake.toggleFinger();//closes/opens intake
 
         return intake.intakeFill();//returns whether or not intake has successfully in-took a block
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
