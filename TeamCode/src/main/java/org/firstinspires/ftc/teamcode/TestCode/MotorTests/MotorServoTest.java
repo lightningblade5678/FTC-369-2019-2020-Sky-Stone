@@ -1,14 +1,11 @@
-package org.firstinspires.ftc.teamcode.MotorTests;
+package org.firstinspires.ftc.teamcode.TestCode.MotorTests;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Hardware;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 /*
     This class is used to test all the motors/servos on the bot
