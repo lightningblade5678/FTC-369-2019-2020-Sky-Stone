@@ -208,7 +208,7 @@ public class FinalBot {
 
         intake.toggleFinger();//closes/opens intake
 
-        return ( wheels.getWheel(3).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
+        return ( wheels.getWheel(3).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModX();//returns difference in encoder position in inches
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns distance traveled (X)
     public void grabTray(){
 
