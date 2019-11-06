@@ -16,8 +16,11 @@ public class GetArmPosition extends LinearOpMode {
 
         DcMotor arm = hardwareMap.get(DcMotor.class, "baseMotor");//gets arm
 
+        Servo finger = hardwareMap.get(Servo.class, "finger");//gets finger
+
         telemetry.addData("Wrist",wrist.getPosition());
         telemetry.addData("Arm",arm.getCurrentPosition());
+        telemetry.addData("Finger",finger.getPosition());
         telemetry.update();
 
         ElapsedTime time = new ElapsedTime(0);
