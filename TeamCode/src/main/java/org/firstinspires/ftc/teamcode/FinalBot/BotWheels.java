@@ -70,6 +70,22 @@ public class BotWheels {
         wheels[i].setPower(power);
     }//sets the power of an individual motor
 
+    public DcMotor getWheel(int i){
+        return wheels[i];
+    }//returns wheel for use
+
+    public double getCountsPerInch(){
+        return COUNTS_PER_INCH;
+    }//get CPI
+
+    public double getDistanceModX(){
+        return distanceModX;
+    }//gets modX
+
+    public double getDistanceModY(){
+        return distanceModY;
+    }//gets modY
+
     //start work methods
 
     public void moveRelativeY(double distance, double power){
