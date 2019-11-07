@@ -66,6 +66,8 @@ public class BotArm {
 
         double target = armMotor.getCurrentPosition()+( (degrees/360) *COUNTS_PER_MOTOR_REV*DRIVE_GEAR_REDUCTION);//sets target to # of rotations and converts that to motor counts
 
+        armMotor.setTargetPosition((int)target);//sets target
+
         armMotor.setPower(power);//starts motor at desired power
 
         while(armMotor.isBusy());//waits until arm is done
