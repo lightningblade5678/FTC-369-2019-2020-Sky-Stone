@@ -12,7 +12,7 @@ public class BotArm {
     //vars for encoders
 
     private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder is 1440, neverest classic 40 are 1120
-    private static final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
+    private static final double     DRIVE_GEAR_REDUCTION    =  120/80;     // This is < 1.0 if geared UP
 
     //end encoder vars
 
