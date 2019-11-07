@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
-public class RemovableTestTeleOp extends OpMode{
+public class RemovableTestTeleOpPushButtons extends OpMode{
     private ElapsedTime passTime = new ElapsedTime(0);
 
     private DcMotor frontLeft;
@@ -144,17 +144,45 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad2.a){
+        if(gamepad2.left_trigger > 0){
 
-            if(finger.getPosition() != fingerPosition) {
-                finger.setPosition(fingerPosition);
-            }
-            else{
-                finger.setPosition(fingerPosition + 0.5);
+            while(gamepad2.left_trigger > 0){
+
+                wrist.setDirection(Servo.Direction.FORWARD);
+
             }
 
         }
 
+        if(gamepad2.left_bumper){
+
+            while(gamepad2.left_bumper){
+
+                wrist.setDirection(Servo.Direction.REVERSE);
+
+            }
+
+        }
+
+        if(gamepad2.right_trigger > 0){
+
+            while(gamepad2.right_trigger > 0){
+
+                hand.setDirection(Servo.Direction.FORWARD);
+
+            }
+
+        }
+
+        if(gamepad2.right_bumper){
+
+            while(gamepad2.right_bumper){
+
+                hand.setDirection(Servo.Direction.REVERSE);
+
+            }
+
+        }
 
         if(gamepad2.x){
 
