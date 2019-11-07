@@ -172,7 +172,7 @@ public class FinalBot {
 
         intake.toggleFinger();//closes/opens intake
 
-        return ( wheels.getWheel(2).getCurrentPosition()-currCount ) * wheels.getCountsPerInch() * wheels.getDistanceModY();//returns difference in encoder position in inches
+        return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns distance travelled (Y)
 
     public double intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
@@ -203,12 +203,12 @@ public class FinalBot {
             //rotate bot 180 degrees [!]
             grabBlock();//attempts to grab block via arm
         }else{
-            move(0,-intake(timeout - time.seconds())*wheels.getCountsPerInch()*wheels.getDistanceModX());//attepts to intake block with time left and then moves back into position
+            move(0,-intake(timeout - time.seconds()) / wheels.getCountsPerInch()/ wheels.getDistanceModX());//attepts to intake block with time left and then moves back into position
         }
 
         intake.toggleFinger();//closes/opens intake
 
-        return ( wheels.getWheel(3).getCurrentPosition()-currCount ) * wheels.getCountsPerInch() * wheels.getDistanceModX();//returns difference in encoder position in inches
+        return ( wheels.getWheel(3).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModX();//returns difference in encoder position in inches
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns distance traveled (X)
     public void grabTray(){
 
