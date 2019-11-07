@@ -134,6 +134,11 @@ public class MotorServoTest extends LinearOpMode {
                     if(a){
                         servo.get(i).setPosition(1);
                         wait(300);
+
+                        telemetry.addData("Testing: ", "Press A to reset servo");
+
+                        while(!gamepad1.a);//waits for input
+
                         servo.get(i).setPosition(0);//tests servos
                     }else if(b){
                         motors.get(i).setPower(1);

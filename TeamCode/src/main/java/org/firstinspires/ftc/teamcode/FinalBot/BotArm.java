@@ -12,7 +12,7 @@ public class BotArm {
     //vars for encoders
 
     private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder is 1440, neverest classic 40 are 1120
-    private static final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
+    private static final double     DRIVE_GEAR_REDUCTION    =  120/80;     // This is < 1.0 if geared UP
 
     //end encoder vars
 
@@ -65,6 +65,8 @@ public class BotArm {
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);//begins runmode
 
         double target = armMotor.getCurrentPosition()+( (degrees/360) *COUNTS_PER_MOTOR_REV*DRIVE_GEAR_REDUCTION);//sets target to # of rotations and converts that to motor counts
+
+        armMotor.setTargetPosition((int)target);//sets target
 
         armMotor.setPower(power);//starts motor at desired power
 

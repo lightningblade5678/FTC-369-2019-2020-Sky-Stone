@@ -153,7 +153,9 @@ public class FinalBot {
 
     }//places block from internal storage onto tower
 
-    public boolean intake(double timeout){
+    public double intake(double timeout){
+
+        double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
         intake.toggleFinger();//ensures intake is open if needed
 
@@ -170,10 +172,12 @@ public class FinalBot {
 
         intake.toggleFinger();//closes/opens intake
 
-        return intake.intakeFill();//returns whether or not a block has been been inputted into bay
-    }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns true if at end of method, block is in bay
+        return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
+    }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns distance travelled (Y)
 
-    public boolean intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
+    public double intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
+
+        double currCount = wheels.getWheel(3).getCurrentPosition();//current position of encoder
 
         intake.toggleFinger();//ensures intake is open if needed
 
@@ -199,14 +203,13 @@ public class FinalBot {
             //rotate bot 180 degrees [!]
             grabBlock();//attempts to grab block via arm
         }else{
-            intake(timeout - time.seconds());//attepts to intake block with time left
+            move(0,-intake(timeout - time.seconds()) / wheels.getCountsPerInch()/ wheels.getDistanceModX());//attepts to intake block with time left and then moves back into position
         }
 
         intake.toggleFinger();//closes/opens intake
 
-        return intake.intakeFill();//returns whether or not intake has successfully in-took a block
-    }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns at end of method, true, if block is in bay
-
+        return ( wheels.getWheel(3).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModX();//returns difference in encoder position in inches
+    }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns distance traveled (X)
     public void grabTray(){
 
         /*
