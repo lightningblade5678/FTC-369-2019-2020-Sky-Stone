@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
-public class RemovableTestTeleOp extends OpMode{
+public class RemovableTestTeleOpPushButtons extends OpMode{
     private ElapsedTime passTime = new ElapsedTime(0);
 
     private DcMotor frontLeft;
@@ -45,6 +45,7 @@ public class RemovableTestTeleOp extends OpMode{
 
         wrist = hardwareMap.get(Servo.class,"wrist");
         hand = hardwareMap.get(Servo.class,"hand");
+
         telemetry.addData("Status", "Initialized");
 
     }
@@ -116,25 +117,6 @@ public class RemovableTestTeleOp extends OpMode{
             backLeft.setPower(1);
             backRight.setPower(-1);
 
-
-
-        }
-
-        if(gamepad2.right_trigger == 1){
-
-            if(intakeMotorRight.getPower() == -0.5){
-
-                intakeMotorRight.setPower(0);
-                intakeMotorLeft.setPower(0);
-
-            }
-            else{
-
-                intakeMotorRight.setPower(-0.5);
-                intakeMotorLeft.setPower(0.5);
-
-            }
-
         }
 
         if(gamepad2.dpad_left){
@@ -162,30 +144,64 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad2.right_trigger > 0 && finger.getPosition() <= 1){
+        if(gamepad2.left_trigger > 0){
 
-            finger.setDirection(Servo.Direction.FORWARD);
-            if(finger.getPosition() != fingerPosition) {
-                finger.setPosition(fingerPosition);
+            while(gamepad2.left_trigger > 0){
+
+                wrist.setDirection(Servo.Direction.FORWARD);
+
+            }
+
+        }
+
+        if(gamepad2.left_bumper){
+
+            while(gamepad2.left_bumper){
+
+                wrist.setDirection(Servo.Direction.REVERSE);
+
+            }
+
+        }
+
+        if(gamepad2.right_trigger > 0){
+
+            while(gamepad2.right_trigger > 0){
+
+                hand.setDirection(Servo.Direction.FORWARD);
+
+            }
+
+        }
+
+        if(gamepad2.right_bumper){
+
+            while(gamepad2.right_bumper){
+
+                hand.setDirection(Servo.Direction.REVERSE);
+
+            }
+
+        }
+
+        if(gamepad2.x){
+
+            if(i == 1) {
+                arm.setPower(0.1);
+                wait(1000);
+                arm.setPower(0);
             }
             else{
-                finger.setPosition(fingerPosition + 0.5);
+                arm.setPower(-0.1);
+                wait(1000);
+                arm.setPower(0);
             }
-        }
-        if(gamepad2.right_bumper && finger.getPosition() >= 0){
 
-            finger.setDirection(Servo.Direction.REVERSE);
+            i *= -1;
 
         }
 
-        if(gamepad2.left_trigger > 0 && wrist.getPosition() <= 1){
-
-            wrist.setDirection(Servo.Direction.FORWARD);
-
-        }
-        if(gamepad2.left_bumper && wrist.getPosition() >= 0){
-
-            wrist.setDirection(Servo.Direction.REVERSE);
+        if(gamepad2.y){
 
             if(wrist.getPosition() != wristPosition) {
                 wrist.setPosition(wristPosition);
@@ -195,9 +211,7 @@ public class RemovableTestTeleOp extends OpMode{
             }
         }
 
-        if(gamepad2.x && hand.getPosition() <= 1){
-
-            hand.setDirection(Servo.Direction.FORWARD);
+        if(gamepad2.b){
 
             if(hand.getPosition() != handPosition) {
                 hand.setPosition(handPosition);
@@ -206,12 +220,6 @@ public class RemovableTestTeleOp extends OpMode{
                 hand.setPosition(handPosition + 0.5);
             }
         }
-        if(gamepad2.y && hand.getPosition() >= 0){
-
-            hand.setDirection(Servo.Direction.REVERSE);
-
-        }
-
 
     }
 
