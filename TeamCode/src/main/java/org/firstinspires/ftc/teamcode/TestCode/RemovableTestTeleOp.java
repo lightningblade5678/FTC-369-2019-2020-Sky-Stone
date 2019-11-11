@@ -15,7 +15,7 @@ public class RemovableTestTeleOp extends OpMode{
     private DcMotor frontRight;
     private DcMotor backRight;
 
-    /*
+
     private DcMotor intakeMotorRight;
     private DcMotor intakeMotorLeft;
 
@@ -24,7 +24,7 @@ public class RemovableTestTeleOp extends OpMode{
     private DcMotor arm;
     private Servo wrist;
     private Servo hand;
-     */
+
     @Override
 
     public void init(){
@@ -36,7 +36,6 @@ public class RemovableTestTeleOp extends OpMode{
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
 
-        /*
         intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
         intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
 
@@ -47,8 +46,6 @@ public class RemovableTestTeleOp extends OpMode{
 
         wrist = hardwareMap.get(Servo.class,"wrist");
         hand = hardwareMap.get(Servo.class,"hand");
-
-         */
 
 
         telemetry.addData("Status", "Initialized");
@@ -126,7 +123,6 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        /*
         if(gamepad2.right_trigger == 1){
 
             if(intakeMotorRight.getPower() == -0.5){
@@ -169,57 +165,38 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad2.a){
+        if(gamepad2.right_trigger > 0 && finger.getPosition() <= 1){
 
-            if(finger.getPosition() != 0) {
-                finger.setPosition(0);
-            }
-            else{
-                finger.setPosition(1);
-            }
+            finger.setDirection(Servo.Direction.FORWARD);
+
+        }
+        if(gamepad2.right_bumper && finger.getPosition() >= 0){
+
+            finger.setDirection(Servo.Direction.REVERSE);
 
         }
 
+        if(gamepad2.left_trigger > 0 && wrist.getPosition() <= 1){
 
-        if(gamepad2.x){
+            wrist.setDirection(Servo.Direction.FORWARD);
 
-            if(i == 1) {
-                arm.setPower(0.1);
-                wait(1000);
-                arm.setPower(0);
-            }
-            else{
-                arm.setPower(-0.1);
-                wait(1000);
-                arm.setPower(0);
-            }
+        }
+        if(gamepad2.left_bumper && wrist.getPosition() >= 0){
 
-            i *= -1;
+            wrist.setDirection(Servo.Direction.REVERSE);
 
         }
 
-        if(gamepad2.y){
+        if(gamepad2.x && hand.getPosition() <= 1){
 
-            if(wrist.getPosition() != 0) {
-                wrist.setPosition(0);
-            }
-            else{
-                wrist.setPosition(1);
-            }
+            hand.setDirection(Servo.Direction.FORWARD);
+
         }
+        if(gamepad2.y && hand.getPosition() >= 0){
 
-        if(gamepad2.b){
+            hand.setDirection(Servo.Direction.REVERSE);
 
-            if(hand.getPosition() != 0) {
-                hand.setPosition(0);
-            }
-            else{
-                hand.setPosition(1);
-            }
         }
-
-
-         */
 
 
     }
