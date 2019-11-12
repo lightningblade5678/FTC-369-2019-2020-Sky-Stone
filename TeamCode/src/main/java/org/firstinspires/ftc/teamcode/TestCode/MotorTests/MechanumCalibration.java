@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
 
 /*
-    This class is used to calibrate the mechanim wheel movement for the main method via dead reckoning
+    This class is used to calibrate the mechanum wheel movement for the main method via dead reckoning
  */
 
 @TeleOp(name = "Calibrate and get wheel calibration nums")
