@@ -81,8 +81,8 @@ public class BotArm {
         currDeg = currDeg-(((int)currDeg)/360*360);//removes excess 360's
 
         baseRotateDegree(armMotor,degree-currDeg,1);//rotates arm to pos
-        
-    }
+
+    }//rotates arm to target degree position
 
     public double getDegree(DcMotor armMotor){
         return armMotor.getCurrentPosition()/(COUNTS_PER_MOTOR_REV*DRIVE_GEAR_REDUCTION)*360;
