@@ -159,6 +159,8 @@ public class FinalBot {
 
     public void placeBlock(int height){
 
+        // [!] [!] CHANGE CODE TO ACCOUNT FOR ARM DEGREE BEFORE MOVEMENT [!] [!]
+
          /*
         Level 1 = set degree to 205.4 || distance is sqrt.160 + 3
         Level 2 = set degree to 188.21 || distance is sqrt.192 + 3
@@ -187,7 +189,9 @@ public class FinalBot {
     arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
     arm.rotateWrist(180);
     arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
-    ;
+    arm.handGrab(false);
+    arm.baseRotateDegree(arm.baseMotor,60, 1 ); // [!] Check parameters
+
 
     }//places block from internal storage onto tower
 

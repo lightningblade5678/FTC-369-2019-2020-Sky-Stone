@@ -36,13 +36,13 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
         bot.intake(30, 1, true); // [!] Check parameters!
 
         time.reset();
-        while(time.seconds() < travelTime.seconds()){
+        while (time.seconds() < travelTime.seconds()) {
 
-        //Moves robot back to beginning of intake method
-        wheels.setPower(0, -1);
-        wheels.setPower(1, 1);
-        wheels.setPower(2, 1);
-        wheels.setPower(3, -1);
+            //Moves robot back to beginning of intake method
+            wheels.setPower(0, -1);
+            wheels.setPower(1, 1);
+            wheels.setPower(2, 1);
+            wheels.setPower(3, -1);
         }
         wheels.setPower(0);
 
@@ -50,13 +50,17 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
         bot.rotate(90); //Turns bot to face build platform
         bot.move(0, 36); //Moves bot to in front of build platform
 
+
+        while (!bot.detectColor()) {
+            bot.move(0, 1);
+        }
         if(bot.detectColor()){
             bot.move(0, -10);
             bot.rotate(180);
             bot.move(0, -10);
-
+            bot.placeBlock(1);
         }
-
+        bot.move(0, 18); //Moves bot onto midline [!] Check params
 
     }
 }
