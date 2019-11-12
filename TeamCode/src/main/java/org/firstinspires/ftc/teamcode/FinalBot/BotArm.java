@@ -1,3 +1,11 @@
+/*
+Dimensions of Arm:
+
+10 inches tall (bot to top of arm (width) )
+14 inches long (arm)
+4 inches tall (bricks)
+3 inches long (wrist)
+ */
 package org.firstinspires.ftc.teamcode.FinalBot;
 
 /*
@@ -30,35 +38,22 @@ public class BotArm {
     //start work method
 
     public void rotateWrist(double wristDegree){
+        wristServo.setPosition(wristDegree/180); // [!] Check params
+    }//sets servo to degrees between 180
 
-        if(wristServo.getPosition() == 1){ // value may vary [!]
-            wristServo.setPosition(0);
 
-        } else if(wristServo.getPosition() == 0){ // value may vary [!]
-            wristServo.setPosition(1);
+    public void handGrab(boolean state){
+        if (state){
+            handServo.setPosition(0); // [!] check parameter
+        }
+        else{
+            handServo.setPosition(1); // [!] check parameter
         }
 
-    }//detects if wrist is in grabbing position or placing position and inverts results
-
-
-    public void rotateBase(double baseDegree){
-
-        //insert code here
-
-    }//rotates the arm up/down
-
-    public void handGrab(){
-
-    if(handServo.getPosition() == 1){ // value may vary [!]
-        handServo.setPosition(0);
-
-    } else if(handServo.getPosition() == 0){ // value may vary [!]
-        handServo.setPosition(1);
-    }
 
     }//detects if hand is closed or not and inverts results
 
-    public void rotateDegree(DcMotor armMotor, double degrees, double power){
+    public void baseRotateDegree(DcMotor armMotor, double degrees, double power){
         DcMotor.RunMode temp = armMotor.getMode();//saves runmode of motor
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets mode to use encoder
 
@@ -75,9 +70,21 @@ public class BotArm {
         armMotor.setPower(0);//stops motor
 
         if(Math.abs(armMotor.getCurrentPosition()-target) > COUNTS_PER_MOTOR_REV*0.1){//10% error threshold
-            rotateDegree(armMotor, (target-armMotor.getCurrentPosition())/COUNTS_PER_MOTOR_REV/DRIVE_GEAR_REDUCTION*360 , power/2  );//corrects error at slower speed
+            baseRotateDegree(armMotor, (target-armMotor.getCurrentPosition())/COUNTS_PER_MOTOR_REV/DRIVE_GEAR_REDUCTION*360 , power/2  );//corrects error at slower speed
         }//error correction
 
     }//rotates motor # of degrees
 
+    public double getDegree(DcMotor armMotor){
+        return armMotor.getCurrentPosition()/(COUNTS_PER_MOTOR_REV*DRIVE_GEAR_REDUCTION)*360;
+    }//returns current bot arm pos
+
+    public void setGrabPos(){
+        // [!] Check all parameters
+        handGrab(false);
+        baseRotateDegree(baseMotor, 0, 1);
+        rotateWrist(180); //[!] check params
+
+
+    }//sets all motors to pos to grab stored stone
 }
