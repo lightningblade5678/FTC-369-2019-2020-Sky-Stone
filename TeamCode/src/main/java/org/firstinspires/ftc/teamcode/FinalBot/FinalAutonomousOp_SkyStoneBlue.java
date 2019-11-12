@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="FInalAutonomousOp_SkyStoneRed")
-public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
+@Autonomous(name="FInalAutonomousOp_SkyStoneBlue")
+public class FinalAutonomousOp_SkyStoneBlue extends LinearOpMode {
 
     private static final double COUNTS_PER_MOTOR_REV = 1120;
     private static final double DRIVE_GEAR_REDUCTION = 1;
@@ -33,10 +33,10 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
 
         ElapsedTime travelTime = time;//Set time taken to detect skystone, will use later to reposition
 
-        bot.intake(30, 1, true); // [!] Check parameters!
+        bot.intake(30, -1, true); // [!] Check parameters!
 
         time.reset();
-        while (time.seconds() < travelTime.seconds()) {
+        while(time.seconds() < travelTime.seconds()){
 
             //Moves robot back to beginning of intake method
             wheels.setPower(0, -1);
@@ -46,21 +46,17 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
         }
         wheels.setPower(0);
 
-        bot.move(24, 24); //Moves bot to under the bridge
+        bot.move(-24, 24); //Moves bot to under the bridge
         bot.rotate(90); //Turns bot to face build platform
         bot.move(0, 36); //Moves bot to in front of build platform
 
-
-        while (!bot.detectColor()) {
-            bot.move(0, 1);
-        }
         if(bot.detectColor()){
             bot.move(0, -10);
             bot.rotate(180);
             bot.move(0, -10);
-            bot.placeBlock(1);
+
         }
-        bot.move(0, 18); //Moves bot onto midline [!] Check params
+
 
     }
 }
