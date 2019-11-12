@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
 public class FinalBot {
 
     //motors
@@ -45,6 +46,15 @@ public class FinalBot {
         gyro = map.get(GyroSensor.class, "gyroscope");
 
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
+
+    public boolean detectColor() {
+        if(colors.red() > 10 && colors.green() > 10 && colors.blue() > 10){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }//Detects if something is in front of robot
 
     public FinalBot(BotWheels wheels, BotIntake intake, BotArm arm){
 
@@ -147,9 +157,37 @@ public class FinalBot {
 
     }//rotates bot by degree rotates clockwise IE: compass
 
-    public void placeBlock(double height){
+    public void placeBlock(int height){
 
-        //implement code here
+         /*
+        Level 1 = set degree to 205.4 || distance is sqrt.160 + 3
+        Level 2 = set degree to 188.21 || distance is sqrt.192 + 3
+        Level 3 = set degree to 171.79 || distance is sqrt.192 + 3
+        Level 4 = set degree to 154.6 || distance is sqrt.160 + 3
+        Level 5 = set degree to 134.42 || distance is sqrt.96 + 3
+     */
+
+        double[] heightDistance = new double[5];
+        heightDistance[0] = Math.sqrt(160) + 3;
+        heightDistance[1] = Math.sqrt(192) + 3;
+        heightDistance[2] = Math.sqrt(192) + 3;
+        heightDistance[3] = Math.sqrt(160) + 3;
+        heightDistance[4] = Math.sqrt(96) + 3;
+
+        double[] heightDegree = new double[5];
+        heightDegree[0] = 205.4;
+        heightDegree[1] = 188.21;
+        heightDegree[2] = 171.79;
+        heightDegree[3] = 154.6;
+        heightDegree[4] = 134.42;
+
+    move(0, heightDistance[height]);
+    arm.setGrabPos();
+    arm.handGrab(true);
+    arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
+    arm.rotateWrist(180);
+    arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
+    ;
 
     }//places block from internal storage onto tower
 
@@ -175,7 +213,7 @@ public class FinalBot {
         return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns distance travelled (Y)
 
-    public double intake(double timeout, Color color, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
+    public double intake(double timeout, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
 
         double currCount = wheels.getWheel(3).getCurrentPosition();//current position of encoder
 
