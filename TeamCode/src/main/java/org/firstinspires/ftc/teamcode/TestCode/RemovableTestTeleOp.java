@@ -53,10 +53,6 @@ public class RemovableTestTeleOp extends OpMode{
 
         int i = 1;
 
-        double fingerPosition = finger.getPosition();
-        double wristPosition = wrist.getPosition();
-        double handPosition = hand.getPosition();
-
         if (gamepad1.right_stick_y > 0){
 
             telemetry.addData("Direction","Forwards");
@@ -116,43 +112,24 @@ public class RemovableTestTeleOp extends OpMode{
             backLeft.setPower(1);
             backRight.setPower(-1);
 
-
-
-        }
-
-        if(gamepad2.right_trigger == 1){
-
-            if(intakeMotorRight.getPower() == -0.5){
-
-                intakeMotorRight.setPower(0);
-                intakeMotorLeft.setPower(0);
-
-            }
-            else{
-
-                intakeMotorRight.setPower(-0.5);
-                intakeMotorLeft.setPower(0.5);
-
-            }
-
         }
 
         if(gamepad2.dpad_left){
 
-            intakeMotorRight.setPower(0.1);
-            intakeMotorLeft.setPower(-0.1);
+            intakeMotorRight.setPower(-0.1);
+            intakeMotorLeft.setPower(0.1);
 
         }
         if(gamepad2.dpad_up){
 
-            intakeMotorRight.setPower(0.5);
-            intakeMotorLeft.setPower(-0.5);
+            intakeMotorRight.setPower(-0.3);
+            intakeMotorLeft.setPower(0.3);
 
         }
         if(gamepad2.dpad_right){
 
-            intakeMotorRight.setPower(1);
-            intakeMotorLeft.setPower(-1);
+            intakeMotorRight.setPower(-0.5);
+            intakeMotorLeft.setPower(0.5);
 
         }
         if(gamepad2.dpad_down){
@@ -162,53 +139,48 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad2.right_trigger > 0 && finger.getPosition() <= 1){
+        if(gamepad2.right_trigger > 0){
 
-            finger.setDirection(Servo.Direction.FORWARD);
-            if(finger.getPosition() != fingerPosition) {
-                finger.setPosition(fingerPosition);
-            }
-            else{
-                finger.setPosition(fingerPosition + 0.5);
-            }
+            telemetry.addData("Servo","Finger moving up");
+            telemetry.update();
+            wait(3000);
+            finger.setPosition(finger.getPosition() + 0.1);
         }
-        if(gamepad2.right_bumper && finger.getPosition() >= 0){
-
-            finger.setDirection(Servo.Direction.REVERSE);
-
-        }
-
-        if(gamepad2.left_trigger > 0 && wrist.getPosition() <= 1){
-
-            wrist.setDirection(Servo.Direction.FORWARD);
+        if(gamepad2.right_bumper && finger.getPosition() - 0.1 >= 0){
+            telemetry.addData("Servo","Finger moving down");
+            telemetry.update();
+            wait(3000);
+            finger.setPosition(finger.getPosition() - 0.1);
 
         }
-        if(gamepad2.left_bumper && wrist.getPosition() >= 0){
 
-            wrist.setDirection(Servo.Direction.REVERSE);
+        if(gamepad2.left_trigger > 0 && wrist.getPosition() + 0.1 <= 1){
+            telemetry.addData("Servo","Wrist moving up");
+            telemetry.update();
+            wait(3000);
+            wrist.setPosition(wrist.getPosition() + 0.1);
 
-            if(wrist.getPosition() != wristPosition) {
-                wrist.setPosition(wristPosition);
-            }
-            else{
-                wrist.setPosition(wristPosition + 0.5);
-            }
+        }
+        if(gamepad2.left_bumper && wrist.getPosition() - 0.1 >= 0){
+            telemetry.addData("Servo","Wrist moving down");
+            telemetry.update();
+            wait(3000);
+            wrist.setPosition(wrist.getPosition() - 0.1);
+
         }
 
-        if(gamepad2.x && hand.getPosition() <= 1){
+        if(gamepad2.x && hand.getPosition() + 0.1 <= 1){
+            telemetry.addData("Servo","Hand moving up");
+            telemetry.update();
+            wait(3000);
+            hand.setPosition(hand.getPosition() + 0.1);
 
-            hand.setDirection(Servo.Direction.FORWARD);
-
-            if(hand.getPosition() != handPosition) {
-                hand.setPosition(handPosition);
-            }
-            else{
-                hand.setPosition(handPosition + 0.5);
-            }
         }
-        if(gamepad2.y && hand.getPosition() >= 0){
-
-            hand.setDirection(Servo.Direction.REVERSE);
+        if(gamepad2.y && hand.getPosition() - 0.1 >= 0){
+            telemetry.addData("Servo","Hand moving down");
+            telemetry.update();
+            wait(3000);
+            hand.setPosition(hand.getPosition() - 0.1);
 
         }
 

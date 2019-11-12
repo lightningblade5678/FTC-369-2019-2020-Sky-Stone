@@ -19,7 +19,7 @@ public class FindAll extends LinearOpMode {
     @Override
     public void runOpMode(){
 
-        LinkedList<? extends I2cDevice> l = (LinkedList<I2cDevice>) hardwareMap.getAll(I2cDevice.class);
+        LinkedList<? extends HardwareDevice> l = (LinkedList<HardwareDevice>) hardwareMap.getAll(HardwareDevice.class);
 
         for(int i = 0; i < l.size();i++){
             telemetry.addData(hardwareMap.getNamesOf(l.get(i))+": ",l.get(i));
