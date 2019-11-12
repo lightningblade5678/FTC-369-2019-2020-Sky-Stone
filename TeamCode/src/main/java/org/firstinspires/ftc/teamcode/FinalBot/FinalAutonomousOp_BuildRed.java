@@ -15,18 +15,18 @@ public class FinalAutonomousOp_BuildRed extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
 
-        //Orients bot in front of build plate
-        bot.move(0, 12);
-        bot.rotate(180);
-        bot.move(0, 12);
+        bot.move(0, 30); //Orients bot in front of build plate
 
         arm.baseRotateDegree(arm.baseMotor, 225, 1); //"Grabs" plate
-        bot.move(0, -24); //Drags plate into zone
+        bot.move(0, -30); //Drags plate into zone
         arm.baseRotateDegree(arm.baseMotor, 135, 1); //"Releases" plate
-        bot.move()
+        bot.move(-12, 0); //moves robot away from plate
 
-
-
+        //moves bot through midbridge
+        bot.move(0, 48);
+        bot.rotate(-90);
+        bot.move(0, 24);
+        
 
     }
 }

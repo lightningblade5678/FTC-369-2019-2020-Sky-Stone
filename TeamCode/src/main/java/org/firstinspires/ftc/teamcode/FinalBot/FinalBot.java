@@ -119,6 +119,13 @@ public class FinalBot {
         x and y move relative to the front of the bot:
             -x = side to side relative to forward
             -y = forward and back
+
+
+            +x = right
+            -x = left
+
+            +y = forward
+            -y = back
      */
 
     public void rotate(double degree){
@@ -169,19 +176,19 @@ public class FinalBot {
         Level 5 = set degree to 134.42 || distance is sqrt.96 + 3
      */
 
-        double[] heightDistance = new double[5];
+        double[] heightDistance = new double[2];
         heightDistance[0] = Math.sqrt(160) + 3;
         heightDistance[1] = Math.sqrt(192) + 3;
-        heightDistance[2] = Math.sqrt(192) + 3;
-        heightDistance[3] = Math.sqrt(160) + 3;
-        heightDistance[4] = Math.sqrt(96) + 3;
+        //heightDistance[2] = Math.sqrt(192) + 3;
+        //heightDistance[3] = Math.sqrt(160) + 3;
+        //heightDistance[4] = Math.sqrt(96) + 3;
 
-        double[] heightDegree = new double[5];
+        double[] heightDegree = new double[2];
         heightDegree[0] = 205.4;
         heightDegree[1] = 188.21;
-        heightDegree[2] = 171.79;
-        heightDegree[3] = 154.6;
-        heightDegree[4] = 134.42;
+        //heightDegree[2] = 171.79;
+        //heightDegree[3] = 154.6;
+        //heightDegree[4] = 134.42;
 
     move(0, heightDistance[height]);
     arm.setGrabPos();
