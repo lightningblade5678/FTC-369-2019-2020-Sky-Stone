@@ -73,7 +73,16 @@ public class BotArm {
             baseRotateDegree(armMotor, (target-armMotor.getCurrentPosition())/COUNTS_PER_MOTOR_REV/DRIVE_GEAR_REDUCTION*360 , power/2  );//corrects error at slower speed
         }//error correction
 
-    }//rotates motor # of degrees
+    }//rotates motor # of degrees (Rotates in direction of motor)
+
+    public void baseRotateDegreeTo(DcMotor armMotor, double degree, double power){
+
+        double currDeg = armMotor.getCurrentPosition()/COUNTS_PER_MOTOR_REV/DRIVE_GEAR_REDUCTION*360;//converts current encoder pos to a degree angle
+        currDeg = currDeg-(((int)currDeg)/360*360);//removes excess 360's
+
+        baseRotateDegree(armMotor,degree-currDeg,1);//rotates arm to pos
+        
+    }
 
     public double getDegree(DcMotor armMotor){
         return armMotor.getCurrentPosition()/(COUNTS_PER_MOTOR_REV*DRIVE_GEAR_REDUCTION)*360;
