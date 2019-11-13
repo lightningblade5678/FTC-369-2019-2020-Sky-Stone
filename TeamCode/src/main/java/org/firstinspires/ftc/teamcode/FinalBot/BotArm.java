@@ -54,7 +54,9 @@ public class BotArm {
     }//detects if hand is closed or not and inverts results
 
     public void baseRotateDegree(DcMotor armMotor, double degrees, double power){
+
         DcMotor.RunMode temp = armMotor.getMode();//saves runmode of motor
+
         armMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets mode to use encoder
 
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);//begins runmode
@@ -72,6 +74,8 @@ public class BotArm {
         if(Math.abs(armMotor.getCurrentPosition()-target) > COUNTS_PER_MOTOR_REV*0.1){//10% error threshold
             baseRotateDegree(armMotor, (target-armMotor.getCurrentPosition())/COUNTS_PER_MOTOR_REV/DRIVE_GEAR_REDUCTION*360 , power/2  );//corrects error at slower speed
         }//error correction
+
+        armMotor.setMode(temp);
 
     }//rotates motor # of degrees (Rotates in direction of motor)
 

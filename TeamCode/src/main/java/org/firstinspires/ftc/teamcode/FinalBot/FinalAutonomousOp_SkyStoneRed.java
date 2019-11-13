@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name="FInalAutonomousOp_SkyStoneRed")
+@Autonomous(name="BrickRed")
 public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
 
     private static final double COUNTS_PER_MOTOR_REV = 1120;
@@ -43,6 +43,7 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
         bot.move(0, 36); //Moves bot to in front of build platform
 
 
+        //Moves bot to in front of the build platform
         while (!bot.detectColor()) {
             bot.move(0, 1);
         }
@@ -52,6 +53,7 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
             bot.move(0, -10);
             bot.placeBlock(1);
         }
+
         bot.move(0, 18); //Moves bot onto midline [!] Check params
 
     }

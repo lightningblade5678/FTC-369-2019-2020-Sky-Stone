@@ -1,16 +1,16 @@
 package org.firstinspires.ftc.teamcode.FinalBot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-
-
+@Autonomous(name="BuildRed")
 public class FinalAutonomousOp_BuildRed extends LinearOpMode {
 
 
     FinalBot bot = new FinalBot(hardwareMap);
     public BotWheels wheels;
     public BotArm arm;
-
+    public BotIntake intake;
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -22,11 +22,35 @@ public class FinalAutonomousOp_BuildRed extends LinearOpMode {
         arm.baseRotateDegree(arm.baseMotor, 135, 1); //"Releases" plate
         bot.move(-12, 0); //moves robot away from plate
 
-        //moves bot through midbridge
+        //moves bot through mid-bridge
         bot.move(0, 48);
         bot.rotate(-90);
         bot.move(0, 24);
-        
 
+        //Drives forward until a block is picked up
+        intake.intakeStart();
+        while(!intake.intakeFill()){
+            wheels.setPower(1);
+        }
+        wheels.setPower(0);
+
+        //move robot to in front of the build plate
+        bot.rotate(-90);
+        bot.move(0, 24);
+        bot.rotate(-90);
+        bot.move(0, 48);
+        bot.rotate(180);
+
+        //places block
+        while (!bot.detectColor()) {
+            bot.move(0, 1);
+        }
+        if(bot.detectColor()){
+            bot.move(0, -10);
+            bot.rotate(180);
+            bot.move(0, -10);
+            bot.placeBlock(1);
+        }
+        bot.move(0, 24); //moves bot onto mid-line
     }
 }

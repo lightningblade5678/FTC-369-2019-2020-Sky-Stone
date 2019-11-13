@@ -190,14 +190,17 @@ public class FinalBot {
         //heightDegree[3] = 154.6;
         //heightDegree[4] = 134.42;
 
+        //gets robot into position to place
     move(0, heightDistance[height]);
     arm.setGrabPos();
     arm.handGrab(true);
     arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
     arm.rotateWrist(180);
+
+        //places block
     arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
     arm.handGrab(false);
-    arm.baseRotateDegree(arm.baseMotor,60, 1 ); // [!] Check parameters
+    arm.baseRotateDegree(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
 
 
     }//places block from internal storage onto tower
