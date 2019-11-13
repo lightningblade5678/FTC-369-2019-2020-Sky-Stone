@@ -3,8 +3,8 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="BuildRed")
-public class FinalAutonomousOp_BuildRed extends LinearOpMode {
+@Autonomous(name="BuildBlue")
+public class FinalAutonomousOp_BuildBlue extends LinearOpMode {
 
 
     FinalBot bot = new FinalBot(hardwareMap);
@@ -20,11 +20,11 @@ public class FinalAutonomousOp_BuildRed extends LinearOpMode {
         arm.baseRotateDegreeTo(arm.baseMotor, 225, 1); //"Grabs" plate
         bot.move(0, -30); //Drags plate into zone
         arm.baseRotateDegreeTo(arm.baseMotor, 135, 1); //"Releases" plate
-        bot.move(-12, 0); //moves robot away from plate
+        bot.move(12, 0); //moves robot away from plate
 
         //moves bot through mid-bridge
         bot.move(0, 48);
-        bot.rotate(-90);
+        bot.rotate(90);
         bot.move(0, 24);
 
         //Drives forward until a block is picked up
@@ -35,9 +35,9 @@ public class FinalAutonomousOp_BuildRed extends LinearOpMode {
         wheels.setPower(0);
 
         //move robot to in front of the build plate
-        bot.rotate(-90);
+        bot.rotate(90);
         bot.move(0, 24);
-        bot.rotate(-90);
+        bot.rotate(90);
         bot.move(0, 48);
         bot.rotate(180);
 

@@ -194,13 +194,13 @@ public class FinalBot {
     move(0, heightDistance[height]);
     arm.setGrabPos();
     arm.handGrab(true);
-    arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
+    arm.baseRotateDegreeTo(arm.baseMotor, 45, 1); // [!] Check parameters
     arm.rotateWrist(180);
 
         //places block
-    arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
+    arm.baseRotateDegreeTo(arm.baseMotor, heightDegree[height], 1 );
     arm.handGrab(false);
-    arm.baseRotateDegree(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
+    arm.baseRotateDegreeTo(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
 
 
     }//places block from internal storage onto tower

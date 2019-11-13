@@ -34,11 +34,7 @@ public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
 
         bot.intake(30, -1, true); // [!] Check parameters!
 
-        ElapsedTime travelTime = time;//Set time taken to detect skystone, will use later to reposition
-
-        bot.intake(30, 1, true); // [!] Check parameters!
-
-        bot.move(24, 24); //Moves bot to under the bridge
+        bot.move(24, -24); //Moves bot to under the bridge
         bot.rotate(90); //Turns bot to face build platform
         bot.move(0, 36); //Moves bot to in front of build platform
 
