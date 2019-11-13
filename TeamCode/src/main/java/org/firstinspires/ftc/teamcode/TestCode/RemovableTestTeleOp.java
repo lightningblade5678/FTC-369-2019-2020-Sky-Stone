@@ -29,6 +29,7 @@ public class RemovableTestTeleOp extends OpMode{
     public void init(){
 
         telemetry.addData("Status", "Initializing");
+        telemetry.update();
 
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -46,12 +47,10 @@ public class RemovableTestTeleOp extends OpMode{
         wrist = hardwareMap.get(Servo.class,"wrist");
         hand = hardwareMap.get(Servo.class,"hand");
         telemetry.addData("Status", "Initialized");
-
+        telemetry.update();
     }
 
     public void loop(){
-
-        int i = 1;
 
         if (gamepad1.right_stick_y > 0){
 
@@ -142,13 +141,11 @@ public class RemovableTestTeleOp extends OpMode{
         if(gamepad2.right_trigger > 0){
 
             telemetry.addData("Servo","Finger moving up");
-            telemetry.update();
             wait(3000);
             finger.setPosition(finger.getPosition() + 0.1);
         }
         if(gamepad2.right_bumper && finger.getPosition() - 0.1 >= 0){
             telemetry.addData("Servo","Finger moving down");
-            telemetry.update();
             wait(3000);
             finger.setPosition(finger.getPosition() - 0.1);
 
@@ -156,14 +153,12 @@ public class RemovableTestTeleOp extends OpMode{
 
         if(gamepad2.left_trigger > 0 && wrist.getPosition() + 0.1 <= 1){
             telemetry.addData("Servo","Wrist moving up");
-            telemetry.update();
             wait(3000);
             wrist.setPosition(wrist.getPosition() + 0.1);
 
         }
         if(gamepad2.left_bumper && wrist.getPosition() - 0.1 >= 0){
             telemetry.addData("Servo","Wrist moving down");
-            telemetry.update();
             wait(3000);
             wrist.setPosition(wrist.getPosition() - 0.1);
 
@@ -171,18 +166,18 @@ public class RemovableTestTeleOp extends OpMode{
 
         if(gamepad2.x && hand.getPosition() + 0.1 <= 1){
             telemetry.addData("Servo","Hand moving up");
-            telemetry.update();
             wait(3000);
             hand.setPosition(hand.getPosition() + 0.1);
 
         }
         if(gamepad2.y && hand.getPosition() - 0.1 >= 0){
             telemetry.addData("Servo","Hand moving down");
-            telemetry.update();
             wait(3000);
             hand.setPosition(hand.getPosition() - 0.1);
 
         }
+
+        telemetry.update();//updates telemetry with new input data
 
 
     }
