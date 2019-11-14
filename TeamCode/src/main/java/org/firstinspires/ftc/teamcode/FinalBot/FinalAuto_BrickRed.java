@@ -44,9 +44,9 @@ public class FinalAuto_BrickRed extends LinearOpMode {
             bot.move(0, 1);
         }
         if(bot.detectColor()){
-            bot.move(0, -10);
-            bot.rotate(180);
-            bot.move(0, -10);
+            //bot.move(0, -10);
+            //bot.rotate(180);
+            //bot.move(0, -10);
             bot.placeBlock(1);
         }
 
