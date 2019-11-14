@@ -32,7 +32,7 @@ public class FinalAuto_BrickRed extends LinearOpMode {
         bot.move(0, 30.5); //Move the bot to in front of the bricks, within scanning distance
 
 
-        bot.intake(30, -1, true); // [!] Check parameters!
+        bot.intakeTime( 30); // [!] Check parameters!
 
         bot.move(24, -24); //Moves bot to under the bridge
         bot.rotate(90); //Turns bot to face build platform
