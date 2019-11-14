@@ -23,9 +23,9 @@ public class BotIntake {
     //0:Left
     //1:Right
 
-    public BotIntake(DcMotor left, DcMotor right, DistanceSensor dist, Servo finger){
-        motors[0] = left;
-        motors[1] = right;
+    public BotIntake(DcMotor inLeft, DcMotor inRight, DistanceSensor dist, Servo finger){
+        motors[0] = inLeft;
+        motors[1] = inRight;
         this.touch = dist;
         this.finger = finger;
     }//basic constructor to create objects

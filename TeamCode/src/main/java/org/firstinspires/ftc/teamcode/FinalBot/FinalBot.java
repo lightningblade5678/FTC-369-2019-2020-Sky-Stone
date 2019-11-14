@@ -79,7 +79,7 @@ public class FinalBot {
         if(x != 0 && y != 0) {
 
             /*!*/
-            double steps = 0.1;//move in steps of 0.1 inches (diagonally)
+            double steps = 1;//move in steps of 1 inch (diagonally)
             double target = Math.sqrt((x * x) + (y * y));//sets diagonal target
             double angle = Math.atan(y / x);//use later
 
@@ -194,13 +194,13 @@ public class FinalBot {
     move(0, heightDistance[height]);
     arm.setGrabPos();
     arm.handGrab(true);
-    arm.baseRotateDegreeTo(arm.baseMotor, 45, 1); // [!] Check parameters
+    arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
     arm.rotateWrist(180);
 
         //places block
-    arm.baseRotateDegreeTo(arm.baseMotor, heightDegree[height], 1 );
+    arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
     arm.handGrab(false);
-    arm.baseRotateDegreeTo(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
+    arm.baseRotateDegree(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
 
 
     }//places block from internal storage onto tower

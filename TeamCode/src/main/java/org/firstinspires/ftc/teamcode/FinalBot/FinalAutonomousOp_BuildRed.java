@@ -17,9 +17,9 @@ public class FinalAutonomousOp_BuildRed extends LinearOpMode {
 
         bot.move(0, 30); //Orients bot in front of build plate
 
-        arm.baseRotateDegreeTo(arm.baseMotor, 225, 1); //"Grabs" plate
+        arm.baseRotateDegree(arm.baseMotor, 225, 1); //"Grabs" plate
         bot.move(0, -30); //Drags plate into zone
-        arm.baseRotateDegreeTo(arm.baseMotor, 135, 1); //"Releases" plate
+        arm.baseRotateDegree(arm.baseMotor, 135, 1); //"Releases" plate
         bot.move(-12, 0); //moves robot away from plate
 
         //moves bot through mid-bridge
@@ -28,11 +28,8 @@ public class FinalAutonomousOp_BuildRed extends LinearOpMode {
         bot.move(0, 24);
 
         //Drives forward until a block is picked up
-        intake.intakeStart();
-        while(!intake.intakeFill()){
-            wheels.setPower(1);
-        }
-        wheels.setPower(0);
+        bot.move(0, bot.intake(30));
+
 
         //move robot to in front of the build plate
         bot.rotate(-90);

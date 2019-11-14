@@ -18,6 +18,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class BotArm {
 
+    /* For BaseRotateDegreeTo method
+    //vars for encoders
+
+    private static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // eg: TETRIX Motor Encoder is 1440, neverest classic 40 are 1120
+    private static final double     DRIVE_GEAR_REDUCTION    =  120/80;     // This is < 1.0 if geared UP
+
+    //end encoder vars
+
+    */
+
     private static final double rpm = 152;
 
     public DcMotor baseMotor;
@@ -60,6 +70,13 @@ public class BotArm {
 
     }//rotates base degrees to l/r
 
+/*
+    public void baseRotateDegreeTo(DcMotor armMotor, double degree, double power){
+
+        double currDeg = armMotor.getCurrentPosition()/COUNTS_PER_MOTOR_REV/DRIVE_GEAR_REDUCTION*360;//converts current encoder pos to a degree angle
+        currDeg = currDeg-(((int)currDeg)/360*360);//removes excess 360's
+
+*/
     public void setGrabPos(){
         // [!] Check all parameters
         handGrab(false);
