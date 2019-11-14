@@ -227,6 +227,28 @@ public class FinalBot {
         return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns distance travelled (Y)
 
+    public double intakeTime(double timeout){
+
+        double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
+
+        intake.openFinger();
+
+        ElapsedTime time = new ElapsedTime(0);
+        wheels.setPower(1);
+        intake.intakeStart();
+        
+        time.reset();
+
+        while(time.seconds() < timeout);
+
+        wheels.setPower(0);
+        intake.intakeStop();
+
+        intake.toggleFinger();
+
+        return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
+    }//intakes from front for a specified amount of time, returns distance travelled
+
     public double intake(double timeout, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
 
         double currCount = wheels.getWheel(3).getCurrentPosition();//current position of encoder
