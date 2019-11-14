@@ -83,8 +83,8 @@ public class FinalBot {
             double angle = Math.atan(y / x);//use later
 
             for (double i = 0; i < target; i += steps) {
-                wheels.moveRelativeY(Math.sin(angle) * steps, Math.abs(y) / y);//moves y
-                wheels.moveRelativeX(Math.cos(angle) * steps, Math.abs(x) / x);//moves x
+                wheels.moveRelativeY(Math.sin(angle) * steps, 1);//moves y
+                wheels.moveRelativeX(Math.cos(angle) * steps, 1);//moves x
 
                 if(Math.abs(gyro.getHeading()-heading) > threshold){
                     rotate(heading-gyro.getHeading());
@@ -96,7 +96,7 @@ public class FinalBot {
 
         }else if(x == 0){//if is simple linear grid motion just call the methods
 
-            wheels.moveRelativeY(y, Math.abs(y)/y);
+            wheels.moveRelativeY(y, 1);
 
             if(Math.abs(gyro.getHeading()-heading) > threshold){
                 rotate(heading-gyro.getHeading());
@@ -104,7 +104,7 @@ public class FinalBot {
 
         }else if(y == 0){
 
-            wheels.moveRelativeX(x, Math.abs(x)/x);
+            wheels.moveRelativeX(x, 1);
 
             if(Math.abs(gyro.getHeading()-heading) > threshold){
                 rotate(heading-gyro.getHeading());

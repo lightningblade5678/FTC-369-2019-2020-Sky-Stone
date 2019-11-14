@@ -104,7 +104,7 @@ public class BotWheels {
             wheels[i].setTargetPosition(wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
         }//NOTE: only the back 2 motors have encoders
 
-        setPower(power * (Math.abs(distance)/distance) );//sets power and begins run
+        setPower(power * (Math.abs(distance)/distance) * (Math.abs(distance)/distance) );//sets power and begins run
 
         setPower(2, power*0.95* (Math.abs(distance)/distance) );
         setPower(3, power*0.95* (Math.abs(distance)/distance) );
