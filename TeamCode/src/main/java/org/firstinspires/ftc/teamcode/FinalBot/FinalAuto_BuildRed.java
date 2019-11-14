@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous(name="BuildRed")
-public class FinalAutonomousOp_BuildRed extends LinearOpMode {
+public class FinalAuto_BuildRed extends LinearOpMode {
 
 
     FinalBot bot = new FinalBot(hardwareMap);

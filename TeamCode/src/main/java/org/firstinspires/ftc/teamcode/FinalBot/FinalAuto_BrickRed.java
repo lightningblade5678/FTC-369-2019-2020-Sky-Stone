@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name="BrickRed")
-public class FinalAutonomousOp_SkyStoneRed extends LinearOpMode {
+public class FinalAuto_BrickRed extends LinearOpMode {
 
     private static final double COUNTS_PER_MOTOR_REV = 1120;
     private static final double DRIVE_GEAR_REDUCTION = 1;
