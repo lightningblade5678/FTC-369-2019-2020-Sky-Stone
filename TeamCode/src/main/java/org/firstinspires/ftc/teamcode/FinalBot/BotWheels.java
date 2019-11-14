@@ -61,13 +61,18 @@ public class BotWheels {
     }//sets mode of an individual motor
 
     public void setPower(double power){
-        for(DcMotor m:wheels){
-            m.setPower(power);
+        for(int i = 0; i < wheels.length;i++){
+            setPower(i,power);
         }//sets power of all motors
     }//sets the power of all motors
 
     public void setPower(int i, double power){
         wheels[i].setPower(power);
+
+        if(i ==1 || i == 3){
+            wheels[i].setPower(wheels[i].getPower()*-1);
+        }//compensates for back wheels rotating backwards
+
     }//sets the power of an individual motor
 
     public DcMotor getWheel(int i){
