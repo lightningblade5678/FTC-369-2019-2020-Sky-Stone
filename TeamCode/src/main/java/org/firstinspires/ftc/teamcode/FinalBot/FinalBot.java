@@ -273,7 +273,7 @@ public class FinalBot {
 
         wheels.setPower(0);
 
-        if(useArm) {
+        if(useArm && time.seconds() < timeout) {
             //rotate bot 180 degrees [!]
             grabBlock();//attempts to grab block via arm
         }else{
