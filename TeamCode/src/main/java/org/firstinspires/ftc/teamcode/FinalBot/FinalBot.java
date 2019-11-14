@@ -36,7 +36,8 @@ public class FinalBot {
         wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
         //initializes botWheels
 
-        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"),map.get(Servo.class, "finger"));
+        // [!]  intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"),map.get(Servo.class, "finger"));
+
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
         /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(Servo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
