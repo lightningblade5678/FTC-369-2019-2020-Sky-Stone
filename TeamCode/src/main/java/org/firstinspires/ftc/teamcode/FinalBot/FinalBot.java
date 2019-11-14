@@ -229,8 +229,6 @@ public class FinalBot {
 
     public double intakeTime(double timeout){
 
-
-
         double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
         intake.openFinger();//ensures bot finger is open
@@ -279,7 +277,11 @@ public class FinalBot {
             //rotate bot 180 degrees [!]
             grabBlock();//attempts to grab block via arm
         }else{
+            move(0,6);//moves away from blocks
+            rotate(180);//rotates around
             move(0,-intake(timeout - time.seconds()) / wheels.getCountsPerInch()/ wheels.getDistanceModX());//attepts to intake block with time left and then moves back into position
+            rotate(-180);//resets rot position
+            move(0,-6);//finishes compensation
         }
 
         intake.toggleFinger();//closes/opens intake
