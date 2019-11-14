@@ -73,8 +73,6 @@ public class FinalBot {
 
         double threshold = 5;//5 degree error threshold
 
-        calibrateGyro();
-
         double heading = gyro.getHeading();
 
         if(x != 0 && y != 0) {
@@ -135,8 +133,6 @@ public class FinalBot {
 
 
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
-
-        calibrateGyro();
 
         double target = gyro.getHeading()+degree;
 
@@ -208,6 +204,9 @@ public class FinalBot {
 
     public double intake(double timeout){
 
+        double threshold = 5;//5 degree error threshold
+
+
         double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
         intake.toggleFinger();//ensures intake is open if needed
@@ -230,22 +229,24 @@ public class FinalBot {
 
     public double intakeTime(double timeout){
 
+
+
         double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
-        intake.openFinger();
+        intake.openFinger();//ensures bot finger is open
 
-        ElapsedTime time = new ElapsedTime(0);
+        ElapsedTime time = new ElapsedTime(0);//time
         wheels.setPower(1);
-        intake.intakeStart();
+        intake.intakeStart();//start wheels and intake
         
         time.reset();
 
-        while(time.seconds() < timeout);
+        while(time.seconds() < timeout);//waits
 
         wheels.setPower(0);
-        intake.intakeStop();
+        intake.intakeStop();//stops
 
-        intake.toggleFinger();
+        intake.toggleFinger();//toggles finger if block is in intake
 
         return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
     }//intakes from front for a specified amount of time, returns distance travelled

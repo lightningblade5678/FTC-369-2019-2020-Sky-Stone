@@ -104,10 +104,10 @@ public class BotWheels {
             wheels[i].setTargetPosition(wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
         }//NOTE: only the back 2 motors have encoders
 
-        setPower(power);//sets power and begins run
+        setPower(power * (Math.abs(distance)/distance) );//sets power and begins run
 
-        setPower(2, power*0.95);
-        setPower(3,power*0.95);
+        setPower(2, power*0.95* (Math.abs(distance)/distance) );
+        setPower(3, power*0.95* (Math.abs(distance)/distance) );
 
         while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
 
@@ -130,10 +130,10 @@ public class BotWheels {
         wheels[2].setTargetPosition(wheels[2].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
         wheels[3].setTargetPosition(wheels[3].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
 
-        setPower(0, power);
-        setPower(1, -power);
-        setPower(2, -power*0.95);
-        setPower(3, power*0.95);//sets power of the bot
+        setPower(0, power* (Math.abs(distance)/distance));
+        setPower(1, -power* (Math.abs(distance)/distance));
+        setPower(2, -power*0.95* (Math.abs(distance)/distance));
+        setPower(3, power*0.95* (Math.abs(distance)/distance));//sets power of the bot
 
         while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
 

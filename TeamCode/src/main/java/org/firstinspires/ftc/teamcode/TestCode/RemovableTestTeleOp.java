@@ -36,16 +36,16 @@ public class RemovableTestTeleOp extends OpMode{
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
 
-        intakeMotorRight = hardwareMap.get(DcMotor.class, "inRight");
-        intakeMotorLeft = hardwareMap.get(DcMotor.class, "inLeft");
+        intakeMotorRight = hardwareMap.get(DcMotor.class, "intakeRight");
+        intakeMotorLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
 
         finger = hardwareMap.get(Servo.class, "finger");
 
-        arm = hardwareMap.get(DcMotor.class,"arm");
+        arm = hardwareMap.get(DcMotor.class,"baseMotor");
 
 
-        wrist = hardwareMap.get(Servo.class,"wrist");
-        hand = hardwareMap.get(Servo.class,"hand");
+        wrist = hardwareMap.get(Servo.class,"wristServo");
+        hand = hardwareMap.get(Servo.class,"handServo");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
     }
@@ -138,7 +138,7 @@ public class RemovableTestTeleOp extends OpMode{
 
         }
 
-        if(gamepad2.right_trigger > 0){
+        if(gamepad2.right_trigger > 0 && finger.getPosition() + 0.1 <= 1){
 
             telemetry.addData("Servo","Finger moving up");
             wait(3000);
