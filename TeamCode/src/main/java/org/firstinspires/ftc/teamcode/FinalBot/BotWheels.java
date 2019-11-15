@@ -95,9 +95,9 @@ public class BotWheels {
 
     public void moveRelativeY(double distance, double power){
 
-        DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
+        DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for lat
 
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
 
         for(int i = 2; i < wheels.length; i++){
@@ -120,8 +120,7 @@ public class BotWheels {
     public void moveRelativeX(double distance, double power){
 
         DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);//sets motor runmode
-
+        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         /*NOTE: only the back 2 wheels have encoders*/
