@@ -68,7 +68,7 @@ public class BotIntake {
 
         }else{
 
-            if(finger.getPosition() == 0.25){
+            if(Math.abs(0.25-finger.getPosition()) < 10){//if within range
                 openFinger();
             }else{
                 closeFinger();
