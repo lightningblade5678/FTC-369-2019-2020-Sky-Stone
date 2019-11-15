@@ -45,7 +45,7 @@ public class BotIntake {
     }//stops the intake system
 
     public boolean intakeFill(){
-        /*(!)*/return touch.getDistance(DistanceUnit.INCH) <= 2 || this.touch == null;//returns if distance between block and sensor is less that 2in, adjust values later. if no distance sensor, returns true
+        /*(!)*/return this.touch == null || touch.getDistance(DistanceUnit.INCH) <= 2;//returns if distance between block and sensor is less that 2in, adjust values later. if no distance sensor, returns true
     }//returns true if intake contains a block
 
     public void closeFinger(){
