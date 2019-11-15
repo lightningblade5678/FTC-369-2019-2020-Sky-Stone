@@ -31,7 +31,7 @@ public class FinalBot {
 
     //constructors
 
-    public FinalBot(HardwareMap map){
+    public FinalBot(HardwareMap map) throws NullPointerException{
 
         wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
         //initializes botWheels
