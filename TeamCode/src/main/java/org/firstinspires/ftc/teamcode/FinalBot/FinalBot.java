@@ -140,6 +140,8 @@ public class FinalBot {
 
         double target = gyro.getHeading()+degree;
 
+        target = target-(((int)target)/360)*360;
+
         wheels.setPower(0,Math.abs(degree)/degree*speed);
         wheels.setPower(1,-Math.abs(degree)/degree*speed);
         wheels.setPower(2,(Math.abs(degree)/degree*0.95)*speed);
@@ -323,9 +325,11 @@ public class FinalBot {
 
     }//grabs a block from behind robot and places into storage
 
-    public void calibrateGyro(){
+    public double calibrateGyro(){
         gyro.calibrate();//starts gyro calibration
         while(gyro.isCalibrating());//waits until gyro finishes calibrating
-    }//calibrates the gyroscope
+
+        return gyro.getHeading();
+    }//calibrates the gyroscope, returns heading
 
 }
