@@ -7,13 +7,13 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class FinalAuto_BuildRed extends LinearOpMode {
 
 
-    FinalBot bot = new FinalBot(hardwareMap);
-    public BotWheels wheels;
-    public BotArm arm;
-    public BotIntake intake;
+
+
     @Override
     public void runOpMode() throws InterruptedException {
 
+        FinalBot bot = new FinalBot(hardwareMap);
+        BotArm arm = bot.arm;
 
         bot.move(0, 30); //Orients bot in front of build plate
 

@@ -16,16 +16,14 @@ public class FinalAuto_BrickRed extends LinearOpMode {
     private static final double WHEEL_DIAMETER_INCHES = 4.0;
     private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
-    FinalBot bot = new FinalBot(hardwareMap);
+
 
 
     private ElapsedTime time = new ElapsedTime();
-    public BotWheels wheels;
-    public BotArm arm;
 
     @Override
     public void runOpMode() throws InterruptedException {
-
+        FinalBot bot = new FinalBot(hardwareMap);
 
         // [!] VALUES MAY VARY
         time.reset();
