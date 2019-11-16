@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.FinalBot.BotArm;
 import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
-
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Autonomous
 public class DirectionTest extends LinearOpMode {
