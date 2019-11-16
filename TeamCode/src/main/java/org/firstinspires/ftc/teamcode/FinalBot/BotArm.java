@@ -35,9 +35,9 @@ public class BotArm {
     public Servo handServo;
 
     public BotArm(DcMotor base, Servo wrist, Servo hand){
-    base = baseMotor;
-    wrist = wristServo;
-    hand = handServo;
+    baseMotor = base;
+    wristServo = wrist;
+    handServo = hand;
     }//basic constructor to make a motor
 
     //start work method
