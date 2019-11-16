@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import org.firstinspires.ftc.teamcode.FinalBot.BotArm;
 import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @Autonomous
 public class DirectionTest extends LinearOpMode {
@@ -41,9 +40,6 @@ public class DirectionTest extends LinearOpMode {
 
      telemetry.addData("Wrist Position", "0");
      telemetry.update();
-
-     sleep(2000);
-
      arm.wristServo.setPosition(0);
 
      sleep(2000);

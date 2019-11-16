@@ -42,24 +42,24 @@ public class BotArm {
 
     //start work method
 
-    public void rotateWrist(double wristDegree /*never set this above 180 or below 0*/ ){
-        wristServo.setPosition(wristDegree/180); // [!] Check params
+    public void rotateWrist(double Degree /*never set this above 180 or below 0*/ ){
+        wristServo.setPosition(Degree/180); // [!] Check params
     }//sets servo to degrees between 0-180
 
 
     public void handGrab(boolean state){
         if (state){
-            handServo.setPosition(0); // [!] check parameter
+            handServo.setPosition(0);
         }
         else{
-            handServo.setPosition(1); // [!] check parameter
-        }//closes hand
+            handServo.setPosition(1);
+        }//closes hand || 1 - open     0 - closed
 
     }//detects if hand is closed or not and inverts results
 
     public void baseRotateDegree(DcMotor base, double deg, double speed /*Never set this below 0 or above 1*/ ){
         
-        double timeRot /*in seconds*/= deg/ ( (rpm*speed)/60*360 );//calculates time that the arm needs to rotate for
+        double timeRot /*in seconds*/ = deg/ ( (rpm*speed)/60*360 );//calculates time that the arm needs to rotate for
 
         ElapsedTime time = new ElapsedTime(0);
         time.reset();

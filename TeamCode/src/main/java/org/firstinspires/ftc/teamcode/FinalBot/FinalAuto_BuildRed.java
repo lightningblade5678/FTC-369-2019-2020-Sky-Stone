@@ -14,40 +14,20 @@ public class FinalAuto_BuildRed extends LinearOpMode {
 
         FinalBot bot = new FinalBot(hardwareMap);
         BotArm arm = bot.arm;
+        BotWheels wheels = bot.getWheels();
 
-        bot.move(0, 30); //Orients bot in front of build plate
+        //runs robot up over build plate edge, then backs up and drags plate
+        bot.move(0, -30);
+/*
+        sleep(1000);
 
-        arm.baseRotateDegree(arm.baseMotor, 225, 1); //"Grabs" plate
-        bot.move(0, -30); //Drags plate into zone
-        arm.baseRotateDegree(arm.baseMotor, 135, 1); //"Releases" plate
-        bot.move(-12, 0); //moves robot away from plate
+        wheels.setPower(1, 1);
+        wheels.setPower(4, 1);
+        wheels.setPower(2, -.1); //moves front wheels forward to keep robot on plate
+        wheels.setPower(3, -.1); //moves front wheels forward to keep robot on plate
+        sleep(15000);
 
-        //moves bot through mid-bridge
-        bot.move(0, 48);
-        bot.rotate(-90);
-        bot.move(0, 24);
-
-        //Drives forward until a block is picked up
-        bot.move(0, bot.intake(30));
-
-
-        //move robot to in front of the build plate
-        bot.rotate(-90);
-        bot.move(0, 24);
-        bot.rotate(-90);
-        bot.move(0, 48);
-        bot.rotate(180);
-
-        //places block
-        while (!bot.detectColor()) {
-            bot.move(0, 1);
-        }
-        if(bot.detectColor()){
-            bot.move(0, -10);
-            bot.rotate(180);
-            bot.move(0, -10);
-            bot.placeBlock(1);
-        }
-        bot.move(0, 24); //moves bot onto mid-line
-    }
+        wheels.setPower(0);
+        */
+     }
 }
