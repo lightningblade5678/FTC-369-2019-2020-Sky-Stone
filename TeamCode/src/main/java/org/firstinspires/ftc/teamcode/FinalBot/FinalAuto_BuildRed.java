@@ -17,17 +17,25 @@ public class FinalAuto_BuildRed extends LinearOpMode {
         BotWheels wheels = bot.getWheels();
 
         //runs robot up over build plate edge, then backs up and drags plate
-        bot.move(0, -30);
-/*
-        sleep(1000);
+
+
+        wheels.setPower(-1);
+        sleep(3000);
 
         wheels.setPower(1, 1);
         wheels.setPower(4, 1);
-        wheels.setPower(2, -.1); //moves front wheels forward to keep robot on plate
-        wheels.setPower(3, -.1); //moves front wheels forward to keep robot on plate
-        sleep(15000);
-
+        wheels.setPower(2, -.2); //moves front wheels forward to keep robot on plate
+        wheels.setPower(3, -.2); //moves front wheels forward to keep robot on plate
+        sleep(10000);
         wheels.setPower(0);
-        */
+        sleep(100);
+        wheels.setPower(1);
+        sleep(3000);
+        wheels.setPower(0);
+
+
+
+
+
      }
 }
