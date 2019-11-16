@@ -22,7 +22,8 @@ public class DirectionTest extends LinearOpMode {
 
      telemetry.addData("Arm Power", "Positive");
      telemetry.update();
-     arm.baseMotor.setPower(power);
+     //arm.baseMotor.setPower(power);
+     arm.baseRotateDegree(arm.baseMotor, 20, 0.1);
      sleep(2000);
      arm.baseMotor.setPower(0);
 
