@@ -135,7 +135,6 @@ public class FinalBot {
         rotate(degree,1);
     }//helper method for simplicity
 
-
     public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
 
         double target = gyro.getHeading()+degree;
@@ -149,11 +148,11 @@ public class FinalBot {
 
         if(degree >= 0){//clockwise
 
-            while(gyro.getHeading() < target);//waits until degree is greater than or equal to target loc
+            while(gyro.getHeading() < target){}//waits until degree is greater than or equal to target loc
 
         }else{//counterclockwise
 
-            while(gyro.getHeading() > target);//waits until degree is less than or equal to target loc
+            while(gyro.getHeading() > target){}//waits until degree is less than or equal to target loc
 
         }
 
@@ -162,6 +161,11 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.getHeading() - target) > threshold){
+            ElapsedTime time = new ElapsedTime(0);
+
+            time.reset();
+            while(time.seconds() < 1);
+
             rotate(target-gyro.getHeading(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
