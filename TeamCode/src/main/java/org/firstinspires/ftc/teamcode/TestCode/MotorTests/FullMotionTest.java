@@ -17,6 +17,8 @@ public class FullMotionTest extends LinearOpMode {
         telemetry.addData("Rotating: ","90");
         telemetry.update();
 
+        bot.calibrateGyro();
+
         bot.rotate(90);
 
         telemetry.addData("Rotating: ","-270");
