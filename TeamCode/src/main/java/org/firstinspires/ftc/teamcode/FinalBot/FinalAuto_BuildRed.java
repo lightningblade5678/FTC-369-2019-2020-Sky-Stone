@@ -3,11 +3,8 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="BuildRed")
+@Autonomous(name="UpdatedBuildRed")
 public class FinalAuto_BuildRed extends LinearOpMode {
-
-
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -18,20 +15,17 @@ public class FinalAuto_BuildRed extends LinearOpMode {
 
         //runs robot up over build plate edge, then backs up and drags plate
 
-
-        wheels.setPower(-1);
-        sleep(3000);
-
-        wheels.setPower(1, 1);
-        wheels.setPower(4, 1);
-        wheels.setPower(2, -.2); //moves front wheels forward to keep robot on plate
-        wheels.setPower(3, -.2); //moves front wheels forward to keep robot on plate
-        sleep(10000);
-        wheels.setPower(0);
-        sleep(100);
+        arm.handServo.setPosition(0);
+        arm.baseMotor.setPower(.4);
+        sleep(2500);
+        arm.baseMotor.setPower(-.4);
+        arm.wristServo.setPosition(1);
+        sleep(2500);
         wheels.setPower(1);
-        sleep(3000);
+        sleep(10000);
+
         wheels.setPower(0);
+        arm.baseMotor.setPower(0);
 
 
 
