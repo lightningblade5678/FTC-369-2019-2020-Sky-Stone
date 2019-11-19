@@ -6,6 +6,8 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class BotWheels {
 
     //constants (taken from demo programs)
@@ -99,8 +101,12 @@ public class BotWheels {
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
 
+        wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
+        wheels[1].setTargetPosition(wheels[1].getCurrentPosition() - (int)( (distance*distanceModY) * COUNTS_PER_INCH));
+
         wheels[2].setTargetPosition(wheels[2].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
         wheels[3].setTargetPosition(wheels[3].getCurrentPosition() - (int)( (distance*distanceModY) * COUNTS_PER_INCH));
+
         //NOTE: only the back 2 motors have encoders
 
         setPower(power * (Math.abs(distance)/distance));//sets power and begins run
@@ -108,7 +114,7 @@ public class BotWheels {
         setPower(2, power*0.95* (Math.abs(distance)/distance) );
         setPower(3, power*0.95* (Math.abs(distance)/distance) );
 
-        while( /*wheels[0].isBusy() || wheels[1].isBusy()||*/ wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+        while( wheels[0].isBusy() || wheels[1].isBusy() || wheels[2].isBusy() || wheels[3].isBusy());//waits until encoders are done running
         //NOTE: commented out wheels w/o encoders
 
         setPower(0);//stops wheels command is done
@@ -124,8 +130,8 @@ public class BotWheels {
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         /*NOTE: only the back 2 wheels have encoders*/
-        //wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
-        //wheels[1].setTargetPosition(wheels[1].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
+        wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
+        wheels[1].setTargetPosition(wheels[1].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
         wheels[2].setTargetPosition(wheels[2].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
         wheels[3].setTargetPosition(wheels[3].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
 
@@ -134,7 +140,9 @@ public class BotWheels {
         setPower(2, -power*0.95* (Math.abs(distance)/distance));
         setPower(3, power*0.95* (Math.abs(distance)/distance));//sets power of the bot
 
-        while( /*wheels[0].isBusy() || wheels[1].isBusy()|| */ wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+        while( wheels[0].isBusy() || wheels[1].isBusy() || wheels[2].isBusy() || wheels[3].isBusy()) {
+
+        }//waits until encoders are done running
         //NOTE: commented out wheels w/o encoders
 
         setPower(0);//stops wheels command is done
