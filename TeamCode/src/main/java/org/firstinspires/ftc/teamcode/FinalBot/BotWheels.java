@@ -6,8 +6,6 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 public class BotWheels {
 
    //constants (taken from demo programs)
@@ -150,7 +148,5 @@ public class BotWheels {
       setMode(temp);//resets runmode back to original
    
    }//moves bot relative to X axis, or left/right bias right
-
-
 
 }
