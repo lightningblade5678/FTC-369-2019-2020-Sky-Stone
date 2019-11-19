@@ -101,14 +101,14 @@ public class BotWheels {
 
         double direction = Math.abs(distance)/distance;
 
-        //setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
 
         wheels[3].setTargetPosition(wheels[2].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
         wheels[2].setTargetPosition(wheels[3].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
+        
+        while(wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
 
-        //while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
-
-        //setPower(0);//stops wheels command is done
+        //setPower(0); //stops wheels command is done
 /*
         setMode(temp);//resets runmode back to original
 */
