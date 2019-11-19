@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 /*
 A program to find how much power is needed to be delivered to the arm to keep it in place
+//0.25
 */
 
 @TeleOp
@@ -25,7 +26,7 @@ public class ArmLiftPower extends LinearOpMode {
             telemetry.addData("DpadUD","U increase, D Decrease power increment");
             telemetry.addData("Step: ",step);
             telemetry.addData("CurrPower: ",baseMotor.getPower());
-
+            telemetry.update();
             if(gamepad1.dpad_left){
 
                 if(baseMotor.getPower() - step > 0){
