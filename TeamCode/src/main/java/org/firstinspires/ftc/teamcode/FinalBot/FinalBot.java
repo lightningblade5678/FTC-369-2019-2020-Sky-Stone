@@ -72,7 +72,7 @@ public class FinalBot {
 
         double threshold = 5;//5 degree error threshold
 
-        double heading = gyro.getHeading();
+        //double heading = gyro.getHeading();
 
         if(x != 0 && y != 0) {
 
@@ -84,19 +84,19 @@ public class FinalBot {
             for (double i = 0; i < target; i += steps) {
                 wheels.moveRelativeY(Math.sin(angle) * steps, 1);//moves y
                 wheels.moveRelativeX(Math.cos(angle) * steps, 1);//moves x
-
+/* Remove comment later
                 if(Math.abs(gyro.getHeading()-heading) > threshold){
                     rotate(heading-gyro.getHeading());
                     calibrateGyro();
                     heading = gyro.getHeading();
                 }//corrects course if bot gets thrown off heading
-
+*/
             }//moves the bots in a "staircase" with a overall linear traverse of steps inches
 
         }else if(x == 0){//if is simple linear grid motion just call the methods
 
             wheels.moveRelativeY(y, 1);
-
+/*
             if(Math.abs(gyro.getHeading()-heading) > threshold){
                 rotate(heading-gyro.getHeading());
             }//corrects course if bot is thrown off heading
@@ -108,7 +108,7 @@ public class FinalBot {
             if(Math.abs(gyro.getHeading()-heading) > threshold){
                 rotate(heading-gyro.getHeading());
             }//corrects course if bot is thrown off heading
-
+*/
         }
 
     }//moves bot by x/y values
