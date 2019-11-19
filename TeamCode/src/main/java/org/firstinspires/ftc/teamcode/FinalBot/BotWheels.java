@@ -69,7 +69,7 @@ public class BotWheels {
     public void setPower(int i, double power){
         wheels[i].setPower(power);
 
-        if(i ==1 || i == 3){
+        if(i == 1 || i == 3){
             wheels[i].setPower(wheels[i].getPower()*-1);
         }//compensates for back wheels rotating backwards
 
@@ -97,19 +97,19 @@ public class BotWheels {
 
         DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for lat
 
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
 
-        for(int i = 2; i < wheels.length; i++){
-            wheels[i].setTargetPosition(wheels[i].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
-        }//NOTE: only the back 2 motors have encoders
+        wheels[2].setTargetPosition(wheels[2].getCurrentPosition() + (int)( (distance*distanceModY) * COUNTS_PER_INCH));//sets target count LOC for each wheel
+        wheels[3].setTargetPosition(wheels[3].getCurrentPosition() - (int)( (distance*distanceModY) * COUNTS_PER_INCH));
+        //NOTE: only the back 2 motors have encoders
 
         setPower(power * (Math.abs(distance)/distance));//sets power and begins run
 
         setPower(2, power*0.95* (Math.abs(distance)/distance) );
         setPower(3, power*0.95* (Math.abs(distance)/distance) );
 
-        while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+        while( /*wheels[0].isBusy() || wheels[1].isBusy()||*/ wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+        //NOTE: commented out wheels w/o encoders
 
         setPower(0);//stops wheels command is done
 
@@ -120,21 +120,22 @@ public class BotWheels {
     public void moveRelativeX(double distance, double power){
 
         DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
-        setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         /*NOTE: only the back 2 wheels have encoders*/
         //wheels[0].setTargetPosition(wheels[0].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
         //wheels[1].setTargetPosition(wheels[1].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
         wheels[2].setTargetPosition(wheels[2].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));//reversed target motor LOC
-        wheels[3].setTargetPosition(wheels[3].getCurrentPosition() + (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
+        wheels[3].setTargetPosition(wheels[3].getCurrentPosition() - (int)( (distance*distanceModX) * COUNTS_PER_INCH ));
 
         setPower(0, power* (Math.abs(distance)/distance));
         setPower(1, -power* (Math.abs(distance)/distance));
         setPower(2, -power*0.95* (Math.abs(distance)/distance));
         setPower(3, power*0.95* (Math.abs(distance)/distance));//sets power of the bot
 
-        while(wheels[0].isBusy() || wheels[1].isBusy()|| wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+        while( /*wheels[0].isBusy() || wheels[1].isBusy()|| */ wheels[2].isBusy()|| wheels[3].isBusy());//waits until encoders are done running
+        //NOTE: commented out wheels w/o encoders
 
         setPower(0);//stops wheels command is done
 

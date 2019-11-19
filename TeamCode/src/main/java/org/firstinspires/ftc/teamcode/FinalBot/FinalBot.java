@@ -53,12 +53,7 @@ public class FinalBot {
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
     public boolean detectColor() {
-        if(colors.red() > 10 && colors.green() > 10 && colors.blue() > 10){
-            return true;
-        }
-        else{
-            return false;
-        }
+        return colors.red() > 10 && colors.green() > 10 && colors.blue() > 10;
     }//Detects if something is in front of robot
 
     public FinalBot(BotWheels wheels, BotIntake intake, BotArm arm){
@@ -139,7 +134,13 @@ public class FinalBot {
 
         double target = gyro.getHeading()+degree;
 
-        target = target-(((int)target)/360)*360;
+        target = target - ( ( ( (int)target ) /360)*360 );//removes excess 360s
+
+        double origHeading = gyro.getHeading();
+
+        if(target < 0){
+            target = 360 + target;
+        }//checks for negatives
 
         wheels.setPower(0,Math.abs(degree)/degree*speed);
         wheels.setPower(1,-Math.abs(degree)/degree*speed);
@@ -148,11 +149,15 @@ public class FinalBot {
 
         if(degree >= 0){//clockwise
 
-            while(gyro.getHeading() < target){}//waits until degree is greater than or equal to target loc
+            while(gyro.getHeading() < target){
+
+            }//waits until degree is greater than or equal to target loc
 
         }else{//counterclockwise
 
-            while(gyro.getHeading() > target){}//waits until degree is less than or equal to target loc
+            while(gyro.getHeading() > target){
+
+            }//waits until degree is less than or equal to target loc
 
         }
 
@@ -164,9 +169,9 @@ public class FinalBot {
             ElapsedTime time = new ElapsedTime(0);
 
             time.reset();
-            while(time.seconds() < 1);
+            while(time.seconds() < 0.25);
 
-            rotate(target-gyro.getHeading(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
+            rotate(target-gyro.getHeading(), speed/4);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
@@ -198,17 +203,16 @@ public class FinalBot {
         //heightDegree[4] = 134.42;
 
         //gets robot into position to place
-    move(0, heightDistance[height]);
-    arm.setGrabPos();
-    arm.handGrab(true);
-    arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
-    arm.rotateWrist(180);
+        move(0, heightDistance[height]);
+        arm.setGrabPos();
+        arm.handGrab(true);
+        arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
+        arm.rotateWrist(180);
 
         //places block
-    arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
-    arm.handGrab(false);
-    arm.baseRotateDegree(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
-
+        arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
+        arm.handGrab(false);
+        arm.baseRotateDegree(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
 
     }//places block from internal storage onto tower
 
