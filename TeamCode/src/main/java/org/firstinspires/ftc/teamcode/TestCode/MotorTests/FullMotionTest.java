@@ -31,30 +31,40 @@ public class FullMotionTest extends LinearOpMode {
         bot.rotate(-270);
 
          */
-        telemetry.addData("Strafe: ","6in");
+        telemetry.addData("Strafe: ","24in");
         telemetry.update();
 
-        bot.move(6,0);
+        bot.move(24,0);
 
-        telemetry.addData("CounterStrafe: ","6in");
+        sleep(6000);
+
+        telemetry.addData("CounterStrafe: ","24in");
         telemetry.update();
 
-        bot.move(-6,0);
+        bot.move(-24,0);
 
-        telemetry.addData("Move: ","6in");
+        sleep(6000);
+
+        telemetry.addData("Move: ","24in");
         telemetry.update();
 
-        bot.move(0,6);
+        bot.move(0,24);
 
-        telemetry.addData("Reverse: ","6in");
+        sleep(6000);
+
+        telemetry.addData("Reverse: ","24in");
         telemetry.update();
 
-        bot.move(0,-6);
+        bot.move(0,-24);
 
-        telemetry.addData("Diagonal: ","R6in, U6in");
+        sleep(6000);
+
+        telemetry.addData("Diagonal: ","R24in, U24in");
         telemetry.update();
 
-        bot.move(6,6);
+        bot.move(24,24);
+
+        sleep(6000);
 
         telemetry.addData("Finishing: ","360");
         telemetry.update();
