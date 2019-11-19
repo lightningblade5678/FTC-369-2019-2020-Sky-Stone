@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import android.hardware.Sensor;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,19 +19,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class BotIntake {
 
     private DistanceSensor touch;//Distance sensor to detect a successful intake
-    private Servo finger;//For "ramming block into position" NOTE: 360 degree
+    private CRServo finger;//For "ramming block into position" NOTE: 360 degree
     private DcMotor[] motors = new DcMotor[2];//motors for the intake system
     //0:Left
     //1:Right
 
-    public BotIntake(DcMotor intakeLeft, DcMotor intakeRight, DistanceSensor dist, Servo finger){
+    public BotIntake(DcMotor intakeLeft, DcMotor intakeRight, DistanceSensor dist, CRServo finger){
         motors[0] = intakeLeft;
         motors[1] = intakeRight;
         this.touch = dist;
         this.finger = finger;
     }//basic constructor to create objects
 
-    public BotIntake(DcMotor intakeleft, DcMotor intakeRight, Servo finger){
+    public BotIntake(DcMotor intakeleft, DcMotor intakeRight, CRServo finger){
         this(intakeleft,intakeRight,null,finger);
     }//basic contructor for use w/o distancesensor
 
@@ -49,15 +50,15 @@ public class BotIntake {
     }//returns true if intake contains a block
 
     public void closeFinger(){
-        /*(!)*/finger.setPosition(0.25);//change value later
+        /*(!)*///finger.setPosition(0.25);//change value later
     }//clamps block inside intake
 
     public void openFinger(){
-        /*(!)*/finger.setPosition(0);//change value later
+        /*(!)*///finger.setPosition(0);//change value later
     }//releases block from inside intake
 
     public void toggleFinger(){
-
+        /*
         if(touch != null) {
 
             if (intakeFill()) {
@@ -75,7 +76,7 @@ public class BotIntake {
             }
 
         }
-
+        */
     }//closes finger if there is a block, opens if there isnt. If there is no distance sensor, acts as a normal toggle
 
 }
