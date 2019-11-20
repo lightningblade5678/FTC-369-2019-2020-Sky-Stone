@@ -26,6 +26,7 @@ public class FinalBot {
 
     public BotIntake intake;
     public BotArm arm;
+    public BotHook hook;
 
     //sensors
 
