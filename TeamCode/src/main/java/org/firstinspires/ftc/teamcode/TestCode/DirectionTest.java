@@ -34,13 +34,13 @@ public class DirectionTest extends LinearOpMode {
 
      telemetry.addData("Wrist Position", "1");
      telemetry.update();
-     arm.wristServo.setPosition(1);
+     //arm.wristServo.setPosition(1);
 
      sleep(2000);
 
      telemetry.addData("Wrist Position", "0");
      telemetry.update();
-     arm.wristServo.setPosition(0);
+     //arm.wristServo.setPosition(0);
 
      sleep(2000);
 

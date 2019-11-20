@@ -19,7 +19,7 @@ public class FinalAuto_BuildRed extends LinearOpMode {
         arm.baseMotor.setPower(.4);
         sleep(2500);
         arm.baseMotor.setPower(-.4);
-        arm.wristServo.setPosition(1);
+        //arm.wristServo.setPosition(1);
         sleep(2500);
         wheels.setPower(1);
         sleep(10000);

@@ -17,7 +17,7 @@ Gamepad 2 (arm, intake, claw):
     -Right Trigger/Bumper
         -Finger Movement
 
-    -Left Trigger/Bumper
+    -Left Joystick [!] TEST [!]
         -Wrist Movement
 
     -Button A/B
@@ -28,7 +28,6 @@ Gamepad 2 (arm, intake, claw):
             [!] WORK IN PROGRESS [!]
 
  */
-
 
 package org.firstinspires.ftc.teamcode.TestCode;
 
@@ -160,19 +159,20 @@ public class FinalTeleOp extends OpMode{
         }
 
         //For testing to find perfect intake speed [!] UNTESTED [!]
-        if(!gamepad2.dpad_down && !gamepad2.dpad_up && !gamepad2.dpad_left && !gamepad2.dpad_right) {
-            if (gamepad2.dpad_left) {
+
+            if (gamepad2.dpad_right) {
                 if (intPow >= 0 && intPow <= 1) {
                     intakePower(intPow);
                 }
-            } else if (gamepad2.dpad_right) {
+            } else if (gamepad2.dpad_left) {
                 intakePower(0);
             } else if (gamepad2.dpad_up) {
                 intPow += .05;
             } else if (gamepad2.dpad_down) {
                 intPow -= .05;
             }
-        }
+
+            while(gamepad2.dpad_right || gamepad2.dpad_left || gamepad2.dpad_down || gamepad2.dpad_up); //stops program until dpad button is released
 
 
         telemetry.addData("Intake Power", intPow);
@@ -211,10 +211,10 @@ public class FinalTeleOp extends OpMode{
         // uses joystick to move wrist
 
 
-        if(gamepad2.left_trigger > 0){
-            wrist.setPower(1);
-        }else if(gamepad2.left_bumper){
-            wrist.setPower(-1);
+        if(gamepad2.left_stick_x > 0){
+            wrist.setPower(.05);
+        }else if(gamepad2.left_stick_x < 0){
+            wrist.setPower(-.05);
         }else{
             wrist.setPower(0);
         }
