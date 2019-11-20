@@ -1,8 +1,41 @@
+/*
+Gamepad 1 (movement):
+
+    -Left Joystick
+        -Forwards and Backwards (y-axis)
+        -Strafing (x-axis)
+
+    -Right Joystick
+        - Turning (x-axis)
+
+
+Gamepad 2 (arm, intake, claw):
+
+    -Right Joystick
+        -Base Motor movement (y-axis)
+
+    -Right Trigger/Bumper
+        -Finger Movement
+
+    -Left Trigger/Bumper
+        -Wrist Movement
+
+    -Button A/B
+        -Hand Movement [!] WORK IN PROGRESS [!]
+
+    -D-Pad
+        -Intake
+            [!] WORK IN PROGRESS [!]
+
+ */
+
+
 package org.firstinspires.ftc.teamcode.TestCode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -18,13 +51,11 @@ public class FinalTeleOp extends OpMode{
     private DcMotor intakeMotorRight;
     private DcMotor intakeMotorLeft;
 
-    private Servo finger;
+    private CRServo finger;
 
     private DcMotor arm;
-    private Servo wrist;
+    private CRServo wrist;
     private Servo hand;
-
-    double pos;
 
     @Override
 
@@ -43,19 +74,24 @@ public class FinalTeleOp extends OpMode{
         intakeMotorRight = hardwareMap.get(DcMotor.class, "intakeRight");
         intakeMotorLeft = hardwareMap.get(DcMotor.class, "intakeLeft");
 
-        finger = hardwareMap.get(Servo.class, "finger");
+        finger = hardwareMap.get(CRServo.class, "finger");
 
         arm = hardwareMap.get(DcMotor.class,"baseMotor");
 
 
-        wrist = hardwareMap.get(Servo.class,"wristServo");
+        wrist = hardwareMap.get(CRServo.class,"wristServo");
         hand = hardwareMap.get(Servo.class,"handServo");
+
         telemetry.addData("Status", "Initialized");
+        telemetry.addData("Status", "Test1");
+        telemetry.addData("Status", "Test2");
         telemetry.update();
 
-        pos = finger.getPosition();
-        finger.setPosition(1); // [!] check number
+
     }
+
+    Boolean wristBool = true;
+    float intPow = 0;
 
     public void loop(){
 
@@ -123,42 +159,25 @@ public class FinalTeleOp extends OpMode{
 
         }
 
-        //FOR TESTING
-        if(gamepad2.left_stick_x < 0){
-
-            telemetry.addData("Intake", "Moving");
-            telemetry.update();
-
-            intakeMotorRight.setPower(-0.1);
-            intakeMotorLeft.setPower(0.1);
-
+        //For testing to find perfect intake speed [!] UNTESTED [!]
+        if(!gamepad2.dpad_down && !gamepad2.dpad_up && !gamepad2.dpad_left && !gamepad2.dpad_right) {
+            if (gamepad2.dpad_left) {
+                if (intPow >= 0 && intPow <= 1) {
+                    intakePower(intPow);
+                }
+            } else if (gamepad2.dpad_right) {
+                intakePower(0);
+            } else if (gamepad2.dpad_up) {
+                intPow += .05;
+            } else if (gamepad2.dpad_down) {
+                intPow -= .05;
+            }
         }
-        if(gamepad2.left_stick_x > 0){
 
-            telemetry.addData("Intake", "Moving");
-            telemetry.update();
 
-            intakeMotorRight.setPower(-0.3);
-            intakeMotorLeft.setPower(0.3);
+        telemetry.addData("Intake Power", intPow);
+        telemetry.update();
 
-        }
-        if(gamepad2.left_stick_y < 0){
-
-            telemetry.addData("Intake", "Moving");
-            telemetry.update();
-
-            intakeMotorRight.setPower(-0.5);
-            intakeMotorLeft.setPower(0.5);
-
-        }
-        if(gamepad2.left_stick_y > 0){
-
-            telemetry.addData("Intake", "Moving");
-            telemetry.update();
-
-            intakeMotorRight.setPower(0);
-            intakeMotorLeft.setPower(0);
-        }
 
         if(gamepad2.right_stick_y < 0){
             telemetry.addData("Arm", "Up");
@@ -171,57 +190,44 @@ public class FinalTeleOp extends OpMode{
 
 
 
-/*
-        while(gamepad2.a){
-            telemetry.addData("OG Position", finger.getPosition());
-            telemetry.update();
-            pos =- .01;
-            finger.setPosition(pos);
-            telemetry.addData("Position", finger.getPosition());
-            telemetry.update();
-        }//outputs position data of finger
-
-
-        while(gamepad2.b){
-            pos =+ .01;
-            finger.setPosition(pos);
-            telemetry.addData("Position", pos);
-            telemetry.update();
-        }//outputs position data of finger */
-
-
-        /*
-        if(gamepad2.right_trigger > 0 && finger.getPosition() <= .9){
-
-            telemetry.addData("Servo","Finger moving up");
-            finger.setPosition(finger.getPosition() + 0.1);
+        //Moves finger
+        if(gamepad2.right_trigger > 0){
+            telemetry.addData("CRServo","Finger moving up");
+            finger.setPower(1);
         }
-        if(gamepad2.right_bumper && finger.getPosition() >= .1 ){
-            telemetry.addData("Servo","Finger moving down");
-            finger.setPosition(finger.getPosition() - 0.1);
-
+        else if(!gamepad2.right_bumper){
+            finger.setPower(0);
         }
-*/
+        if(gamepad2.right_bumper){
+
+            telemetry.addData("CRServo","Finger moving down");
+            finger.setPower(-1);
+        }
+        else if(gamepad2.right_trigger <= 0){
+            finger.setPower(0);
+        }
+
+
+        // uses joystick to move wrist
+
+
         if(gamepad2.left_trigger > 0){
-            wrist.setPosition(gamepad2.left_trigger);
-        }
-        if(gamepad2.left_trigger < 0){
-            wrist.setPosition(gamepad2.left_trigger);
+            wrist.setPower(1);
+        }else if(gamepad2.left_bumper){
+            wrist.setPower(-1);
+        }else{
+            wrist.setPower(0);
         }
 
-        if(gamepad2.x && hand.getPosition() <= .9){
-            telemetry.addData("Servo","Hand moving up");
-            hand.setPosition(hand.getPosition() + 0.1);
 
-        }
-        if(gamepad2.y && hand.getPosition() >= .1){
-            telemetry.addData("Servo","Hand moving down");
-            hand.setPosition(hand.getPosition() - 0.1);
+        //moves hand servo
+        if(gamepad2.a){
+            hand.setPosition(1);
+        }else if(gamepad2.b){
+            hand.setPosition(0);
         }
 
         telemetry.update();//updates telemetry with new input data
-
-
     }
 
     private void allMotors(double x){
@@ -236,6 +242,10 @@ public class FinalTeleOp extends OpMode{
     private void wait(int ms){
         passTime.reset();
         while(passTime.milliseconds() < ms);//waits for ms
+    }
+    private void intakePower(float x){
+        intakeMotorLeft.setPower(x);
+        intakeMotorRight.setPower(-x);
     }
 ;
 }
