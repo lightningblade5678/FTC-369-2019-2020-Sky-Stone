@@ -12,6 +12,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
     This class is used to manipulate the bot arm
  */
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -31,10 +32,10 @@ public class BotArm {
     private static final double rpm = 152;
 
     public DcMotor baseMotor;
-    public Servo wristServo;
+    public CRServo wristServo;
     public Servo handServo;
 
-    public BotArm(DcMotor base, Servo wrist, Servo hand){
+    public BotArm(DcMotor base, CRServo wrist, Servo hand){
     baseMotor = base;
     wristServo = wrist;
     handServo = hand;
@@ -43,7 +44,7 @@ public class BotArm {
     //start work method
 
     public void rotateWrist(double Degree /*never set this above 180 or below 0*/ ){
-        wristServo.setPosition(Degree/180); // [!] Check params
+        //wristServo.setPosition(Degree/180); // [!] Check params
     }//sets servo to degrees between 0-180
 
 

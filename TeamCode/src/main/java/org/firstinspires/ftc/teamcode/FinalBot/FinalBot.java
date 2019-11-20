@@ -45,7 +45,7 @@ public class FinalBot {
 
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(Servo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
+        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
