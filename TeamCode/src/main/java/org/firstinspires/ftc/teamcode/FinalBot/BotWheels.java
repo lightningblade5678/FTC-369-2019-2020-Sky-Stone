@@ -93,7 +93,7 @@ public class BotWheels {
 
    //start work methods
 
-   public void moveRelativeY(double distance, double power){
+   public void moveRelativeY(double distance, double power){//legacy only
    
       DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for lat
    
@@ -112,7 +112,7 @@ public class BotWheels {
       setPower(2, power*0.95* (Math.abs(distance)/distance) );
       setPower(3, power*0.95* (Math.abs(distance)/distance) );
    
-      while( wheels[0].isBusy() || wheels[1].isBusy() || wheels[2].isBusy() || wheels[3].isBusy());//waits until encoders are done running
+      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() && wheels[3].isBusy());//waits until encoders are done running
       //NOTE: commented out wheels w/o encoders
    
       setPower(0);//stops wheels command is done
@@ -121,7 +121,7 @@ public class BotWheels {
    
    }//moves relative to the bots 'y' axis or up/down, bias up
 
-   public void moveRelativeX(double distance, double power){
+   public void moveRelativeX(double distance, double power){//legacy only
    
       DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
    
@@ -138,7 +138,7 @@ public class BotWheels {
       setPower(2, -power*0.95* (Math.abs(distance)/distance));
       setPower(3, power*0.95* (Math.abs(distance)/distance));//sets power of the bot
    
-      while( wheels[0].isBusy() || wheels[1].isBusy() || wheels[2].isBusy() || wheels[3].isBusy()) {
+      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() && wheels[3].isBusy()) {
       
       }//waits until encoders are done running
       //NOTE: commented out wheels w/o encoders
@@ -148,5 +148,16 @@ public class BotWheels {
       setMode(temp);//resets runmode back to original
    
    }//moves bot relative to X axis, or left/right bias right
+
+    /*public void moveUniversal(double degree, double distance, double power){
+
+        DcMotor.RunMode temp = wheels[0].getMode();//gets runmode of motor for reset later
+        setMode(DcMotor.RunMode.RUN_TO_POSITION);//prepares wheels for encoder input
+
+        wheels[0].setTargetPosition();
+
+        setMode(temp);//resets runmode
+
+    }//universal movement method */
 
 }

@@ -14,8 +14,6 @@ public class FullMotionTest extends LinearOpMode {
 
         FinalBot bot = new FinalBot(hardwareMap);
 
-        /*
-
         telemetry.addData("Rotating: ","90");
         telemetry.update();
 
@@ -30,51 +28,50 @@ public class FullMotionTest extends LinearOpMode {
 
         bot.rotate(-270);
 
-         */
-        telemetry.addData("Strafe: ","24in");
+        telemetry.addData("Strafe: ","6in");
         telemetry.update();
 
-        bot.move(24,0);
+        bot.move(6,0);
 
         telemetry.addData("Test: ","DONE!");
         telemetry.update();
 
         sleep(1000);
 
-        telemetry.addData("CounterStrafe: ","24in");
+        telemetry.addData("CounterStrafe: ","6in");
         telemetry.update();
 
-        bot.move(-24,0);
+        bot.move(-6,0);
 
         telemetry.addData("Test: ","DONE!");
         telemetry.update();
 
         sleep(1000);
 
-        telemetry.addData("Move: ","24in");
+        telemetry.addData("Move: ","6in");
         telemetry.update();
 
-        bot.move(0,24);
+        bot.move(0,6);
 
         telemetry.addData("Test: ","DONE!");
         telemetry.update();
 
         sleep(1000);
 
-        telemetry.addData("Reverse: ","24in");
+        telemetry.addData("Reverse: ","in");
         telemetry.update();
 
-        bot.move(0,-24);
+        bot.move(0,-6);
 
         telemetry.addData("Test: ","DONE!");
         telemetry.update();
 
         sleep(1000);
 
-        telemetry.addData("Diagonal: ","R24in, U24in");
+        telemetry.addData("Diagonal: ","R6in, U6in");
         telemetry.update();
 
-        bot.move(24,24);
+        bot.move(6,6);
 
         telemetry.addData("Test: ","DONE!");
         telemetry.update();
@@ -86,6 +83,10 @@ public class FullMotionTest extends LinearOpMode {
 
         bot.rotate(360);
 
+        telemetry.addData("Test: ","DONE!");
+        telemetry.update();
+
+        sleep(1000);
 
 
     }
