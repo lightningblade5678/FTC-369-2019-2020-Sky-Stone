@@ -31,15 +31,15 @@ public class TeleOpMovementOmniDirectional extends LinearOpMode {
 
             //insert forward/backward movement
             wheelPowers[0] += gamepad1.left_stick_y;
-            wheelPowers[1] += gamepad1.left_stick_y;
+            wheelPowers[1] -= gamepad1.left_stick_y;
             wheelPowers[2] += gamepad1.left_stick_y;
-            wheelPowers[3] += gamepad1.left_stick_y;
+            wheelPowers[3] -= gamepad1.left_stick_y;
 
             //insert left/right movement
             wheelPowers[0] += gamepad1.left_stick_x;
-            wheelPowers[1] -= gamepad1.left_stick_x;
+            wheelPowers[1] += gamepad1.left_stick_x;
             wheelPowers[2] += gamepad1.left_stick_x;
-            wheelPowers[3] -= gamepad1.left_stick_x;
+            wheelPowers[3] += gamepad1.left_stick_x;
 
             //factors out largest num to make all vals less than 1
 
