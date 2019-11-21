@@ -65,6 +65,8 @@ public class FindServoPos extends LinearOpMode {
             telemetry.addData("Controls: ","Y-Exit, DPAD U/D to navigate");
             telemetry.addData("Value: ",servos.get(selected).getPosition());
 
+            telemetry.update();
+
         }//loops until y is pressed
 
     }
