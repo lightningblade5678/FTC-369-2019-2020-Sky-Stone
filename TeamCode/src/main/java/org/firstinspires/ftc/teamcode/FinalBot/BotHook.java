@@ -8,14 +8,19 @@ public class BotHook {
 
     public BotHook(Servo hook){
         this.hook = hook;
-    }
+        raiseHook();
+    }//basic constructor
 
     public void dropHook(){
         /*(!)*/hook.setPosition(0);//change vals later
-    }
+    }//drops hook down
 
     public void raiseHook(){
         /*(!)*/hook.setPosition(1);//change vals later
-    }
+    }//raises hook
+
+    public boolean hookDown(){
+        /*(!)*/return hook.getPosition() == 0;//change vals later
+    }//returns status of hook, true if hook is down false if it is up
 
 }
