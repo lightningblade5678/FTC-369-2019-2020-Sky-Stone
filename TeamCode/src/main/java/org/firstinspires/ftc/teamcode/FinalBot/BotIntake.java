@@ -64,7 +64,7 @@ public class BotIntake {
 
         finger.setPower(0);//exits
 
-        fingerOpen = !fingerOpen;//toggles fingerOpen value
+        fingerOpen = false;//toggles fingerOpen value
 
     }//clamps block inside intake
 
@@ -79,7 +79,7 @@ public class BotIntake {
 
         finger.setPower(0);//exits
 
-        fingerOpen = !fingerOpen;//toggles fingerOpen value
+        fingerOpen = true;//toggles fingerOpen value
     }//releases block from inside intake
 
     public void toggleFinger(){
