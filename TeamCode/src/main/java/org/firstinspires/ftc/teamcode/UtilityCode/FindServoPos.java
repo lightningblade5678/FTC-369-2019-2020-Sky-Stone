@@ -29,6 +29,14 @@ public class FindServoPos extends LinearOpMode {
 
             }//up is detected
 
+            if(gamepad1.dpad_down){
+
+                selected --;
+
+                sleep(300);//waits to prevent spam inputs
+
+            }//down is detected
+
             //selected conversions
 
             if(selected >= servos.size()){
