@@ -31,7 +31,6 @@ public class BotIntake {
         motors[1] = intakeRight;
         this.touch = dist;
         this.finger = finger;
-        fingerOpen = true;
         openFinger();
     }//basic constructor to create objects
 

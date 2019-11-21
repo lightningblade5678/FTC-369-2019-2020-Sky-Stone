@@ -216,9 +216,6 @@ public class FinalBot {
 
     public double intake(double timeout){
 
-        double threshold = 5;//5 degree error threshold
-
-
         double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
         intake.toggleFinger();//ensures intake is open if needed
