@@ -121,19 +121,19 @@ public class FinalTeleOp extends OpMode{
 
         if(gamepad1.right_stick_x < 0){ //Turning Left
 
-            frontLeft.setPower(-1);
-            frontRight.setPower(-1);
-            backLeft.setPower(-1);
-            backRight.setPower(-1);
+            frontLeft.setPower(-.7);
+            frontRight.setPower(-.7);
+            backLeft.setPower(-.7);
+            backRight.setPower(-.7);
 
         }
 
         if(gamepad1.right_stick_x > 0){ //Turning Right
 
-            frontLeft.setPower(1);
-            frontRight.setPower(1);
-            backLeft.setPower(1);
-            backRight.setPower(1);
+            frontLeft.setPower(.7);
+            frontRight.setPower(.7);
+            backLeft.setPower(.7);
+            backRight.setPower(.7);
 
         }
  /*  //UNCOMMENT FOR BUG TESTING
@@ -169,7 +169,7 @@ public class FinalTeleOp extends OpMode{
         if(gamepad2.right_stick_y < 0){
             arm.setPower(.5);
         }else if(gamepad2.right_stick_y > 0){
-            arm.setPower(-.001);
+            arm.setPower(-.05);
         }else{
             arm.setPower(0);
         }
@@ -205,7 +205,7 @@ public class FinalTeleOp extends OpMode{
             hand.setPosition(0);
         }
 
-     /*   //moves build plate hook
+        //moves build plate hook
         if(gamepad1.a){
             hook.setPosition(1);//up
         }else if(gamepad1.b){
@@ -213,7 +213,7 @@ public class FinalTeleOp extends OpMode{
         }
 
         while(gamepad1.a){} //stops program until A is released
-*/
+
 
 /*
         if (gamepad1.dpad_right) {
