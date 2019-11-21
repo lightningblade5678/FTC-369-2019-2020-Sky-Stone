@@ -25,7 +25,7 @@ public class FindServoPos extends LinearOpMode {
 
                 selected ++;
 
-                sleep(300);//waits to prevent spam inputs
+               while(gamepad1.dpad_up);//waits to prevent spam inputs
 
             }//up is detected
 
@@ -33,7 +33,7 @@ public class FindServoPos extends LinearOpMode {
 
                 selected --;
 
-                sleep(300);//waits to prevent spam inputs
+                while(gamepad1.dpad_down);//waits to prevent spam inputs
 
             }//down is detected
 
