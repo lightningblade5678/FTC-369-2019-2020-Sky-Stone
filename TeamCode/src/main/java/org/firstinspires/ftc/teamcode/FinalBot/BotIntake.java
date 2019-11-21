@@ -37,7 +37,7 @@ public class BotIntake {
 
     public void intakeStart(){
         /*(!)*/motors[0].setPower(1);//replace 1 with -1 or 1 depending on motor setup
-        /*(!)*/motors[1].setPower(1);//replace 1 with -1 or 1 depending on motor setup
+        /*(!)*/motors[1].setPower(-1);//replace 1 with -1 or 1 depending on motor setup
     }//Starts the intake system
 
     public void intakeStop(){
