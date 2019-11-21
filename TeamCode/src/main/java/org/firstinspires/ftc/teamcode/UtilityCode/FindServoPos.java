@@ -16,8 +16,8 @@ public class FindServoPos extends LinearOpMode {
     public void runOpMode(){
         LinkedList<Servo> servos = (LinkedList<Servo>) hardwareMap.getAll(Servo.class);
 
+        int selected = 0;
         while(!gamepad1.y){
-            int selected = 0;
 
             //input detection
 
@@ -25,7 +25,7 @@ public class FindServoPos extends LinearOpMode {
 
                 selected ++;
 
-               while(gamepad1.dpad_up);//waits to prevent spam inputs
+               sleep(300);//waits to prevent spam inputs
 
             }//up is detected
 
@@ -33,7 +33,7 @@ public class FindServoPos extends LinearOpMode {
 
                 selected --;
 
-                while(gamepad1.dpad_down);//waits to prevent spam inputs
+                sleep(300);//waits to prevent spam inputs
 
             }//down is detected
 
