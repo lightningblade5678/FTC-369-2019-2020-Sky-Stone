@@ -53,9 +53,9 @@ public class FindServoPos extends LinearOpMode {
                 String prefix;
 
                 if(i == selected){
-                    prefix = "["+i+"] : ";
+                    prefix = ">"+i+"< : ";
                 }else{
-                    prefix = "("+i+") : ";
+                    prefix = "["+i+"] : ";
                 }//adds selection node
 
                 telemetry.addData(prefix,hardwareMap.getNamesOf(servos.get(i)));//adds number + name
