@@ -162,8 +162,8 @@ public class BotWheels {
 
       setPower(0,1);
       setPower(1,-1);
-      setPower(2,1);
-      setPower(3,-1);
+      setPower(2,0.95);
+      setPower(3,-0.95);
 
       while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() && wheels[3].isBusy()) {
 
