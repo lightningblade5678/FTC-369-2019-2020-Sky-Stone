@@ -23,8 +23,8 @@ public class RotateDataGet extends LinearOpMode {
 
                 wheels[0].setPower(0.1);
                 wheels[1].setPower(0.1);
-                wheels[2].setPower(0.1);
-                wheels[3].setPower(0.1);
+                wheels[2].setPower(0.1*0.95);
+                wheels[3].setPower(0.1*0.95);
 
             }else{
                 for(DcMotor d: wheels){
