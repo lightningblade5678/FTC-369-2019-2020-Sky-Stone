@@ -24,8 +24,8 @@ public class BotWheels {
    
     */
 
-   /*!*/private static final double distanceModX = 1;//how much to modify distance based off of calibration software
-   /*!*/private static final double distanceModY = 1;
+   /*!*/private static final double distanceModX = 12/9.75;//how much to modify distance based off of calibration software
+   /*!*/private static final double distanceModY = 12/12;
    //
 
    private DcMotor[] wheels = new DcMotor[4];//an array storing the wheels of the bot
