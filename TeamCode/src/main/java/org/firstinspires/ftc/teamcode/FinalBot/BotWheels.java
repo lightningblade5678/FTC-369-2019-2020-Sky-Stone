@@ -13,7 +13,7 @@ public class BotWheels {
    private static final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
    private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
    private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
-   private static final double     COUNTS_PER_DEGREE = 1600/90;//encoder counts per degree
+   private static final double     COUNTS_PER_DEGREE = 7000/(360);//encoder counts per degree
    /*
    NOTE:
        front and back motors for this robot are different
