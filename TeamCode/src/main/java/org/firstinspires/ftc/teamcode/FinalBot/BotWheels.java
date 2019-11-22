@@ -160,10 +160,10 @@ public class BotWheels {
       wheels[2].setTargetPosition(  (int)(wheels[0].getCurrentPosition() + (degrees*COUNTS_PER_DEGREE)) );
       wheels[3].setTargetPosition(  (int)(wheels[0].getCurrentPosition() + (degrees*COUNTS_PER_DEGREE)) );
 
-      setPower(0,1);
-      setPower(1,-1);
-      setPower(2,0.95);
-      setPower(3,-0.95);
+      setPower(0,speed);
+      setPower(1,-speed);
+      setPower(2,speed*0.95);
+      setPower(3,-0.95*speed);
 
       while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() && wheels[3].isBusy()) {
 
