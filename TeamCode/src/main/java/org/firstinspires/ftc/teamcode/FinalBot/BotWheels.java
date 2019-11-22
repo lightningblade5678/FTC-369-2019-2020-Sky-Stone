@@ -41,6 +41,14 @@ public class BotWheels {
       wheels[1] = frontRight;
       wheels[2] = backLeft;
       wheels[3] = backRight;
+
+      //sets wheel power to 0
+
+      wheels[0].setPower(0);
+      wheels[1].setPower(0);
+      wheels[2].setPower(0);
+      wheels[3].setPower(0);
+
    }//main constructor, sets vals of all DcMotors
 
    public BotWheels(DcMotor.RunMode mode,DcMotor frontLeft,DcMotor frontRight, DcMotor backLeft, DcMotor backRight){

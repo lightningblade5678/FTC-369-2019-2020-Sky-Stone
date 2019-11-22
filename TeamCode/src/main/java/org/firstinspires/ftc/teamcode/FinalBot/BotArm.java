@@ -40,6 +40,13 @@ public class BotArm {
         baseMotor = base;
         wristServo = wrist;
         handServo = hand;
+
+        //set servos and motors to 0
+
+        baseMotor.setPower(0);
+        wristServo.setPower(0);
+        handServo.setPosition(1);
+
     }//basic constructor to make a motor
 
     //start work method
