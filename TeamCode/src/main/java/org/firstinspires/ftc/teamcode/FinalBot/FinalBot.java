@@ -52,6 +52,8 @@ public class FinalBot {
 
         gyro = map.get(GyroSensor.class, "gyroscope");
 
+        hook = new BotHook(map.get(Servo.class, "hook"));
+
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
     public boolean detectColor() {
@@ -173,7 +175,8 @@ public class FinalBot {
 
     }//rotates bot by degree rotates clockwise IE: compass
 
-    public void placeBlock(int height){
+
+    public void placeBlock(){
 
         // [!] [!] CHANGE CODE TO ACCOUNT FOR ARM DEGREE BEFORE MOVEMENT [!] [!]
 
@@ -185,31 +188,14 @@ public class FinalBot {
         Level 5 = set degree to 134.42 || distance is sqrt.96 + 3
      */
 
-        double[] heightDistance = new double[2];
-        heightDistance[0] = Math.sqrt(160) + 3;
-        heightDistance[1] = Math.sqrt(192) + 3;
-        //heightDistance[2] = Math.sqrt(192) + 3;
-        //heightDistance[3] = Math.sqrt(160) + 3;
-        //heightDistance[4] = Math.sqrt(96) + 3;
 
-        double[] heightDegree = new double[2];
-        heightDegree[0] = 205.4;
-        heightDegree[1] = 188.21;
-        //heightDegree[2] = 171.79;
-        //heightDegree[3] = 154.6;
-        //heightDegree[4] = 134.42;
+    double[] distance = new double[2];
+    distance[0] = Math.sqrt(160) + 3;
+    distance[1] = Math.sqrt(192) + 3;
 
-        //gets robot into position to place
-    move(0, heightDistance[height]);
-    arm.setGrabPos();
-    arm.handGrab(true);
-    arm.baseRotateDegree(arm.baseMotor, 45, 1); // [!] Check parameters
-    arm.rotateWrist(180);
+    move(0, distance[0]);
 
-        //places block
-    arm.baseRotateDegree(arm.baseMotor, heightDegree[height], 1 );
-    arm.handGrab(false);
-    arm.baseRotateDegree(arm.baseMotor,60, 1 ); //lifts arm for next movements [!] Check parameters
+
 
 
     }//places block from internal storage onto tower
