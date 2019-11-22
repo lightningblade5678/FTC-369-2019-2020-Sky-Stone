@@ -183,18 +183,18 @@ public class FinalBot {
         arm.baseRotateDegree(arm.baseMotor, 90, 0.5);
         arm.toggleWrist(true);
         arm.handGrab(false);
-        arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        //arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
         arm.handGrab(true);
         arm.baseRotateDegree(arm.baseMotor, 90, 0.5);
         arm.toggleWrist(false);
-        arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+       // arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
         arm.handGrab(false);
 
         //resets arm back into bay
 
         arm.baseRotateDegree(arm.baseMotor,90,0.5);
         arm.toggleWrist(true);
-        arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        //arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
 
     }//places block from internal storage onto tower
 
