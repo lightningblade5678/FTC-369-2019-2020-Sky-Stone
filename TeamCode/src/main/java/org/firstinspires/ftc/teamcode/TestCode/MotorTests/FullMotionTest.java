@@ -15,8 +15,6 @@ public class FullMotionTest extends LinearOpMode {
         FinalBot bot = new FinalBot(hardwareMap);
 
         telemetry.addData("Rotating: ","90");
-        telemetry.update();
-
         telemetry.addData("Heading",bot.calibrateGyro());
         telemetry.update();
         sleep(2000);

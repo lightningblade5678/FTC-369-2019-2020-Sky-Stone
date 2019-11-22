@@ -41,14 +41,14 @@ public class FinalBot {
         //initializes botWheels
 
         // [!]  intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"),map.get(Servo.class, "finger"));
-        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(CRServo.class, "finger"));
+        //intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(CRServo.class, "finger"));
         //creates intake w/o distance sensor
 
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
+        /*[!]*///arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
 
-        colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
+        //colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
         gyro = map.get(GyroSensor.class, "gyroscope");
 
@@ -136,10 +136,10 @@ public class FinalBot {
      */
 
     public void rotate(double degree){
-        rotate(degree,1);
+        wheels.rotate(degree,1);
     }//helper method for simplicity
 
-    public void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {
+    private void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {//(!)(!)(!) LEGACY CODE DO NOT USE (!)(!)(!)
 
         double target = gyro.getHeading()+degree;
 

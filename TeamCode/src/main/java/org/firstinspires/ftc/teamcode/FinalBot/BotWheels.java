@@ -13,7 +13,7 @@ public class BotWheels {
    private static final double     DRIVE_GEAR_REDUCTION    =  1;     // This is < 1.0 if geared UP
    private static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
    private static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
-
+   private static final double     COUNTS_PER_DEGREE = 1600/90;//encoder counts per degree
    /*
    NOTE:
        front and back motors for this robot are different
@@ -148,6 +148,33 @@ public class BotWheels {
       setMode(temp);//resets runmode back to original
    
    }//moves bot relative to X axis, or left/right bias right
+
+   public void rotate(double degrees, double speed){//Clockwise
+
+      DcMotor.RunMode temp = wheels[0].getMode();//saves wheel runmode
+
+      setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets runmode
+
+      wheels[0].setTargetPosition(  (int)(wheels[0].getCurrentPosition() + (degrees*COUNTS_PER_DEGREE)) );
+      wheels[1].setTargetPosition(  (int)(wheels[0].getCurrentPosition() + (degrees*COUNTS_PER_DEGREE)) );
+      wheels[2].setTargetPosition(  (int)(wheels[0].getCurrentPosition() + (degrees*COUNTS_PER_DEGREE)) );
+      wheels[3].setTargetPosition(  (int)(wheels[0].getCurrentPosition() + (degrees*COUNTS_PER_DEGREE)) );
+
+      setPower(0,1);
+      setPower(1,-1);
+      setPower(2,1);
+      setPower(3,-1);
+
+      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() && wheels[3].isBusy()) {
+
+      }//waits until encoders are done
+
+      setPower(0);
+
+      setMode(temp);//resets wheels
+
+   }//rotates bot based on encoders
+
 
     /*public void moveUniversal(double degree, double distance, double power){
 

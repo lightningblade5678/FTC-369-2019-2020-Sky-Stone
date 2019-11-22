@@ -73,8 +73,8 @@ public class BotIntake {
         finger.setPower(1);//moves away from intake
 
         ElapsedTime time = new ElapsedTime(0);//timer
-
-        while(time.seconds() < 2);//waits until finger is there
+        time.reset();
+        while(time.seconds() < 1);//waits until finger is there
 
         finger.setPower(0);//exits
 
