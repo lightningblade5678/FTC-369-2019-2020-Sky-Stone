@@ -24,6 +24,8 @@ public class FinalBot {
         return wheels;
     }//gets the wheels for external use if required
 
+    public ElapsedTime time = new ElapsedTime();
+
     public BotIntake intake;
     public BotArm arm;
     public BotHook hook;
@@ -193,8 +195,24 @@ public class FinalBot {
     distance[0] = Math.sqrt(160) + 3;
     distance[1] = Math.sqrt(192) + 3;
 
-    move(0, distance[0]);
+    move(0, -distance[0]);
+    arm.setGrabPos();
+    rotate(180);
+    arm.baseRotateDegree(arm.baseMotor, 70, .5);
+    arm.baseMotor.setPower(.25); //holds arm in place
 
+        //turns wrist /w block
+    arm.wristServo.setPower(-1);
+    sleep(1000);
+    arm.wristServo.setPower(0);
+
+    arm.baseMotor.setPower(-.2);
+    sleep(1000);
+    arm.handGrab(false);
+    arm.baseRotateDegree(arm.baseMotor, 30, -.5);
+    arm.wristServo.setPower(-.5);
+    sleep(2000);
+    arm.wristServo.setPower(0);
 
 
 
@@ -321,4 +339,9 @@ public class FinalBot {
         return gyro.getHeading();
     }//calibrates the gyroscope, returns heading
 
+
+    public void sleep(int ms){
+        time.reset();
+        while(ms < time.milliseconds()){}
+    }
 }

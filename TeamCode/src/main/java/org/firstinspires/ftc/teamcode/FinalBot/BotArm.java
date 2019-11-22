@@ -34,6 +34,7 @@ public class BotArm {
     public DcMotor baseMotor;
     public CRServo wristServo;
     public Servo handServo;
+    private ElapsedTime time = new ElapsedTime();
 
     public BotArm(DcMotor base, CRServo wrist, Servo hand){
         baseMotor = base;
@@ -42,10 +43,6 @@ public class BotArm {
     }//basic constructor to make a motor
 
     //start work method
-
-    public void rotateWrist(double Degree /*never set this above 180 or below 0*/ ){
-        //wristServo.setPosition(Degree/180); // [!] Check params
-    }//sets servo to degrees between 0-180
 
 
     public void handGrab(boolean state){
@@ -82,8 +79,14 @@ public class BotArm {
     public void setGrabPos(){
         // [!] Check all parameters
         handGrab(false);
-        baseRotateDegree(baseMotor, 0, 1);
-        rotateWrist(180); //[!] check params
+        wristServo.setPower(1);
+        baseMotor.setPower(-.3);
+        time.reset();
+        while(time.milliseconds() < 2000){}
+        baseMotor.setPower(0);
+        wristServo.setPower(0);
+
+        handGrab(true);
 
 
     }//sets all motors to pos to grab stored stone

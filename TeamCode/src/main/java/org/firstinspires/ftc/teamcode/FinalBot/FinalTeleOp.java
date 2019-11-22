@@ -189,9 +189,9 @@ public class FinalTeleOp extends OpMode{
 
         // uses joystick to move wrist
 
-        if(gamepad2.left_stick_x > 0){
+        if(gamepad2.left_stick_x < 0){
             wrist.setPower(.2);
-        }else if(gamepad2.left_stick_x < 0){
+        }else if(gamepad2.left_stick_x > 0){
             wrist.setPower(-.2);
         }else{
             wrist.setPower(0);
@@ -210,6 +210,8 @@ public class FinalTeleOp extends OpMode{
             hook.setPosition(1);//up
         }else if(gamepad1.b){
             hook.setPosition(0);//down
+        }else if(gamepad1.y){
+            hook.setPosition(.5);//mid
         }
 
         while(gamepad1.a){} //stops program until A is released

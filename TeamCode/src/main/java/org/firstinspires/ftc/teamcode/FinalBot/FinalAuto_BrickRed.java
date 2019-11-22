@@ -29,7 +29,6 @@ public class FinalAuto_BrickRed extends LinearOpMode {
         time.reset();
         bot.move(0, 30.5); //Move the bot to in front of the bricks, within scanning distance
 
-
         bot.intake( 30); // [!] Check parameters!
 
         //Moves bot to under the bridge
@@ -45,11 +44,11 @@ public class FinalAuto_BrickRed extends LinearOpMode {
             bot.move(0, 1);
         }
         if(bot.detectColor()){
-
             bot.placeBlock();
         }
 
-        bot.move(0, 18); //Moves bot onto midline [!] Check params
+        bot.move(0, -24);// moves bot onto mid-line
+
 
     }
 }
