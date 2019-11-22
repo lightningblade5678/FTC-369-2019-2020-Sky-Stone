@@ -37,7 +37,7 @@ public class GyroMotionTest extends LinearOpMode {
 
         while(time.seconds() < 15){
             telemetry.addData("Time: ",15-time.seconds());
-            telemetry.addData("Heading: ", gyro.getHeading());
+            telemetry.addData("Heading: ", gyro.rawZ());
             telemetry.update();
 
         }

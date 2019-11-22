@@ -13,7 +13,7 @@ public class FullMotionTest extends LinearOpMode {
     public void runOpMode(){
 
         FinalBot bot = new FinalBot(hardwareMap);
-
+        /*
         telemetry.addData("Rotating: ","90");
         telemetry.addData("Heading",bot.calibrateGyro());
         telemetry.update();
@@ -24,7 +24,7 @@ public class FullMotionTest extends LinearOpMode {
         telemetry.addData("Rotating: ","-270");
         telemetry.update();
 
-        bot.rotate(-270);
+        bot.rotate(-180);
 
         telemetry.addData("Strafe: ","6in");
         telemetry.update();
@@ -86,6 +86,19 @@ public class FullMotionTest extends LinearOpMode {
 
         sleep(1000);
 
+        telemetry.addData("Test: ", "Arm up 90");
+        telemetry.update();
+
+        bot.arm.baseRotateDegree(bot.arm.baseMotor, 90, 0.5);
+        bot.arm.toggleWrist(false);
+
+        telemetry.addData("Test: ","DONE!");
+        telemetry.update();
+
+        sleep(1000);
+        */
+
+        bot.placeBlock();
 
     }
 

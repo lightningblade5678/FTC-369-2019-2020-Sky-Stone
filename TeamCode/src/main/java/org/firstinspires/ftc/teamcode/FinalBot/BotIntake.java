@@ -59,7 +59,7 @@ public class BotIntake {
     public void closeFinger(){
         /*(!)*///finger.setPosition(0.25);//change value later
 
-        finger.setPower(-1);//moves towards intake
+        finger.setPower(1);//moves towards intake
 
         ElapsedTime time = new ElapsedTime(0);//timer
 
@@ -74,7 +74,7 @@ public class BotIntake {
     public void openFinger(){
         /*(!)*///finger.setPosition(0);//change value later
 
-        finger.setPower(1);//moves away from intake
+        finger.setPower(-1);//moves away from intake
 
         ElapsedTime time = new ElapsedTime(0);//timer
         time.reset();

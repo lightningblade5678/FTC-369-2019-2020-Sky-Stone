@@ -43,14 +43,14 @@ public class FinalBot {
         //initializes botWheels
 
         // [!]  intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(ModernRoboticsI2cRangeSensor.class,"intakeDistance"),map.get(Servo.class, "finger"));
-        //intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(CRServo.class, "finger"));
+        intake = new BotIntake(map.get(DcMotor.class, "intakeLeft"),map.get(DcMotor.class, "intakeRight"),map.get(CRServo.class, "finger"));
         //creates intake w/o distance sensor
 
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*///arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
+        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
 
-        //colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
+        colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
         gyro = map.get(GyroSensor.class, "gyroscope");
 
@@ -138,12 +138,12 @@ public class FinalBot {
      */
 
     public void rotate(double degree){
-        wheels.rotate(degree,1);
+        wheels.rotate(degree,0.75);
     }//helper method for simplicity
 
     private void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {//(!)(!)(!) LEGACY CODE DO NOT USE (!)(!)(!)
 
-        double target = gyro.getHeading()+degree;
+        double target = gyro.rawZ()+degree;
 
         target = target-(((int)target)/360)*360;
 
@@ -154,11 +154,11 @@ public class FinalBot {
 
         if(degree >= 0){//clockwise
 
-            while(gyro.getHeading() < target){}//waits until degree is greater than or equal to target loc
+            while(gyro.rawZ() < target){}//waits until degree is greater than or equal to target loc
 
         }else{//counterclockwise
 
-            while(gyro.getHeading() > target){}//waits until degree is less than or equal to target loc
+            while(gyro.rawZ() > target){}//waits until degree is less than or equal to target loc
 
         }
 
@@ -166,55 +166,35 @@ public class FinalBot {
 
         double threshold = 5;//5 degree error threshold
 
-        if(Math.abs(gyro.getHeading() - target) > threshold){
+        if(Math.abs(gyro.rawZ() - target) > threshold){
             ElapsedTime time = new ElapsedTime(0);
 
             time.reset();
             while(time.seconds() < 1);
 
-            rotate(target-gyro.getHeading(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
+            rotate(target-gyro.rawZ(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
 
 
-    public void placeBlock(){
+    public void placeBlock(){//(!)WIP(!)
 
-        // [!] [!] CHANGE CODE TO ACCOUNT FOR ARM DEGREE BEFORE MOVEMENT [!] [!]
+        arm.baseRotateDegree(arm.baseMotor, 90, 0.5);
+        arm.toggleWrist(true);
+        arm.handGrab(false);
+        arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        arm.handGrab(true);
+        arm.baseRotateDegree(arm.baseMotor, 90, 0.5);
+        arm.toggleWrist(false);
+        arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        arm.handGrab(false);
 
-         /*
-        Level 1 = set degree to 205.4 || distance is sqrt.160 + 3
-        Level 2 = set degree to 188.21 || distance is sqrt.192 + 3
-        Level 3 = set degree to 171.79 || distance is sqrt.192 + 3
-        Level 4 = set degree to 154.6 || distance is sqrt.160 + 3
-        Level 5 = set degree to 134.42 || distance is sqrt.96 + 3
-     */
+        //resets arm back into bay
 
-
-    double[] distance = new double[2];
-    distance[0] = Math.sqrt(160) + 3;
-    distance[1] = Math.sqrt(192) + 3;
-
-    move(0, -distance[0]);
-    arm.setGrabPos();
-    rotate(180);
-    arm.baseRotateDegree(arm.baseMotor, 70, .5);
-    arm.baseMotor.setPower(.25); //holds arm in place
-
-        //turns wrist /w block
-    arm.wristServo.setPower(-1);
-    sleep(1000);
-    arm.wristServo.setPower(0);
-
-    arm.baseMotor.setPower(-.2);
-    sleep(1000);
-    arm.handGrab(false);
-    arm.baseRotateDegree(arm.baseMotor, 30, -.5);
-    arm.wristServo.setPower(-.5);
-    sleep(2000);
-    arm.wristServo.setPower(0);
-
-
+        arm.baseRotateDegree(arm.baseMotor,90,0.5);
+        arm.toggleWrist(true);
+        arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
 
     }//places block from internal storage onto tower
 
@@ -303,14 +283,11 @@ public class FinalBot {
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns distance traveled (X)
     public void grabTray(){
 
-        /*
-        arm.baseMotor.setPower(???); //set for ??? rotations
-        arm.wristServo.setPosition(???); //set to ??? position
-        wheels.setPower(???); //set for ??? time/rotations
-
-        arm.wristServo.setPosition(???); //release tray from wrist
-        arm.baseMotor.setPower(???); //move arm up from tray
-        */
+        if(hook.hookDown()){
+            hook.raiseHook();
+        }else{
+            hook.dropHook();
+        }
 
 
     }//moves bot arm to grab tray on the ground, when called again, release tray

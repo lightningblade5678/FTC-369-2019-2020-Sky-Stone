@@ -36,6 +36,8 @@ public class BotArm {
     public Servo handServo;
     private ElapsedTime time = new ElapsedTime();
 
+    private boolean currWrist;//inside intake or not
+
     public BotArm(DcMotor base, CRServo wrist, Servo hand){
         baseMotor = base;
         wristServo = wrist;
@@ -45,35 +47,56 @@ public class BotArm {
 
         baseMotor.setPower(0);
         wristServo.setPower(0);
-        handServo.setPosition(1);
+        handGrab(false);
+
+        currWrist = true;//assume arm start in intake
 
     }//basic constructor to make a motor
 
     //start work method
-
 
     public void handGrab(boolean state){
         if (state){
             handServo.setPosition(0);
         }
         else{
-            handServo.setPosition(1);
+            handServo.setPosition(0.6);
         }//closes hand || 1 - open     0 - closed
 
     }//detects if hand is closed or not and inverts results
 
     public void baseRotateDegree(DcMotor base, double deg, double speed /*Never set this below 0 or above 1*/ ){
         
-        double timeRot /*in seconds*/ = deg/ ( (rpm*speed)/60*360 );//calculates time that the arm needs to rotate for
+        double timeRot /*in seconds*/ = Math.abs(deg)/ ( (rpm*speed)/60*360 ) * 5;//calculates time that the arm needs to rotate for
 
         ElapsedTime time = new ElapsedTime(0);
         time.reset();
 
-        base.setPower(speed);
+        base.setPower(speed*( Math.abs(deg)/deg ));
         while(time.seconds() < timeRot);
         base.setPower(0);
 
     }//rotates base degrees to l/r
+
+    public void toggleWrist(boolean intake){//true if move into intake loc
+
+        ElapsedTime time = new ElapsedTime(0);
+
+        if(intake && !currWrist){
+
+            wristServo.setPower(1);
+            while(time.seconds() < 1);
+            currWrist = true;
+
+        }else if(currWrist){
+
+            wristServo.setPower(-1);
+            while(time.seconds() < 1);
+            currWrist = false;
+
+        }
+
+    }//moves wrist to expected position
 
 /*
     public void baseRotateDegreeTo(DcMotor armMotor, double degree, double power){
