@@ -23,8 +23,11 @@ Gamepad 2 (arm, intake, claw):
     -Left Joystick
         -Wrist Movement (x-axis)
 
-    -Button A/B
+    -Button A/B/Y
         -Hand Movement
+            - A = Up
+            - B = Down
+            - Y = Middle [!] WORK IN PROGRESS [!]
 
     -D-Pad
          -Intake
@@ -74,6 +77,7 @@ public class FinalTeleOp extends OpMode{
         hook = hardwareMap.get(Servo.class, "hook");
 
         arm = hardwareMap.get(DcMotor.class,"baseMotor");
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         wrist = hardwareMap.get(CRServo.class,"wristServo");
         hand = hardwareMap.get(Servo.class,"handServo");
@@ -159,15 +163,14 @@ public class FinalTeleOp extends OpMode{
 
         // Intake movement
         if(gamepad2.dpad_up){
-            intakePower(.4);
+            intakePower(.3);
         }else if (gamepad2.dpad_down){
             intakePower(0);
         }else if (gamepad2.dpad_left || gamepad2.dpad_right){
-            intakePower(-.4);
+            intakePower(-.3);
         }
-
         if(gamepad2.right_stick_y < 0){
-            arm.setPower(.5);
+            arm.setPower(1);
         }else if(gamepad2.right_stick_y > 0){
             arm.setPower(-.05);
         }else{
@@ -190,9 +193,9 @@ public class FinalTeleOp extends OpMode{
         // uses joystick to move wrist
 
         if(gamepad2.left_stick_x < 0){
-            wrist.setPower(.2);
+            wrist.setPower(.1);
         }else if(gamepad2.left_stick_x > 0){
-            wrist.setPower(-.2);
+            wrist.setPower(-.1);
         }else{
             wrist.setPower(0);
         }

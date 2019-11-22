@@ -17,20 +17,32 @@ public class FinalAuto_BrickRed extends LinearOpMode {
     private static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) / (WHEEL_DIAMETER_INCHES * Math.PI);
 
 
-
-
     private ElapsedTime time = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
         FinalBot bot = new FinalBot(hardwareMap);
+        BotArm arm = bot.arm;
 
-        // [!] VALUES MAY VARY
+        arm.baseRotateDegree(60, 1);
+        arm.baseMotor.setPower(.25);
+
+        waitForStart();
+
+        arm.baseMotor.setPower(0);
+
         time.reset();
-        bot.move(0, 30.5); //Move the bot to in front of the bricks, within scanning distance
 
-        bot.intake( 30); // [!] Check parameters!
+        bot.move(0, 10);
 
+        bot.rotate(90);
+        bot.rotate(90);
+
+        bot.move(0, -20.5); //Move the bot to in front of the bricks, within scanning distance
+
+        bot.intake(30, -1);
+
+/*
         //Moves bot to under the bridge
         bot.move(24, 0);
         bot.move(0, 24);
@@ -50,5 +62,8 @@ public class FinalAuto_BrickRed extends LinearOpMode {
         bot.move(0, -24);// moves bot onto mid-line
 
 
+
+    }
+ */
     }
 }

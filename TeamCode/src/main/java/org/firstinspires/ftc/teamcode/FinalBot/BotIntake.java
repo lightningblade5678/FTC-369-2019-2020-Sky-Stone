@@ -52,10 +52,6 @@ public class BotIntake {
         motors[1].setPower(0);
     }//stops the intake system
 
-    public boolean intakeFill(){
-        /*(!)*/return this.touch == null || touch.getDistance(DistanceUnit.INCH) <= 2;//returns if distance between block and sensor is less that 2in, adjust values later. if no distance sensor, returns true
-    }//returns true if intake contains a block
-
     public void closeFinger(){
         /*(!)*///finger.setPosition(0.25);//change value later
 
@@ -85,26 +81,6 @@ public class BotIntake {
         fingerOpen = true;//toggles fingerOpen value
     }//releases block from inside intake
 
-    public void toggleFinger(){
-
-        if(touch != null) {
-
-            if (intakeFill()) {
-                closeFinger();
-            } else {
-                openFinger();
-            }
-
-        }else{
-
-            if(!fingerOpen){//if finger open
-                openFinger();
-            }else{
-                closeFinger();
-            }
-
-        }
-
     }//closes finger if there is a block, opens if there isnt. If there is no distance sensor, acts as a normal toggle
 
-}
+

@@ -65,16 +65,16 @@ public class BotArm {
 
     }//detects if hand is closed or not and inverts results
 
-    public void baseRotateDegree(DcMotor base, double deg, double speed /*Never set this below 0 or above 1*/ ){
+    public void baseRotateDegree(double deg, double speed /*Never set this below 0 or above 1*/ ){
         
         double timeRot /*in seconds*/ = Math.abs(deg)/ ( (rpm*speed)/60*360 ) * 5;//calculates time that the arm needs to rotate for
 
         ElapsedTime time = new ElapsedTime(0);
         time.reset();
 
-        base.setPower(speed*( Math.abs(deg)/deg ));
+        baseMotor.setPower(speed*( Math.abs(deg)/deg ));
         while(time.seconds() < timeRot);
-        base.setPower(0);
+        baseMotor.setPower(0);
 
     }//rotates base degrees to l/r
 

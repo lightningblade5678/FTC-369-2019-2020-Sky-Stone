@@ -180,19 +180,19 @@ public class FinalBot {
 
     public void placeBlock(){//(!)WIP(!)
 
-        arm.baseRotateDegree(arm.baseMotor, 90, 0.5);
+        arm.baseRotateDegree(90, 0.5);
         arm.toggleWrist(true);
         arm.handGrab(false);
         //arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
         arm.handGrab(true);
-        arm.baseRotateDegree(arm.baseMotor, 90, 0.5);
+        arm.baseRotateDegree(90, 0.5);
         arm.toggleWrist(false);
        // arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
         arm.handGrab(false);
 
         //resets arm back into bay
 
-        arm.baseRotateDegree(arm.baseMotor,90,0.5);
+        arm.baseRotateDegree(90,0.5);
         arm.toggleWrist(true);
         //arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
 
@@ -202,7 +202,7 @@ public class FinalBot {
 
         double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
-        intake.toggleFinger();//ensures intake is open if needed
+        intake.openFinger();
 
         ElapsedTime time = new ElapsedTime(0);//timer to attempt a blind intake for
         wheels.setPower(1);//wheels run until end of method
@@ -210,12 +210,12 @@ public class FinalBot {
         time.reset();//resets time to 0
         intake.intakeStart();//starts intake system
 
-        while(!intake.intakeFill() && time.seconds() < timeout)//runs until intake is filled, or time has timed out
+        while(time.seconds() < timeout)//runs until intake is filled, or time has timed out
 
         wheels.setPower(0);//stops wheels
         intake.intakeStop();//stops intake
 
-        intake.toggleFinger();//closes/opens intake
+        intake.closeFinger();
 
         return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
     }//attempts to fetch a block until a certain amount of time, exits if block is already in bay, returns distance travelled (Y)
@@ -237,47 +237,41 @@ public class FinalBot {
         wheels.setPower(0);
         intake.intakeStop();//stops
 
-        intake.toggleFinger();//toggles finger if block is in intake
+        intake.closeFinger();//toggles finger if block is in intake
 
         return ( wheels.getWheel(2).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModY();//returns difference in encoder position in inches
     }//intakes from front for a specified amount of time, returns distance travelled
 
-    public double intake(double timeout, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/, boolean useArm ){
+    public double intake(double timeout, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/){
 
         double currCount = wheels.getWheel(3).getCurrentPosition();//current position of encoder
 
-        intake.toggleFinger();//ensures intake is open if needed
+        intake.openFinger();//ensures intake is open if needed
 
         //sets wheels to move l/r
 
         wheels.setPower(0, dir);//frontleft
         wheels.setPower(1, -dir);//frontright
 
-        wheels.setPower(2, -dir*0.95);//backleft
-        wheels.setPower(3, dir*0.95);//backright
+        wheels.setPower(2, dir*0.95);//backleft
+        wheels.setPower(3, -dir*0.95);//backright
 
         //starts timer
 
-        ElapsedTime time = new ElapsedTime(0);
+        ElapsedTime time = new ElapsedTime();
         time.reset();
 
         colors.enableLed(true);
-        for(float[] hsvValues = {0F, 0F, 0F};time.seconds() < timeout && (hsvValues[0] >= 0 && hsvValues[0] <= 100 && hsvValues[1] > .1 && hsvValues[1] < .5 && hsvValues[2] > .005 && hsvValues[2] < .6);Color.RGBToHSV(colors.red(), colors.green(), colors.blue(), hsvValues) );
+        for(float[] hsvValues = {0F, 0F, 0F};time.seconds() < timeout && (hsvValues[0] >= 0 && hsvValues[0] <= 100 && hsvValues[1] > .1 && hsvValues[1] < .5 && hsvValues[2] > .005 && hsvValues[2] < .6);Color.RGBToHSV(colors.red(), colors.green(), colors.blue(), hsvValues) );// skystone
 
         wheels.setPower(0);
+        move(0,6);//moves away from blocks
+        rotate(180);//rotates around
+        move(0,-intake(timeout - time.seconds()) / wheels.getCountsPerInch()/ wheels.getDistanceModX());//attepts to intake block with time left and then moves back into position
+        rotate(-180);//resets rot position
+        move(0,-6);//finishes compensation
 
-        if(useArm && time.seconds() < timeout) {
-            //rotate bot 180 degrees [!]
-            grabBlock();//attempts to grab block via arm
-        }else{
-            move(0,6);//moves away from blocks
-            rotate(180);//rotates around
-            move(0,-intake(timeout - time.seconds()) / wheels.getCountsPerInch()/ wheels.getDistanceModX());//attepts to intake block with time left and then moves back into position
-            rotate(-180);//resets rot position
-            move(0,-6);//finishes compensation
-        }
-
-        intake.toggleFinger();//closes/opens intake
+        intake.closeFinger();//closes/opens intake
 
         return ( wheels.getWheel(3).getCurrentPosition()-currCount ) / wheels.getCountsPerInch() / wheels.getDistanceModX();//returns difference in encoder position in inches
     }//attempts to fetch a block matching the color profile, use for green path, exits if block is already in bay, returns distance traveled (X)
@@ -294,18 +288,16 @@ public class FinalBot {
 
     public void grabBlock(){
 
-        /*
+        arm.baseRotateDegree(60, .5);
+        arm.baseMotor.setPower(.25);
 
-        wheels.setPower(???); //set for ??? rotations
-        arm.baseMotor.setPower(???); //set for ??? rotations
-        arm.wristServo.setPosition(???); //set to ??? position
-        arm.handGrab(); // grab block
+        arm.wristServo.setPower(-1);
+        sleep(2000);
+        arm.wristServo.setPower(0);
 
-        arm.baseMotor.setPower(???); //set for ??? rotations
-        arm.wristServo.setPosition(???); //set to ??? position
-        arm.handGrab(); // release block
-
-        */
+        arm.handGrab(false);
+        arm.baseMotor.setPower(0);
+        arm.handGrab(true);
 
     }//grabs a block from behind robot and places into storage
 
@@ -317,7 +309,7 @@ public class FinalBot {
     }//calibrates the gyroscope, returns heading
 
 
-    public void sleep(int ms){
+    private void sleep(int ms){
         time.reset();
         while(ms < time.milliseconds()){}
     }
