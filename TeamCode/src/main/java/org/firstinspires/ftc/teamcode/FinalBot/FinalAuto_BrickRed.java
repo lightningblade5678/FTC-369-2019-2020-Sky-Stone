@@ -13,7 +13,7 @@ public class FinalAuto_BrickRed extends LinearOpMode {
         BotArm arm = bot.arm;
         BotWheels wheels = bot.getWheels();
 
-        arm.baseRotateDegree(20, 1);
+        arm.baseRotateDegree(30, 1);
         arm.baseMotor.setPower(.25);
 
         waitForStart();

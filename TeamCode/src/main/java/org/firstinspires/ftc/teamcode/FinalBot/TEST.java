@@ -12,8 +12,8 @@ public class TEST extends LinearOpMode {
         FinalBot bot = new FinalBot(hardwareMap);
         BotWheels wheels = bot.getWheels();
 
-        wheels.setPower(0, -1);//frontleft
-        wheels.setPower(1, 1);//frontright
+        wheels.setPower(0, 1);//frontleft
+        wheels.setPower(1, -1);//frontright
 
         wheels.setPower(2, -1);//backleft
         wheels.setPower(3, 1);//backright
