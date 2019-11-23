@@ -60,7 +60,7 @@ public class BotArm {
             handServo.setPosition(0);
         }
         else{
-            handServo.setPosition(0.6);
+            handServo.setPosition(1);
         }//closes hand || 1 - open     0 - closed
 
     }//detects if hand is closed or not and inverts results
@@ -85,13 +85,13 @@ public class BotArm {
         if(intake && !currWrist){
 
             wristServo.setPower(1);
-            while(time.seconds() < 1);
+            while(time.seconds() < .1);
             currWrist = true;
 
         }else if(currWrist){
 
             wristServo.setPower(-1);
-            while(time.seconds() < 1);
+            while(time.seconds() < .1);
             currWrist = false;
 
         }
@@ -109,15 +109,9 @@ public class BotArm {
     public void setGrabPos(){
         // [!] Check all parameters
         handGrab(false);
-        wristServo.setPower(1);
-        baseMotor.setPower(-.3);
-        time.reset();
-        while(time.milliseconds() < 2000){}
-        baseMotor.setPower(0);
-        wristServo.setPower(0);
-
-        handGrab(true);
-
+        baseRotateDegree(50, 1);
+        toggleWrist(true);
+        baseRotateDegree(-50, .1);
 
     }//sets all motors to pos to grab stored stone
 }

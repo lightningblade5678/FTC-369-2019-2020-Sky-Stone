@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="BrickRed")
+@Autonomous(name="!.BrickRedAuto")
 public class FinalAuto_BrickRed extends LinearOpMode {
 
     @Override
@@ -23,8 +23,14 @@ public class FinalAuto_BrickRed extends LinearOpMode {
         bot.move(24, 0);
         bot.move(0, -72);
 
+        arm.handGrab(true);
+
         bot.placeBlock();
 
+        arm.setGrabPos();
+
         bot.move(0, 36);
+
+
     }
 }
