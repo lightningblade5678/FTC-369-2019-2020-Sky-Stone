@@ -3,28 +3,25 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="BrickRed")
-public class FinalAuto_BrickRed extends LinearOpMode {
+@Autonomous(name="!!!TEST!!!")
+public class TEST extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         FinalBot bot = new FinalBot(hardwareMap);
-        BotArm arm = bot.arm;
         BotWheels wheels = bot.getWheels();
 
-        arm.baseRotateDegree(20, 1);
-        arm.baseMotor.setPower(.25);
+        wheels.setPower(0, -1);//frontleft
+        wheels.setPower(1, 1);//frontright
 
-        waitForStart();
+        wheels.setPower(2, -1);//backleft
+        wheels.setPower(3, 1);//backright
 
-        arm.baseMotor.setPower(0);
+        sleep(2000);
 
-        bot.move(24, 0);
-        bot.move(0, -72);
+        wheels.setPower(0);
 
-        bot.placeBlock();
 
-        bot.move(0, 36);
     }
 }

@@ -180,12 +180,12 @@ public class FinalBot {
 
     public void placeBlock(){//(!)WIP(!)
 
-        arm.baseRotateDegree(90, 0.5);
+        arm.baseRotateDegree(50, 1);
         arm.toggleWrist(true);
         arm.handGrab(false);
         //arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
         arm.handGrab(true);
-        arm.baseRotateDegree(90, 0.5);
+        arm.baseRotateDegree(50, 1);
         arm.toggleWrist(false);
        // arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
         arm.handGrab(false);
@@ -246,15 +246,15 @@ public class FinalBot {
 
         double currCount = wheels.getWheel(3).getCurrentPosition();//current position of encoder
 
-        intake.openFinger();//ensures intake is open if needed
-
         //sets wheels to move l/r
 
         wheels.setPower(0, dir);//frontleft
         wheels.setPower(1, -dir);//frontright
 
-        wheels.setPower(2, dir*0.95);//backleft
-        wheels.setPower(3, -dir*0.95);//backright
+        wheels.setPower(2, -dir*0.95);//backleft
+        wheels.setPower(3, dir*0.95);//backright
+
+        sleep(2000);
 
         //starts timer
 
