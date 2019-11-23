@@ -12,9 +12,16 @@ public class HookTest2 extends LinearOpMode {
 
         bot.hook.dropHook();
 
-        sleep(5000);
+        sleep(1000);
 
         bot.hook.raiseHook();
+
+        sleep(2000);
+
+        bot.move(-12,0);
+        bot.move(12,0);
+        bot.move(0,-12);
+        bot.move(0,12);
 
     }
 
