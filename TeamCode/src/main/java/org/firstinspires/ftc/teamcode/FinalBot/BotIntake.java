@@ -74,7 +74,7 @@ public class BotIntake {
 
         ElapsedTime time = new ElapsedTime(0);//timer
         time.reset();
-        while(time.seconds() < 1);//waits until finger is there
+        while(time.seconds() < 2);//waits until finger is there
 
         finger.setPower(0);//exits
 
