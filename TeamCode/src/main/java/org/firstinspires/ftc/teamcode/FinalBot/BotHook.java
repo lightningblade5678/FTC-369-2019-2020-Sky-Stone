@@ -16,7 +16,7 @@ public class BotHook {
     }//drops hook down
 
     public void raiseHook(){
-        /*(!)*/hook.setPosition(0.3);//change vals later
+        /*(!)*/hook.setPosition(1);//change vals later
     }//raises hook
 
     public boolean hookDown(){
