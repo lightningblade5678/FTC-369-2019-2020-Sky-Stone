@@ -14,10 +14,16 @@ public class HookBuildPlate extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-        //create finalbot
+        //wait
         FinalBot bot = new FinalBot(hardwareMap);
+        BotArm arm = bot.arm;
+        BotWheels wheels = bot.getWheels();
 
+        arm.baseRotateDegree(30, 1);
+        arm.baseMotor.setPower(.25);
+
+        waitForStart();
+        
         //move towards tray
         bot.move(0,-27);//back into tray
         bot.hook.dropHook();//drops hook onto block
