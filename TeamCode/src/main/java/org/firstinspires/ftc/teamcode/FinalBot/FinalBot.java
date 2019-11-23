@@ -184,10 +184,12 @@ public class FinalBot {
         arm.toggleWrist(true);
         arm.handGrab(false);
         //arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        sleep(500);
         arm.handGrab(true);
         arm.baseRotateDegree(50, 1);
         arm.toggleWrist(false);
-       // arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        // arm.baseRotateDegree(arm.baseMotor, -60, 0.5);
+        sleep(500);
         arm.handGrab(false);
 
         //resets arm back into bay
