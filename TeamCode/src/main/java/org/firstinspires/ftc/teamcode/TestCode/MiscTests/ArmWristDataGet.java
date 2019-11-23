@@ -24,10 +24,14 @@ public class ArmWristDataGet extends LinearOpMode {
 
         while (!gamepad1.x);
 
-        wrist.setPower(0.1);
+        telemetry.addData("STOP: ","Y");
+        telemetry.update();
 
-        while(gamepad1.x){
+        wrist.setPower(-0.1);
 
+        while(!gamepad1.y){
+
+            wrist.setPower(-0.1);
 
         }//hold position until released
 

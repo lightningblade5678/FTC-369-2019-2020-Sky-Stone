@@ -99,9 +99,8 @@ public class FullMotionTest extends LinearOpMode {
         */
 
         //bot.placeBlock();k
-
-        bot.move(12,0);
-
+bot.hook.raiseHook();
+bot.hook.dropHook();
     }
 
 }

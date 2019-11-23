@@ -48,7 +48,6 @@ public class BotArm {
         baseMotor.setPower(0);
         wristServo.setPower(0);
         handGrab(false);
-
         currWrist = true;//assume arm start in intake
 
     }//basic constructor to make a motor
@@ -82,16 +81,18 @@ public class BotArm {
 
         ElapsedTime time = new ElapsedTime(0);
 
+        double servoTime = 0.5/(43.4/60)/10;
+
         if(intake && !currWrist){
 
-            wristServo.setPower(1);
-            while(time.seconds() < .1);
+            wristServo.setPower(-0.1);
+            while(time.seconds() < servoTime);
             currWrist = true;
 
         }else if(currWrist){
 
-            wristServo.setPower(-1);
-            while(time.seconds() < .1);
+            wristServo.setPower(0.1);
+            while(time.seconds() < servoTime);
             currWrist = false;
 
         }

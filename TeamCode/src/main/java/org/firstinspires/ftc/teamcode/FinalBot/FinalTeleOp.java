@@ -177,7 +177,18 @@ public class FinalTeleOp extends OpMode{
             arm.setPower(0);
         }
 
+        //button to move the arm to a certain angle
+        if(gamepad2.x){
+            double timeRot /*in seconds*/ = Math.abs(60)/ ( (152*1)/60*360 ) * 5;//calculates time that the arm needs to rotate for
 
+            ElapsedTime time = new ElapsedTime(0);
+            time.reset();
+
+            arm.setPower(1*( Math.abs(60)/60 ));
+            while(time.seconds() < timeRot);
+            arm.setPower(0);
+            arm.setPower(0.25);
+        }
 
         //Moves finger
         if(gamepad2.right_trigger > 0 && gamepad2.left_trigger == 0){
@@ -214,7 +225,7 @@ public class FinalTeleOp extends OpMode{
         }else if(gamepad1.b){
             hook.setPosition(0);//down
         }else if(gamepad1.y){
-            hook.setPosition(.5);//mid
+            hook.setPosition(.4);//mid
         }
 
         while(gamepad1.a){} //stops program until A is released

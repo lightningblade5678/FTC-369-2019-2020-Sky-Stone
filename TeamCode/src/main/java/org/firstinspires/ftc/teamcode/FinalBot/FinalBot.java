@@ -181,6 +181,7 @@ public class FinalBot {
     public void placeBlock(){//(!)WIP(!)
 
         arm.baseRotateDegree(50, 1);
+//arm.toggleWrist might be the problem
         arm.toggleWrist(true);
         arm.baseRotateDegree(-50, .1);
         intake.openFinger();

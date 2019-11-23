@@ -23,23 +23,28 @@ public class HookBuildPlate extends LinearOpMode {
         arm.baseMotor.setPower(.25);
 
         waitForStart();
-        
+
+        bot.move(-13,0);
         //move towards tray
-        bot.move(0,-27);//back into tray
+        bot.move(0,-30);//back into tray
+        bot.getWheels().moveRelativeY(-10,0.1);
         bot.hook.dropHook();//drops hook onto block
+        sleep(50);
         bot.placeBlock();//places block
-        bot.move(0,27);//moves bot back onto starting loc
+
+        for(int i = 0; i < 10; i++) {
+               bot.getWheels().moveRelativeY(4, 0.2);
+               sleep(50);
+        }
+
         bot.hook.raiseHook();//raises hook, is done with hook
 
-        bot.move(24,0);
-        bot.move(0,-21);
-        bot.move(-24,0);//rams plate
+        bot.move(30,0);
+        bot.move(0,-42);
+        bot.move(-28,0);//rams plate
+        bot.move(0,32);
 
-        bot.move(0,-24);
-        bot.move(-17,0);
-        bot.move(0,24);//rams plate
-
-        bot.move(65,0);//parks under bridge
+        bot.move(42,0);//parks under bridge
 
     }
 }
