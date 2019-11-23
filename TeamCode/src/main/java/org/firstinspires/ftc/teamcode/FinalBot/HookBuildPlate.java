@@ -27,14 +27,13 @@ public class HookBuildPlate extends LinearOpMode {
         bot.move(-13,0);
         //move towards tray
         bot.move(0,-30);//back into tray
-        bot.getWheels().moveRelativeY(-10,0.1);
+        bot.getWheels().moveRelativeY(-8,0.1);
         bot.hook.dropHook();//drops hook onto block
-        sleep(50);
         bot.placeBlock();//places block
 
         for(int i = 0; i < 10; i++) {
                bot.getWheels().moveRelativeY(4, 0.2);
-               sleep(50);
+               sleep(25);
         }
 
         bot.hook.raiseHook();//raises hook, is done with hook
