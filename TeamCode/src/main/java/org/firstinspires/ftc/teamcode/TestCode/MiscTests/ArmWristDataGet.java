@@ -24,6 +24,8 @@ public class ArmWristDataGet extends LinearOpMode {
 
         wrist.setPower(0.1);
 
+        while (!gamepad1.x)
+        
         while(gamepad1.x){
 
 
