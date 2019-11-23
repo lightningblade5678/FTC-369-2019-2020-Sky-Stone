@@ -22,10 +22,10 @@ public class ArmWristDataGet extends LinearOpMode {
         ElapsedTime time = new ElapsedTime(0);
         time.reset();
 
+        while (!gamepad1.x);
+
         wrist.setPower(0.1);
 
-        while (!gamepad1.x)
-        
         while(gamepad1.x){
 
 
