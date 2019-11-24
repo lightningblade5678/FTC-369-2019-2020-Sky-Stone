@@ -69,7 +69,6 @@ public class AlternativeTeleOp extends LinearOpMode {
 
     public void runOpMode() {
         time = new ElapsedTime(0);
-        armUp = false;
         posHold = 0;
 
         //mapping devices
@@ -158,7 +157,7 @@ public class AlternativeTeleOp extends LinearOpMode {
             }
             if (gamepad2.right_stick_y < 0) {
                 posHold = 0;
-                arm.setPower(1);
+                arm.setPower(0.75);
                 telemetry.addData("Arm", "Moving up 1");
                 telemetry.update();
             } else if (gamepad2.right_stick_y > 0) {
@@ -166,7 +165,7 @@ public class AlternativeTeleOp extends LinearOpMode {
                 arm.setPower(-.05);
                 telemetry.addData("Arm", "Moving down 0.5");
                 telemetry.update();
-            } else if (!armUp) {
+            } else{
                 arm.setPower(posHold);
                 telemetry.addData("Arm", "0");
                 telemetry.update();
