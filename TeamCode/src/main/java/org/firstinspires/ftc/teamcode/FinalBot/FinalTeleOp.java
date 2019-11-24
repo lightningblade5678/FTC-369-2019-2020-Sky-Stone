@@ -63,14 +63,15 @@ public class FinalTeleOp extends OpMode{
 
     private boolean armUp;
     private ElapsedTime time;
-    private double timeLeft;
+    private double posHold;
+
 
     @Override
 
     public void init(){
         time = new ElapsedTime(0);
         armUp = false;
-        timeLeft = Math.abs(30)/ ( (152*1)/30*360 ) * 5;
+        posHold = 0;
 
         //mapping devices
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
@@ -187,7 +188,7 @@ public class FinalTeleOp extends OpMode{
             telemetry.addData("Arm","Moving down 0.5");
             telemetry.update();
         }else if(!armUp){
-            arm.setPower(0);
+            arm.setPower(posHold);
             telemetry.addData("Arm","0");
             telemetry.update();
         }
@@ -195,13 +196,21 @@ public class FinalTeleOp extends OpMode{
         //button to move the arm to a certain angle
         if(gamepad2.x){
 
-            time.reset();
-            armUp = true;
-            arm.setPower(1);
+            if(posHold == 0.25){
+                posHold = 0;
+            }else{
+                posHold = 0.25;
+            }
 
+            time.reset();
+            while (gamepad2.x);
+
+            /*
             while(time.seconds() > timeLeft);
             arm.setPower(0.25);
+            */
             /*
+
             double /*timeRot in seconds = Math.abs(60)/ ( (152*1)/60*360 ) * 5;//calculates time that the arm needs to rotate for
 
 
@@ -215,10 +224,13 @@ public class FinalTeleOp extends OpMode{
             */
         }
 
+
+        /*
         if(armUp && time.seconds() > timeLeft){
             arm.setPower(0.25);
             armUp = false;
         }
+         */
 
         //Moves finger
         if(gamepad2.right_trigger > 0 && gamepad2.left_trigger == 0){
