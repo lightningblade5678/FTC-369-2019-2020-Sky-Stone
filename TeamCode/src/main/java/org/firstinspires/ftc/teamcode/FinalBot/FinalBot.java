@@ -191,7 +191,7 @@ public class FinalBot {
 
         while(time.milliseconds() < 300);
 
-        arm.baseRotateDegree(145, 0.75);
+        arm.baseRotateDegree(160, 0.75);
         //arm.toggleWrist might be the problem
         arm.baseMotor.setPower(0.25);
 

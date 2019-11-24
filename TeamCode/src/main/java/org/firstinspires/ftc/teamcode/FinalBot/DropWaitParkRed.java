@@ -10,7 +10,7 @@ public class DropWaitParkRed extends LinearOpMode {
         //wait
         FinalBot bot = new FinalBot(hardwareMap);
 
-        bot.arm.baseRotateDegree(30, 1);
+        bot.arm.baseRotateDegree(20, 0.8);
         bot.arm.baseMotor.setPower(.25);
 
         waitForStart();
@@ -31,11 +31,11 @@ public class DropWaitParkRed extends LinearOpMode {
 
         //
 
-        //sleep(20000);
+        sleep(16000);
 
-        bot.move(0,60);
+        bot.move(0,-60);
         bot.placeBlock();
-        bot.move(0,-32);
+        bot.move(0,32);
 
     }
 
