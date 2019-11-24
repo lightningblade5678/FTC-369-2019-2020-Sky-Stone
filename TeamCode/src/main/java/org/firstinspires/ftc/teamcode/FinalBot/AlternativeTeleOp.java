@@ -63,12 +63,12 @@ public class AlternativeTeleOp extends LinearOpMode {
     private Servo hook;
 
     private boolean armUp;
-    private ElapsedTime time;
+
     private double posHold;
 
 
     public void runOpMode() {
-        time = new ElapsedTime(0);
+
         posHold = 0;
 
         //mapping devices
