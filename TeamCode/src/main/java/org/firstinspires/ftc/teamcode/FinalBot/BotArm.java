@@ -14,6 +14,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -34,21 +35,18 @@ public class BotArm {
     public DcMotor baseMotor;
     public CRServo wristServo;
     public Servo handServo;
-    private ElapsedTime time = new ElapsedTime();
-
-    private boolean currWrist;//inside intake or not
 
     public BotArm(DcMotor base, CRServo wrist, Servo hand){
         baseMotor = base;
         wristServo = wrist;
+        wristServo.setPower(0);
         handServo = hand;
 
         //set servos and motors to 0
 
         baseMotor.setPower(0);
-        wristServo.setPower(0);
         handGrab(false);
-        currWrist = true;//assume arm start in intake
+        wristServo.setPower(0);
 
     }//basic constructor to make a motor
 
@@ -59,7 +57,7 @@ public class BotArm {
             handServo.setPosition(0);
         }
         else{
-            handServo.setPosition(1);
+            handServo.setPosition(0.5);
         }//closes hand || 1 - open     0 - closed
 
     }//detects if hand is closed or not and inverts results
@@ -68,36 +66,38 @@ public class BotArm {
         
         double timeRot /*in seconds*/ = Math.abs(deg)/ ( (rpm*speed)/60*360 ) * 5;//calculates time that the arm needs to rotate for
 
-        ElapsedTime time = new ElapsedTime(0);
-        time.reset();
+        FinalBot.time.reset();
 
         baseMotor.setPower(speed*( Math.abs(deg)/deg ));
-        while(time.seconds() < timeRot);
+        while(FinalBot.time.seconds() < timeRot);
         baseMotor.setPower(0);
 
     }//rotates base degrees to l/r
 
-    public void toggleWrist(boolean intake){//true if move into intake loc
 
-        ElapsedTime time = new ElapsedTime(0);
+    public void wristOut(){
 
-        double servoTime = 0.5/(43.4/60)/10;
+        wristServo.setPower(-1);
 
-        if(intake && !currWrist){
+        FinalBot.time.reset();
 
-            wristServo.setPower(-0.1);
-            while(time.seconds() < servoTime);
-            currWrist = true;
+        while(FinalBot.time.seconds() < 0.60);
 
-        }else if(currWrist){
+        wristServo.setPower(0);
 
-            wristServo.setPower(0.1);
-            while(time.seconds() < servoTime);
-            currWrist = false;
+    }//moves wrist to outpos
 
-        }
+    public void wristIn(){
 
-    }//moves wrist to expected position
+        wristServo.setPower(1);
+
+        FinalBot.time.reset();
+
+        while(FinalBot.time.seconds() < 0.45);
+
+        wristServo.setPower(0);
+
+    }
 
 /*
     public void baseRotateDegreeTo(DcMotor armMotor, double degree, double power){
@@ -111,7 +111,7 @@ public class BotArm {
         // [!] Check all parameters
         handGrab(false);
         baseRotateDegree(50, 1);
-        toggleWrist(true);
+        wristIn();
         baseRotateDegree(-50, .1);
 
     }//sets all motors to pos to grab stored stone

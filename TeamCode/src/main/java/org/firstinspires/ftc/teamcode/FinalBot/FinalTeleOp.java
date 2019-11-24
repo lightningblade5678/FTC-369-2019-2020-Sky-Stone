@@ -61,9 +61,17 @@ public class FinalTeleOp extends OpMode{
     private Servo hand;
     private Servo hook;
 
+    private boolean armUp;
+    private ElapsedTime time;
+    private double timeLeft;
+
     @Override
 
     public void init(){
+        time = new ElapsedTime(0);
+        armUp = false;
+        timeLeft = Math.abs(60)/ ( (152*1)/60*360 ) * 5;
+
         //mapping devices
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -85,6 +93,7 @@ public class FinalTeleOp extends OpMode{
 
     float intPow = 0;
     double hookPos = .5;
+    boolean wristWorking = false;
     public void loop(){
 
         if (gamepad1.left_stick_y < 0){ //Forwards
@@ -171,15 +180,30 @@ public class FinalTeleOp extends OpMode{
         }
         if(gamepad2.right_stick_y < 0){
             arm.setPower(1);
+            telemetry.addData("Arm","Moving up 1");
+            telemetry.update();
         }else if(gamepad2.right_stick_y > 0){
             arm.setPower(-.05);
-        }else{
+            telemetry.addData("Arm","Moving down 0.5");
+            telemetry.update();
+        }else if(!armUp){
             arm.setPower(0);
+            telemetry.addData("Arm","0");
+            telemetry.update();
         }
 
         //button to move the arm to a certain angle
         if(gamepad2.x){
-            double timeRot /*in seconds*/ = Math.abs(60)/ ( (152*1)/60*360 ) * 5;//calculates time that the arm needs to rotate for
+
+            time.reset();
+            armUp = true;
+            arm.setPower(1);
+
+            while(time.seconds() > timeLeft);
+            arm.setPower(0.25);
+            /*
+            double /*timeRot in seconds = Math.abs(60)/ ( (152*1)/60*360 ) * 5;//calculates time that the arm needs to rotate for
+
 
             ElapsedTime time = new ElapsedTime(0);
             time.reset();
@@ -188,6 +212,12 @@ public class FinalTeleOp extends OpMode{
             while(time.seconds() < timeRot);
             arm.setPower(0);
             arm.setPower(0.25);
+            */
+        }
+
+        if(armUp && time.seconds() > timeLeft){
+            arm.setPower(0.25);
+            armUp = false;
         }
 
         //Moves finger
@@ -204,17 +234,24 @@ public class FinalTeleOp extends OpMode{
         // uses joystick to move wrist
 
         if(gamepad2.left_stick_x < 0){
-            wrist.setPower(.1);
+            if (wristWorking == false) {
+                wrist.setPower(.1);
+                wristWorking = true;
+            }
         }else if(gamepad2.left_stick_x > 0){
-            wrist.setPower(-.1);
+            if (wristWorking == false) {
+                wrist.setPower(-.1);
+                wristWorking = true;
+            }
         }else{
             wrist.setPower(0);
+            wristWorking = false;
         }
 
 
         //moves hand servo
         if(gamepad2.a){
-            hand.setPosition(1);
+            hand.setPosition(0.5);
         }else if(gamepad2.b){
             hand.setPosition(0);
         }

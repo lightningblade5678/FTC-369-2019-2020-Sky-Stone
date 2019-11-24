@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import android.graphics.Color;
 
+import com.qualcomm.ftccommon.configuration.EditLegacyServoControllerActivity;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -24,8 +25,6 @@ public class FinalBot {
         return wheels;
     }//gets the wheels for external use if required
 
-    public ElapsedTime time = new ElapsedTime();
-
     public BotIntake intake;
     public BotArm arm;
     public BotHook hook;
@@ -35,9 +34,14 @@ public class FinalBot {
     private ColorSensor colors;
     private GyroSensor gyro;
 
+    public static ElapsedTime time = new ElapsedTime(0);
+
     //constructors
 
     public FinalBot(HardwareMap map){
+
+        CRServo w = map.get(CRServo.class, "wristServo");
+        w.setPower(0);
 
         wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
         //initializes botWheels
@@ -49,6 +53,7 @@ public class FinalBot {
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
         /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
+        arm.wristServo.setPower(0);
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
@@ -56,6 +61,7 @@ public class FinalBot {
 
         hook = new BotHook(map.get(Servo.class, "hook"));
 
+        arm.wristServo.setPower(0);
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
     public boolean detectColor() {
@@ -167,7 +173,6 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.rawZ() - target) > threshold){
-            ElapsedTime time = new ElapsedTime(0);
 
             time.reset();
             while(time.seconds() < 1);
@@ -179,12 +184,26 @@ public class FinalBot {
 
 
     public void placeBlock(){//(!)WIP(!)
+        arm.handGrab(true);
 
-        arm.baseRotateDegree(50, 1);
-//arm.toggleWrist might be the problem
-        arm.toggleWrist(true);
+        ElapsedTime time = new ElapsedTime(0);
+        time.reset();
+
+        while(time.milliseconds() < 300);
+
+        arm.baseRotateDegree(135, 0.75);
+        //arm.toggleWrist might be the problem
+        arm.baseMotor.setPower(0.25);
+
+        arm.wristOut();
+
+        time.reset();
+        while (time.milliseconds() < 100);
+
         arm.baseRotateDegree(-50, .1);
-        intake.openFinger();
+        arm.handGrab(false);
+
+        arm.baseMotor.setPower(0);
 
     }//places block from internal storage onto tower
 
@@ -216,7 +235,6 @@ public class FinalBot {
 
         intake.openFinger();//ensures bot finger is open
 
-        ElapsedTime time = new ElapsedTime(0);//time
         wheels.setPower(1);
         intake.intakeStart();//start wheels and intake
         
@@ -248,7 +266,6 @@ public class FinalBot {
 
         //starts timer
 
-        ElapsedTime time = new ElapsedTime();
         time.reset();
 
         colors.enableLed(true);
