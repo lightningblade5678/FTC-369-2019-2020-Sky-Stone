@@ -84,7 +84,7 @@ public class HookBuildPlateRed extends LinearOpMode {
         //telemetry.addData("Park: ","Bot");
         //telemetry.update();
 
-        bot.move(45,0);//parks under bridge
+        bot.move(43,0);//parks under bridge
 
     }
 }

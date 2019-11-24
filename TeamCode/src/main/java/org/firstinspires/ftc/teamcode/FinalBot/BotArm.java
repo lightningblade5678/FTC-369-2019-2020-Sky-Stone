@@ -74,6 +74,17 @@ public class BotArm {
 
     }//rotates base degrees to l/r
 
+    public void baseRotateDegree1(double deg, double speed /*Never set this below 0 or above 1*/ ){
+
+        double timeRot /*in seconds*/ = Math.abs(deg)/ ( (rpm*speed)/60*360 );//calculates time that the arm needs to rotate for
+
+        FinalBot.time.reset();
+
+        baseMotor.setPower(speed*( Math.abs(deg)/deg ));
+        while(FinalBot.time.seconds() < timeRot);
+        baseMotor.setPower(0);
+
+    }//rotates base degrees to l/r
 
     public void wristOut(){
 
