@@ -70,7 +70,7 @@ public class FinalTeleOp extends OpMode{
     public void init(){
         time = new ElapsedTime(0);
         armUp = false;
-        timeLeft = Math.abs(60)/ ( (152*1)/60*360 ) * 5;
+        timeLeft = Math.abs(30)/ ( (152*1)/30*360 ) * 5;
 
         //mapping devices
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
