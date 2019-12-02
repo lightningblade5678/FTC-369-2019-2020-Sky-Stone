@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
 Auto code for the blue route, assumes bot is facing wall with left side aligned with the line of the first block at the wall
  */
 
-@Autonomous
+@Autonomous(name="!BuildBlue")
 public class HookBuildPlateBlue extends LinearOpMode {
 
     @Override
@@ -18,7 +18,7 @@ public class HookBuildPlateBlue extends LinearOpMode {
         //wait
         FinalBot bot = new FinalBot(hardwareMap);
 
-        bot.arm.baseRotateDegree(20, 0.8);
+        bot.arm.baseRotateDegree(45, 1);
         bot.arm.baseMotor.setPower(.25);
 
         waitForStart();
@@ -35,29 +35,29 @@ public class HookBuildPlateBlue extends LinearOpMode {
         //telemetry.addData("Readjustment: ","Drop Arm");
         //telemetry.update();
 
-        bot.arm.baseRotateDegree(-50,0.1);
+        bot.arm.baseRotateDegree1(-50,0.1);
 
         //
 
         //telemetry.addData("Move: ","To Tray");
         //telemetry.update();
-
-        bot.move(13,0);
+        bot.move(0, -1);
+        bot.move(10,0);
         //move towards tray
-        bot.move(0,-30);//back into tray
-        bot.getWheels().moveRelativeY(-8,0.2);
+        bot.move(0,-29);//back into tray
+        bot.getWheels().moveRelativeY(-10,0.2);
 
         //telemetry.addData("Action: ","Block");
         //telemetry.update();
 
         bot.hook.dropHook();//drops hook onto block
-        bot.placeBlock();//places block
+        //bot.placeBlock();//places block
 
         //telemetry.addData("Move: ","Block");
         //telemetry.update();
 
         for(int i = 0; i < 5; i++) {
-            bot.getWheels().moveRelativeY(8, 0.3);
+            bot.getWheels().moveRelativeY(8, 0.2);
             sleep(5);
         }
 
@@ -71,20 +71,29 @@ public class HookBuildPlateBlue extends LinearOpMode {
 
         bot.move(-30,0);
 
-        bot.move(0,-42);
+
+        // [!] NEW CODE [!]
+
+        bot.move(0, -42);
+
+
+        //bot.move(0,-42); //OG code
+
+
+
         /*
         times.reset();
         while(times.milliseconds() < 300);
-        */
+            */
 
-        bot.move(28,0);//rams plate
+            bot.move(28,0);//rams plate
 
-        bot.move(0,32);
+        bot.move(0,36); //OG 32
 
         //telemetry.addData("Park: ","Bot");
         //telemetry.update();
 
-        bot.move(-43,0);//parks under bridge
+        bot.move(-45,0);//parks under bridge
 
     }
 }

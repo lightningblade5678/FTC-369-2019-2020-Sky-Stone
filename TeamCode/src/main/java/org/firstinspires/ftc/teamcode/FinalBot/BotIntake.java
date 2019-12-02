@@ -31,7 +31,7 @@ public class BotIntake {
         motors[1] = intakeRight;
         this.touch = dist;
         this.finger = finger;
-        openFinger();
+        closeFinger();
 
         motors[0].setPower(0);
         motors[1].setPower(0);

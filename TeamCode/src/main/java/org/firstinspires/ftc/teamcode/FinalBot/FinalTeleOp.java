@@ -9,7 +9,8 @@ Gamepad 1 (movement):
         - Turning (x-axis)
 
     -Button A/B
-        -Toggles hook position (0/1) [!] WORK IN PROGRESS
+        -Toggles hook position (0/1)
+
 
 
 Gamepad 2 (arm, intake, claw):
@@ -27,7 +28,8 @@ Gamepad 2 (arm, intake, claw):
         -Hand Movement
             - A = Up
             - B = Down
-            - Y = Middle [!] WORK IN PROGRESS [!]
+        - Button X
+            -placeBlock()
 
     -D-Pad
          -Intake
@@ -42,7 +44,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="!TeleOp")
+@TeleOp(name="!MainTeleOp")
 public class FinalTeleOp extends OpMode{
     private ElapsedTime passTime = new ElapsedTime(0);
 
@@ -65,10 +67,12 @@ public class FinalTeleOp extends OpMode{
     private ElapsedTime time;
     private double posHold;
 
+    private FinalBot bot;
 
     @Override
 
     public void init(){
+        bot = new FinalBot(hardwareMap);
         time = new ElapsedTime(0);
         armUp = false;
         posHold = 0;
@@ -90,19 +94,20 @@ public class FinalTeleOp extends OpMode{
 
         wrist = hardwareMap.get(CRServo.class,"wristServo");
         hand = hardwareMap.get(Servo.class,"handServo");
+
+        finger.setPower(1);
+        wait(2000);
+        finger.setPower(0);
     }
 
-    float intPow = 0;
-    double hookPos = .5;
-    boolean wristWorking = false;
     public void loop(){
 
         if (gamepad1.left_stick_y < 0){ //Forwards
 
             allMotors(-gamepad1.left_stick_y);
 
-
         }
+
         if (gamepad1.left_stick_y > 0){ //Backwards
 
             allMotors(-gamepad1.left_stick_y);
@@ -180,10 +185,12 @@ public class FinalTeleOp extends OpMode{
             intakePower(-.3);
         }
         if(gamepad2.right_stick_y < 0){
-            arm.setPower(1);
+            posHold = 0;
+            arm.setPower(.85); //Testing
             telemetry.addData("Arm","Moving up 1");
             telemetry.update();
         }else if(gamepad2.right_stick_y > 0){
+            posHold = 0;
             arm.setPower(-.05);
             telemetry.addData("Arm","Moving down 0.5");
             telemetry.update();
@@ -193,9 +200,20 @@ public class FinalTeleOp extends OpMode{
             telemetry.update();
         }
 
+        if(gamepad2.y){
+            bot.arm.baseRotateDegree(45,1);
+            bot.arm.handGrab(false);
+            arm.setPower(0.25);
+            posHold = 0.25;
+        }//holds block position for intake
+
         //button to move the arm to a certain angle
         if(gamepad2.x){
 
+            //bot.placeBlock();
+            //bot.resetArm();
+
+            /*
             if(posHold == 0.25){
                 posHold = 0;
             }else{
@@ -204,7 +222,7 @@ public class FinalTeleOp extends OpMode{
 
             time.reset();
             while (gamepad2.x);
-
+            */
             /*
             while(time.seconds() > timeLeft);
             arm.setPower(0.25);
@@ -246,18 +264,13 @@ public class FinalTeleOp extends OpMode{
         // uses joystick to move wrist
 
         if(gamepad2.left_stick_x < 0){
-            if (wristWorking == false) {
-                wrist.setPower(.1);
-                wristWorking = true;
-            }
+            wrist.setPower(.15);
+
         }else if(gamepad2.left_stick_x > 0){
-            if (wristWorking == false) {
-                wrist.setPower(-.1);
-                wristWorking = true;
-            }
+            wrist.setPower(-.15);
+
         }else{
             wrist.setPower(0);
-            wristWorking = false;
         }
 
 
@@ -273,8 +286,6 @@ public class FinalTeleOp extends OpMode{
             hook.setPosition(1);//up
         }else if(gamepad1.b){
             hook.setPosition(0);//down
-        }else if(gamepad1.y){
-            hook.setPosition(.4);//mid
         }
 
         while(gamepad1.a){} //stops program until A is released

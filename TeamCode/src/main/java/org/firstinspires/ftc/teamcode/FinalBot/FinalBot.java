@@ -34,8 +34,6 @@ public class FinalBot {
     private ColorSensor colors;
     private GyroSensor gyro;
 
-    public static ElapsedTime time = new ElapsedTime(0);
-
     //constructors
 
     public FinalBot(HardwareMap map){
@@ -173,7 +171,7 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.rawZ() - target) > threshold){
-
+            ElapsedTime time = new ElapsedTime(0);
             time.reset();
             while(time.seconds() < 1);
 
@@ -183,7 +181,7 @@ public class FinalBot {
     }//rotates bot by degree rotates clockwise IE: compass
 
 
-    public void placeBlock(){//(!)WIP(!)
+    public void placeBlock(){// (!)WIP(!)
         arm.handGrab(true);
 
         ElapsedTime time = new ElapsedTime(0);
@@ -191,7 +189,7 @@ public class FinalBot {
 
         while(time.milliseconds() < 300);
 
-        arm.baseRotateDegree(160, 0.75);
+        arm.baseRotateDegree(260, 1); //Original deg = 170
         //arm.toggleWrist might be the problem
         arm.baseMotor.setPower(0.25);
 
@@ -200,12 +198,27 @@ public class FinalBot {
         time.reset();
         while (time.milliseconds() < 100);
 
-        arm.baseRotateDegree1(-50, .1);
+        arm.baseRotateDegree1(-50, .05);
         arm.handGrab(false);
 
         arm.baseMotor.setPower(0);
 
     }//places block from internal storage onto tower
+
+    public void resetArm(){
+        arm.baseRotateDegree(260, 1); //Original deg = 170
+        //arm.toggleWrist might be the problem
+        arm.baseMotor.setPower(0.25);
+
+        arm.wristIn();
+
+        ElapsedTime time2 = new ElapsedTime(0);
+
+        time2.reset();
+        while (time2.milliseconds() < 100);
+
+        arm.baseRotateDegree1(-50, .05);
+    }
 
     public double intake(double timeout){
 
@@ -231,13 +244,15 @@ public class FinalBot {
 
     public double intakeTime(double timeout){
 
+        ElapsedTime time = new ElapsedTime(0);
+
         double currCount = wheels.getWheel(2).getCurrentPosition();//current position of encoder
 
         intake.openFinger();//ensures bot finger is open
 
         wheels.setPower(1);
         intake.intakeStart();//start wheels and intake
-        
+
         time.reset();
 
         while(time.seconds() < timeout);//waits
@@ -251,6 +266,8 @@ public class FinalBot {
     }//intakes from front for a specified amount of time, returns distance travelled
 
     public double intake(double timeout, int dir /*-1 or 1, sets direction of travel -1 for left, 1 for right*/){
+
+        ElapsedTime time = new ElapsedTime(0);
 
         double currCount = wheels.getWheel(3).getCurrentPosition();//current position of encoder
 
@@ -317,6 +334,7 @@ public class FinalBot {
 
 
     private void sleep(int ms){
+        ElapsedTime time = new ElapsedTime(0);
         time.reset();
         while(ms < time.milliseconds()){}
     }

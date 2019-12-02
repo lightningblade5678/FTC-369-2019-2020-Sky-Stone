@@ -5,7 +5,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="!.BrickRedAuto")
+@Autonomous(name="BrickRedAuto")
 public class FinalAuto_BrickRed extends LinearOpMode {
 
     @Override

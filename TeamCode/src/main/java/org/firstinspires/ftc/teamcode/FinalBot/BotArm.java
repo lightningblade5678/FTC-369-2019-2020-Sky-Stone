@@ -63,48 +63,51 @@ public class BotArm {
     }//detects if hand is closed or not and inverts results
 
     public void baseRotateDegree(double deg, double speed /*Never set this below 0 or above 1*/ ){
-        
+
+        ElapsedTime time = new ElapsedTime(0);
+
         double timeRot /*in seconds*/ = Math.abs(deg)/ ( (rpm*speed)/60*360 ) * 5;//calculates time that the arm needs to rotate for
 
-        FinalBot.time.reset();
+        time.reset();
 
         baseMotor.setPower(speed*( Math.abs(deg)/deg ));
-        while(FinalBot.time.seconds() < timeRot);
+        while(time.seconds() < timeRot);
         baseMotor.setPower(0);
 
     }//rotates base degrees to l/r
 
     public void baseRotateDegree1(double deg, double speed /*Never set this below 0 or above 1*/ ){
+        ElapsedTime time = new ElapsedTime(0);
 
         double timeRot /*in seconds*/ = Math.abs(deg)/ ( (rpm*speed)/60*360 );//calculates time that the arm needs to rotate for
 
-        FinalBot.time.reset();
+        time.reset();
 
         baseMotor.setPower(speed*( Math.abs(deg)/deg ));
-        while(FinalBot.time.seconds() < timeRot);
+        while(time.seconds() < timeRot);
         baseMotor.setPower(0);
 
     }//rotates base degrees to l/r
 
     public void wristOut(){
-
+        ElapsedTime time = new ElapsedTime(0);
         wristServo.setPower(-1);
 
-        FinalBot.time.reset();
+        time.reset();
 
-        while(FinalBot.time.seconds() < 0.60);
+        while(time.seconds() < 0.60);
 
         wristServo.setPower(0);
 
     }//moves wrist to outpos
 
     public void wristIn(){
-
+        ElapsedTime time = new ElapsedTime(0);
         wristServo.setPower(1);
 
-        FinalBot.time.reset();
+        time.reset();
 
-        while(FinalBot.time.seconds() < 0.45);
+        while(time.seconds() < 0.35);
 
         wristServo.setPower(0);
 

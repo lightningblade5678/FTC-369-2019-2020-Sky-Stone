@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="!!!TEST!!!")
+@Autonomous(name="TEST")
 public class TEST extends LinearOpMode {
 
     @Override
