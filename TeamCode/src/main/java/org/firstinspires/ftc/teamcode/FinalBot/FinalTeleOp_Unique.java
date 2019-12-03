@@ -28,8 +28,6 @@ Gamepad 2 (arm, intake, claw):
         -Hand Movement
             - A = Up
             - B = Down
-        - Button X
-            -placeBlock()
 
     -D-Pad
          -Intake

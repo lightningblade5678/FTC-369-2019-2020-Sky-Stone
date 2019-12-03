@@ -20,8 +20,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class BotIntake {
 
     private DistanceSensor touch;//Distance sensor to detect a successful intake
-    private CRServo finger;//For "ramming block into position" NOTE: 360 degree
-    private DcMotor[] motors = new DcMotor[2];//motors for the intake system
+    public CRServo finger;//For "ramming block into position" NOTE: 360 degree
+    public DcMotor[] motors = new DcMotor[2];//motors for the intake system
     public  boolean fingerOpen;//true if open, false if closed
     //0:Left
     //1:Right
