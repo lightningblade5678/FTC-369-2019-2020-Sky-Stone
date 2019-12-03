@@ -84,6 +84,17 @@ public class BotWheels {
    
    }//sets the power of an individual motor
 
+   public void strafe(double power){
+
+
+
+      wheels[0].setPower(power);
+      wheels[1].setPower(power);
+      wheels[2].setPower(-power);
+      wheels[3].setPower(-power);
+
+   }
+
    public DcMotor getWheel(int i){
       return wheels[i];
    }//returns wheel for use
