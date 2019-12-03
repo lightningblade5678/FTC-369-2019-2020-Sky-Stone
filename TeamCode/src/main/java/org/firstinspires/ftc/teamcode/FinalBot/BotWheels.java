@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
  */
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class BotWheels {
 
@@ -101,8 +102,11 @@ public class BotWheels {
 
    //start work methods
 
-   public void moveRelativeY(double distance, double power){//legacy only
-   
+   public void moveRelativeY(double distance, double power, double timeout){//legacy only
+
+      ElapsedTime time = new ElapsedTime();
+      time.reset();
+
       DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for lat
    
       setMode(DcMotor.RunMode.RUN_TO_POSITION);//sets wheels to begin to run to position
@@ -121,7 +125,7 @@ public class BotWheels {
       setPower(2, power*0.95* (Math.abs(distance)/distance) );
       setPower(3, power*0.95* (Math.abs(distance)/distance) );
    
-      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() /* wheels[3].isBusy()*/);//waits until encoders are done running
+      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() /* wheels[3].isBusy()*/ && time.seconds() < timeout);//waits until encoders are done running
       //NOTE: commented out wheels w/o encoders
    
       setPower(0);//stops wheels command is done
@@ -130,8 +134,12 @@ public class BotWheels {
    
    }//moves relative to the bots 'y' axis or up/down, bias up
 
-   public void moveRelativeX(double distance, double power){//legacy only
-   
+   public void moveRelativeX(double distance, double power, double timeout){//legacy only
+
+
+      ElapsedTime time = new ElapsedTime();
+      time.reset();
+
       DcMotor.RunMode temp = wheels[0].getMode();//saves runmode of motors for later reset
    
       setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -147,8 +155,10 @@ public class BotWheels {
       setPower(1, -power* (Math.abs(distance)/distance));
       setPower(2, -power*0.95* (Math.abs(distance)/distance));
       setPower(3, power*0.95* (Math.abs(distance)/distance));//sets power of the bot
-   
-      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() /*wheels[3].isBusy()*/) {
+
+      time.reset();
+
+      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() /*wheels[3].isBusy()*/ && time.seconds() < 20) {
       
       }//waits until encoders are done running
       //NOTE: commented out wheels w/o encoders
@@ -159,7 +169,10 @@ public class BotWheels {
    
    }//moves bot relative to X axis, or left/right bias right
 
-   public void rotate(double degrees, double speed){//Clockwise
+   public void rotate(double degrees, double speed, double timeout){//Clockwise
+
+      ElapsedTime time = new ElapsedTime();
+      time.reset();
 
       DcMotor.RunMode temp = wheels[0].getMode();//saves wheel runmode
 
@@ -176,7 +189,9 @@ public class BotWheels {
       setPower(2,speed*0.95);
       setPower(3,-0.95*speed);
 
-      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() /*wheels[3].isBusy()*/) {
+
+      time.reset();
+      while( wheels[0].isBusy() && wheels[1].isBusy() && wheels[2].isBusy() /*wheels[3].isBusy()*/ && time.seconds() < 20) {
 
       }//waits until encoders are done
 

@@ -17,7 +17,7 @@ public class MethodTest extends LinearOpMode {
 
         telemetry.addData("Moving", "10 forward");
         telemetry.update();
-        wheels.moveRelativeY(10000, 1);
+        wheels.moveRelativeY(10, 1, 10);
 
         /*
         telemetry.addData("Moving", "10 right");
@@ -26,7 +26,7 @@ public class MethodTest extends LinearOpMode {
 */
         telemetry.addData("Moving", "10 back");
         telemetry.update();
-        wheels.moveRelativeY(-10, 1);
+        wheels.moveRelativeY(-10, 1, 10);
 /*
         telemetry.addData("Moving", "10 left");
         telemetry.update();

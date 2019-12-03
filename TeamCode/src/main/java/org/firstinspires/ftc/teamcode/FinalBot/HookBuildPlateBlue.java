@@ -45,7 +45,7 @@ public class HookBuildPlateBlue extends LinearOpMode {
         bot.move(10,0);
         //move towards tray
         bot.move(0,-29);//back into tray
-        bot.getWheels().moveRelativeY(-10,0.2);
+        bot.getWheels().moveRelativeY(-10,0.2, 20);
 
         //telemetry.addData("Action: ","Block");
         //telemetry.update();
@@ -57,7 +57,7 @@ public class HookBuildPlateBlue extends LinearOpMode {
         //telemetry.update();
 
         for(int i = 0; i < 5; i++) {
-            bot.getWheels().moveRelativeY(8, 0.2);
+            bot.getWheels().moveRelativeY(8, 0.2, 20);
             sleep(5);
         }
 

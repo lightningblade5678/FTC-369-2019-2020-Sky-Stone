@@ -63,6 +63,7 @@ public class FinalBot {
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
     public boolean detectColor() {
+
         if(colors.red() > 10 && colors.green() > 10 && colors.blue() > 10){
             return true;
         }
@@ -97,12 +98,12 @@ public class FinalBot {
             double angle = Math.atan(y / x);//use later
 
             for (double i = 0; i < target; i += steps) {
-                wheels.moveRelativeY(Math.sin(angle) * steps, 1);//moves y
-                wheels.moveRelativeX(Math.cos(angle) * steps, 1);//moves x
+                wheels.moveRelativeY(Math.sin(angle) * steps, 1, 1);//moves y
+                wheels.moveRelativeX(Math.cos(angle) * steps, 1, 1);//moves x
 
                 if(Math.abs(gyro.getHeading()-heading) > threshold){
                     rotate(heading-gyro.getHeading());
-                    calibrateGyro();
+                    calibrateGyro(5);
                     heading = gyro.getHeading();
                 }//corrects course if bot gets thrown off heading
 
@@ -110,7 +111,7 @@ public class FinalBot {
 
         }else if(x == 0){//if is simple linear grid motion just call the methods
 
-            wheels.moveRelativeY(y, 1);
+            wheels.moveRelativeY(y, 1, 20);
 
             if(Math.abs(gyro.getHeading()-heading) > threshold){
                 rotate(heading-gyro.getHeading());
@@ -118,7 +119,7 @@ public class FinalBot {
 
         }else if(y == 0){
 
-            wheels.moveRelativeX(x, 1);
+            wheels.moveRelativeX(x, 1, 20);
 
             if(Math.abs(gyro.getHeading()-heading) > threshold){
                 rotate(heading-gyro.getHeading());
@@ -142,10 +143,13 @@ public class FinalBot {
      */
 
     public void rotate(double degree){
-        wheels.rotate(degree,0.75);
+        wheels.rotate(degree,0.75, 10);
     }//helper method for simplicity
 
-    private void rotate(double degree, double speed /*ALWAYS set this to 1*/ ) {//(!)(!)(!) LEGACY CODE DO NOT USE (!)(!)(!)
+    private void rotate(double degree, double speed /*ALWAYS set this to 1*/, double timeout ) {//(!)(!)(!) LEGACY CODE DO NOT USE (!)(!)(!)
+
+        ElapsedTime time = new ElapsedTime();
+        time.reset();
 
         double target = gyro.rawZ()+degree;
 
@@ -158,11 +162,12 @@ public class FinalBot {
 
         if(degree >= 0){//clockwise
 
-            while(gyro.rawZ() < target){}//waits until degree is greater than or equal to target loc
+            while(gyro.rawZ() < target && time.seconds() < timeout){}//waits until degree is greater than or equal to target loc
 
         }else{//counterclockwise
 
-            while(gyro.rawZ() > target){}//waits until degree is less than or equal to target loc
+            time.reset();
+            while(gyro.rawZ() > target && time.seconds() < timeout){}//waits until degree is less than or equal to target loc
 
         }
 
@@ -171,11 +176,10 @@ public class FinalBot {
         double threshold = 5;//5 degree error threshold
 
         if(Math.abs(gyro.rawZ() - target) > threshold){
-            ElapsedTime time = new ElapsedTime(0);
             time.reset();
             while(time.seconds() < 1);
 
-            rotate(target-gyro.rawZ(), speed/2);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
+            rotate(target-gyro.rawZ(), speed/2, 10);//try again but slower (less room for error as any overshoot is likely caused by too much speed on the motor)
         }//corrects any errors above threshold
 
     }//rotates bot by degree rotates clockwise IE: compass
@@ -325,9 +329,13 @@ public class FinalBot {
 
     }//grabs a block from behind robot and places into storage
 
-    public double calibrateGyro(){
+    public double calibrateGyro(double timeout){
+
+        ElapsedTime time = new ElapsedTime();
+        time.reset();
+
         gyro.calibrate();//starts gyro calibration
-        while(gyro.isCalibrating());//waits until gyro finishes calibrating
+        while(gyro.isCalibrating() && time.seconds() < timeout);//waits until gyro finishes calibrating
 
         return gyro.getHeading();
     }//calibrates the gyroscope, returns heading

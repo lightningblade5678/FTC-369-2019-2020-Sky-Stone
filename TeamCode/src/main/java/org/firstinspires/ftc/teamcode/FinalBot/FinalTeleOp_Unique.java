@@ -44,8 +44,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="!MainTeleOp")
-public class FinalTeleOp extends OpMode{
+@TeleOp(name="!MainTeleOpUnique")
+public class FinalTeleOp_Unique extends OpMode{
     private ElapsedTime passTime = new ElapsedTime(0);
 
     private DcMotor frontLeft;
