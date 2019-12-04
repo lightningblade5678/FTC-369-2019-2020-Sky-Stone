@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.TestCode.MiscTests;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 /*
     This test is used to test omnidirectional controller input for mechanum wheels via controller1

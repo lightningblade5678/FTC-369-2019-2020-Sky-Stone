@@ -2,10 +2,8 @@ package org.firstinspires.ftc.teamcode.TestCode.MotorTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 @Autonomous(name="FullMotionTest")
 public class FullMotionTest extends LinearOpMode {

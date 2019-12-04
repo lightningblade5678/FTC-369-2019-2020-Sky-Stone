@@ -1,9 +1,13 @@
 // [!] START WITH TWO LEFT WHEELS ON WALLS (facing towards closest wall)
 
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.FinalOpModes.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotArm;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotWheels;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 @Autonomous(name="BrickRedAuto")
 public class FinalAuto_BrickRed extends LinearOpMode {

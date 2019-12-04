@@ -3,12 +3,9 @@ package org.firstinspires.ftc.teamcode.TestCode.MiscTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.FinalBot.BotArm;
-import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotArm;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 @Autonomous(name="BRDT")
 public class BaseRotateDegreeTest extends LinearOpMode {

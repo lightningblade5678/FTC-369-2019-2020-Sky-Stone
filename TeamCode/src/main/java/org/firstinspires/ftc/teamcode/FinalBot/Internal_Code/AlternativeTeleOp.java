@@ -35,7 +35,7 @@ Gamepad 2 (arm, intake, claw):
          -Intake
  */
 
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.Internal_Code;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;

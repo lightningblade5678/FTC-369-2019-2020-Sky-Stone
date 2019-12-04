@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.Internal_Code;
 
 import android.hardware.Sensor;
 

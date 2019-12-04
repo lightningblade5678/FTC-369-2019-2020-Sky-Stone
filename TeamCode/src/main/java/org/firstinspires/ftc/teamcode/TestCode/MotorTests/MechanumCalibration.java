@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 /*
     This class is used to calibrate the mechanum wheel movement for the main method via dead reckoning

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.Internal_Code;
 
 /*
     This class contains the robots' wheels and the methods used to manipulate them

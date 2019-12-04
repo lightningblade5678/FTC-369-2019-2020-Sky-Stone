@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.FinalOpModes.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-@Autonomous(name="!BrickRed")
-public class DropWaitParkRed extends LinearOpMode {
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
+
+@Autonomous(name="!BrickBlue")
+public class DropWaitParkBlue extends LinearOpMode {
 
     public void runOpMode(){
         //wait

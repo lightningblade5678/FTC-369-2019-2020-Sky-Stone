@@ -6,7 +6,7 @@ Dimensions of Arm:
 4 inches tall (bricks)
 3 inches long (wrist)
  */
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.Internal_Code;
 
 /*
     This class is used to manipulate the bot arm

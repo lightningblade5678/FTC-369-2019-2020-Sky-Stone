@@ -1,7 +1,13 @@
-package org.firstinspires.ftc.teamcode.FinalBot;
+package org.firstinspires.ftc.teamcode.FinalBot.FinalOpModes.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotArm;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotHook;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotIntake;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotWheels;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 @TeleOp
 public class FinalTeleOp_FinalBot extends LinearOpMode {

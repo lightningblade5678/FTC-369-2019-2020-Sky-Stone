@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotArm;
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
+
 @Autonomous(name="PendingAdvancedBrickCode")
 public class PendingAdvancedBrickCode extends LinearOpMode {
 
