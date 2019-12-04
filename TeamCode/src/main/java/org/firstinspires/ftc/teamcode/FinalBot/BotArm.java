@@ -12,6 +12,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
     This class is used to manipulate the bot arm
  */
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -35,13 +36,15 @@ public class BotArm {
     public DcMotor baseMotor;
     public CRServo wristServo;
     public Servo handServo;
+    private ModernRoboticsI2cRangeSensor range;
 
-    public BotArm(DcMotor base, CRServo wrist, Servo hand){
+    public BotArm(DcMotor base, CRServo wrist, Servo hand, ModernRoboticsI2cRangeSensor range){
         baseMotor = base;
         wristServo = wrist;
         wristServo.setPower(0);
         handServo = hand;
 
+        this.range = range;
         //set servos and motors to 0
 
         baseMotor.setPower(0);

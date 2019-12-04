@@ -27,6 +27,7 @@ public class DistanceArmTest extends LinearOpMode {
         while(time.seconds() < 15){
             telemetry.addData("Dist: ", range.getDistance(DistanceUnit.CM));
             telemetry.update();
+            sleep(100);
         }
 
     }

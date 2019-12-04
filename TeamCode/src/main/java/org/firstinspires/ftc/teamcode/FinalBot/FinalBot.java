@@ -50,14 +50,14 @@ public class FinalBot {
 
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo")); //change motor names
+        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo"),map.get(ModernRoboticsI2cRangeSensor.class, "armDistance")); //change motor names
         arm.wristServo.setPower(0);
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
         gyro = map.get(GyroSensor.class, "gyroscope");
 
-        hook = new BotHook(map.get(Servo.class, "hook"));
+        hook = new BotHook(map.get(Servo.class, "hook"), map.get(Servo.class, "hook2"));
 
         arm.wristServo.setPower(0);
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
