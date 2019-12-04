@@ -19,7 +19,7 @@ public class DistanceArmTest extends LinearOpMode {
 
     public void runOpMode(){
 
-        range = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "armDistance");
+        range = (ModernRoboticsI2cRangeSensor) hardwareMap.get("armDistance");
 
         ElapsedTime time = new ElapsedTime(0);
         time.reset();

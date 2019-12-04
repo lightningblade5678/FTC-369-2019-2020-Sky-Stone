@@ -50,7 +50,7 @@ public class FinalBot {
 
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
-        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo"),map.get(ModernRoboticsI2cRangeSensor.class, "armDistance")); //change motor names
+        /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo"), (ModernRoboticsI2cRangeSensor) map.get("armDistance")); //change motor names
         arm.wristServo.setPower(0);
 
         colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
