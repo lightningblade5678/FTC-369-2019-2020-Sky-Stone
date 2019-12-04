@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TestCode.MotorTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.FinalBot.FinalBot;
@@ -14,81 +15,33 @@ public class FullMotionTest extends LinearOpMode {
 
         FinalBot bot = new FinalBot(hardwareMap);
 
-        telemetry.addData("Rotating: ","90");
+        //bot.placeBlock();k
+        //bot.hook.raiseHook();
+        //bot.hook.dropHook();
+        telemetry.addData("DONE: ","INIT");
         telemetry.update();
+        //bot.arm.toggleWrist(false);
+        /*
+        bot.arm.wristServo.setPower(-1);
 
-        telemetry.addData("Heading",bot.calibrateGyro());
-        telemetry.update();
-        sleep(2000);
+        ElapsedTime time = new ElapsedTime(0);
+        time.reset();
 
-        bot.rotate(90);
+        while(time.seconds() < 0.55);
 
-        telemetry.addData("Rotating: ","-270");
-        telemetry.update();
-
-        bot.rotate(-270);
-
-        telemetry.addData("Strafe: ","6in");
-        telemetry.update();
-
-        bot.move(6,0);
-
-        telemetry.addData("Test: ","DONE!");
-        telemetry.update();
-
-        sleep(1000);
-
-        telemetry.addData("CounterStrafe: ","6in");
-        telemetry.update();
-
-        bot.move(-6,0);
-
-        telemetry.addData("Test: ","DONE!");
-        telemetry.update();
-
-        sleep(1000);
-
-        telemetry.addData("Move: ","6in");
-        telemetry.update();
-
-        bot.move(0,6);
-
-        telemetry.addData("Test: ","DONE!");
-        telemetry.update();
-
-        sleep(1000);
-
-        telemetry.addData("Reverse: ","in");
-        telemetry.update();
-
-        bot.move(0,-6);
-
-        telemetry.addData("Test: ","DONE!");
-        telemetry.update();
-
-        sleep(1000);
-
-        telemetry.addData("Diagonal: ","R6in, U6in");
-        telemetry.update();
-
-        bot.move(6,6);
-
-        telemetry.addData("Test: ","DONE!");
-        telemetry.update();
-
-        sleep(1000);
-
-        telemetry.addData("Finishing: ","360");
-        telemetry.update();
-
-        bot.rotate(360);
-
-        telemetry.addData("Test: ","DONE!");
-        telemetry.update();
-
-        sleep(1000);
+        bot.arm.wristServo.setPower(0);
 
 
+         */
+
+        bot.move(12,0);
+        bot.move(-12,0);
+        bot.move(0,12);
+        bot.move(0,-12);
+
+        //bot.placeBlock();
+        //bot.arm.wristOut();
+        //bot.arm.wristIn();
     }
 
 }

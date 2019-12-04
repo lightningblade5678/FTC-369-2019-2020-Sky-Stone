@@ -12,7 +12,7 @@ public class BotHook {
     }//basic constructor
 
     public void dropHook(){
-        /*(!)*/hook.setPosition(0);//change vals later
+        /*(!)*/hook.setPosition(0.2);//change vals later  --  OG 0.4
     }//drops hook down
 
     public void raiseHook(){

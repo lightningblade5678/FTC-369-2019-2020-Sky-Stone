@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.FinalBot;
 
 import android.hardware.Sensor;
 
+import com.qualcomm.ftccommon.configuration.EditLegacyServoControllerActivity;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -19,8 +20,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 public class BotIntake {
 
     private DistanceSensor touch;//Distance sensor to detect a successful intake
-    private CRServo finger;//For "ramming block into position" NOTE: 360 degree
-    private DcMotor[] motors = new DcMotor[2];//motors for the intake system
+    public CRServo finger;//For "ramming block into position" NOTE: 360 degree
+    public DcMotor[] motors = new DcMotor[2];//motors for the intake system
+    public  boolean fingerOpen;//true if open, false if closed
     //0:Left
     //1:Right
 
@@ -29,6 +31,11 @@ public class BotIntake {
         motors[1] = intakeRight;
         this.touch = dist;
         this.finger = finger;
+        closeFinger();
+
+        motors[0].setPower(0);
+        motors[1].setPower(0);
+
     }//basic constructor to create objects
 
     public BotIntake(DcMotor intakeleft, DcMotor intakeRight, CRServo finger){
@@ -37,7 +44,7 @@ public class BotIntake {
 
     public void intakeStart(){
         /*(!)*/motors[0].setPower(1);//replace 1 with -1 or 1 depending on motor setup
-        /*(!)*/motors[1].setPower(1);//replace 1 with -1 or 1 depending on motor setup
+        /*(!)*/motors[1].setPower(-1);//replace 1 with -1 or 1 depending on motor setup
     }//Starts the intake system
 
     public void intakeStop(){
@@ -45,38 +52,35 @@ public class BotIntake {
         motors[1].setPower(0);
     }//stops the intake system
 
-    public boolean intakeFill(){
-        /*(!)*/return this.touch == null || touch.getDistance(DistanceUnit.INCH) <= 2;//returns if distance between block and sensor is less that 2in, adjust values later. if no distance sensor, returns true
-    }//returns true if intake contains a block
-
     public void closeFinger(){
         /*(!)*///finger.setPosition(0.25);//change value later
+
+        finger.setPower(1);//moves towards intake
+
+        ElapsedTime time = new ElapsedTime(0);//timer
+
+        while(time.seconds() < 2);//waits until finger is there
+
+        finger.setPower(0);//exits
+
+        fingerOpen = false;//toggles fingerOpen value
+
     }//clamps block inside intake
 
     public void openFinger(){
         /*(!)*///finger.setPosition(0);//change value later
+
+        finger.setPower(-1);//moves away from intake
+
+        ElapsedTime time = new ElapsedTime(0);//timer
+        time.reset();
+        while(time.seconds() < 2);//waits until finger is there
+
+        finger.setPower(0);//exits
+
+        fingerOpen = true;//toggles fingerOpen value
     }//releases block from inside intake
 
-    public void toggleFinger(){
-        /*
-        if(touch != null) {
-
-            if (intakeFill()) {
-                closeFinger();
-            } else {
-                openFinger();
-            }
-
-        }else{
-
-            if(Math.abs(0.25-finger.getPosition()) < 10){//if within range
-                openFinger();
-            }else{
-                closeFinger();
-            }
-
-        }
-        */
     }//closes finger if there is a block, opens if there isnt. If there is no distance sensor, acts as a normal toggle
 
-}
+
