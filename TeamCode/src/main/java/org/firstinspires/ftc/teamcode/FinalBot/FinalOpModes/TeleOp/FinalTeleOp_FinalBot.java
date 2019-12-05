@@ -9,8 +9,10 @@ import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotIntake;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotWheels;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
-@TeleOp
+@TeleOp(name="!!MainTeleOp_FinalBot")
 public class FinalTeleOp_FinalBot extends LinearOpMode {
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -20,64 +22,73 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
         BotHook hook = bot.hook;
         BotIntake intake = bot.intake;
 
+        waitForStart();
+        while (opModeIsActive()) {
+            //                  [!] CONTROLLER 1 [!]
+            if (ifStick('y', 1, 'l', .5)) {
+                wheels.setPower(gamepad1.left_stick_y);
+            }//Forwards and backwards
+
+            if (ifStick('x', 1, 'l', .5)) {
+
+                wheels.setPower(0, gamepad1.left_stick_x);
+                wheels.setPower(1, gamepad1.left_stick_x);
+                wheels.setPower(2, -gamepad1.left_stick_x);
+                wheels.setPower(3, -gamepad1.left_stick_x);
+
+            }//Strafing
+
+            if (ifStick('x', 1, 'r', .5)) {
+
+                wheels.setPower(0, gamepad1.right_stick_x);
+                wheels.setPower(1, -gamepad1.right_stick_x);
+                wheels.setPower(2, gamepad1.right_stick_x);
+                wheels.setPower(3, -gamepad1.right_stick_x);
+
+            }//rotating
+
+            if (gamepad1.a) {
+                hookPos();
+            }//hook toggle
 
 
-        //                  [!] CONTROLLER 1 [!]
-        if (ifStick('y', 1, 'l')) {
-            wheels.setPower(gamepad1.left_stick_y);
-        }//Forwards and backwards
-
-        if (ifStick('x', 1, 'l')) {
-            wheels.strafe(gamepad1.left_stick_x);
-        }//Strafing
-
-        if (ifStick('x', 1, 'r')) {
-
-            wheels.setPower(1, -gamepad1.right_stick_x);
-            wheels.setPower(3, -gamepad1.right_stick_x);
-            wheels.setPower(2, gamepad1.right_stick_x);
-            wheels.setPower(4, gamepad1.right_stick_x);
-
-        }//rotating
-
-        if (gamepad1.a) {
-            hookPos();
-        }//hook toggle
 
 
 
 
+            //                  [!] CONTROLLER 2 [!]
+            if (ifStick('y', 2, 'r', .5)) {
 
-        //                  [!] CONTROLLER 2 [!]
-        if (ifStick('y', 2, 'r')) {
+                double power = gamepad2.right_stick_y;
 
-            double power = gamepad2.right_stick_y;
+                if (gamepad2.right_stick_y < -.3) {
+                    power = -.3;
+                }//failsafe (doesn't slam arm down)
 
-            if (gamepad2.right_stick_y < -.3) {
-                power = -.3;
-            }//failsafe (doesn't slam arm down)
-
-            arm.baseMotor.setPower(power);
-        }//arm power
-
-
-        if (ifStick('x', 2, 'l')) {
-            arm.wristServo.setPower(gamepad2.left_stick_x / 10); //divides by 10 to account for sensitive servo
-
-        }//wrist movement
+                arm.baseMotor.setPower(power);
+            }//arm power
 
 
-        if(ifTrig(2, 'l')){
-            intake.finger.setPower(-gamepad2.left_trigger);
-        }else if(ifTrig(2, 'r')){
-            intake.finger.setPower(gamepad2.right_trigger);
-        }//finger movement
+            if (ifStick('x', 2, 'l', .5)) {
+                arm.wristServo.setPower(gamepad2.left_stick_x / 10); //divides by 10 to account for sensitive servo
 
-        if(gamepad2.a){
-            handPos();
-        }//hand movement
+            }//wrist movement
 
-        intakeMovement(); //intake movement
+
+            if (ifTrig(2, 'l')) {
+                intake.finger.setPower(-gamepad2.left_trigger);
+            } else if (ifTrig(2, 'r')) {
+                intake.finger.setPower(gamepad2.right_trigger);
+            }//finger movement
+
+            if (gamepad2.a) {
+                handPos();
+            }//hand movement
+
+            intakeMovement(); //intake movement
+
+        }
+
 
     }
 
@@ -85,10 +96,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
 
 
-
-
-
-    //                                  [!] METHODS [!]
+    //                    [!] METHODS [!]
     private void hookPos(){
 
         FinalBot bot = new FinalBot(hardwareMap);
@@ -120,7 +128,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
     } //toggles hook pos when 'a' is pressed
 
-    private boolean ifStick(char axis, int gamepad, char side) {
+    private boolean ifStick(char axis, int gamepad, char side, double deadzone) { //full of errors
 
         if (axis == 'x' || axis == 'X') {
 
@@ -128,7 +136,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
                 if (side == 'l' || side == 'L') {
 
-                    if (gamepad1.left_stick_x >= -1) {
+                    if (Math.abs(gamepad1.left_stick_x) >= Math.abs(deadzone)) {
                         return true;
                     } else {
                         return false;
@@ -136,7 +144,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
                 }
                 if (side == 'r' || side == 'R') {
-                    if (gamepad1.right_stick_x >= -1) {
+                    if (Math.abs(gamepad1.right_stick_x) >= Math.abs(deadzone)) {
                         return true;
                     } else {
                         return false;
@@ -146,7 +154,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
             if (gamepad == 2) {
                 if (side == 'l' || side == 'L') {
-                    if (gamepad2.left_stick_x >= -1) {
+                    if (Math.abs(gamepad2.left_stick_x) >= deadzone) {
                         return true;
                     } else {
                         return false;
@@ -154,7 +162,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
                 }
                 if (side == 'r' || side == 'R') {
 
-                    if (gamepad2.right_stick_x >= -1) {
+                    if (Math.abs(gamepad2.right_stick_x) >= deadzone) {
                         return true;
                     } else {
                         return false;
@@ -166,14 +174,14 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
         } else if (axis == 'y' || axis == 'Y') {
             if (gamepad == 1) {
                 if (side == 'l' || side == 'L') {
-                    if (gamepad1.left_stick_y >= -1) {
+                    if (Math.abs(gamepad1.left_stick_y) >= Math.abs(deadzone)) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (side == 'r' || side == 'R') {
-                    if (gamepad1.right_stick_y >= -1) {
+                    if (Math.abs(gamepad1.right_stick_y) >= deadzone) {
                         return true;
                     } else {
                         return false;
@@ -183,14 +191,14 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
             if (gamepad == 2) {
 
                 if (side == 'l' || side == 'L') {
-                    if (gamepad2.left_stick_y >= -1) {
+                    if (Math.abs(gamepad2.left_stick_y) >= deadzone) {
                         return true;
                     } else {
                         return false;
                     }
                 }
                 if (side == 'r' || side == 'R') {
-                    if (gamepad2.right_stick_y >= -1) {
+                    if (Math.abs(gamepad2.right_stick_y) >= deadzone) {
                         return true;
                     } else {
                         return false;
@@ -255,11 +263,11 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
     private void intakeMovement(){
         if(gamepad2.dpad_up){
-            intakePower(1);
+            intakePower(.3);
         }else if(gamepad2.dpad_down){
             intakePower(0);
         }else if(gamepad2.dpad_right || gamepad2.dpad_left){
-            intakePower(-1);
+            intakePower(-.3);
         }
     }
 
