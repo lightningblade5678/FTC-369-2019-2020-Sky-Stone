@@ -34,8 +34,8 @@ public class FinalBot {
 
     public FinalBot(HardwareMap map){
 
-        CRServo w = map.get(CRServo.class, "wristServo");
-        w.setPower(0);
+        //CRServo w = map.get(CRServo.class, "wristServo");
+        //w.setPower(0);
 
         wheels = new BotWheels(map.get(DcMotor.class, "frontLeft"),map.get(DcMotor.class, "frontRight"),map.get(DcMotor.class, "backLeft"),map.get(DcMotor.class, "backRight"));
         //initializes botWheels
@@ -47,7 +47,7 @@ public class FinalBot {
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
         /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(CRServo.class, "wristServo"), map.get(Servo.class, "handServo"), (ModernRoboticsI2cRangeSensor) map.get("armDistance")); //change motor names
-        arm.wristServo.setPower(0);
+        //arm.wristServo.setPower(0);
 
         //colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 

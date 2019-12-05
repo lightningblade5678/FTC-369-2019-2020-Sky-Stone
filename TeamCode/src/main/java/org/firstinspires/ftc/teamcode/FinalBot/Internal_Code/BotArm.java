@@ -34,14 +34,14 @@ public class BotArm {
     private static final double rpm = 152;
 
     public DcMotor baseMotor;
-    public CRServo wristServo;
+    public Servo wristServo;
     public Servo handServo;
     private ModernRoboticsI2cRangeSensor range;
 
-    public BotArm(DcMotor base, CRServo wrist, Servo hand, ModernRoboticsI2cRangeSensor range){
+    public BotArm(DcMotor base, Servo wrist, Servo hand, ModernRoboticsI2cRangeSensor range){
         baseMotor = base;
         wristServo = wrist;
-        wristServo.setPower(0);
+        wristServo.setPosition(0);
         handServo = hand;
 
         this.range = range;
@@ -49,7 +49,7 @@ public class BotArm {
 
         baseMotor.setPower(0);
         handGrab(false);
-        wristServo.setPower(0);
+        wristServo.setPosition(0);
 
     }//basic constructor to make a motor
 
@@ -93,26 +93,12 @@ public class BotArm {
     }//rotates base degrees to l/r
 
     public void wristOut(){
-        ElapsedTime time = new ElapsedTime(0);
-        wristServo.setPower(-1);
-
-        time.reset();
-
-        while(time.seconds() < 0.60);
-
-        wristServo.setPower(0);
+        wristServo.setPosition(0);
 
     }//moves wrist to outpos
 
     public void wristIn(){
-        ElapsedTime time = new ElapsedTime(0);
-        wristServo.setPower(1);
-
-        time.reset();
-
-        while(time.seconds() < 0.35);
-
-        wristServo.setPower(0);
+        wristServo.setPosition(0);
 
     }
 
