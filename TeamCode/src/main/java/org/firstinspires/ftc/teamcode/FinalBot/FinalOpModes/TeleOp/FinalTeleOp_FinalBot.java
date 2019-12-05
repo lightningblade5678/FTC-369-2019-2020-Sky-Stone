@@ -22,7 +22,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
 
 
-
+        //                  [!] CONTROLLER 1 [!]
         if (ifStick('y', 1, 'l')) {
             wheels.setPower(gamepad1.left_stick_y);
         }//Forwards and backwards
@@ -48,7 +48,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
 
 
-
+        //                  [!] CONTROLLER 2 [!]
         if (ifStick('y', 2, 'r')) {
 
             double power = gamepad2.right_stick_y;
@@ -81,6 +81,14 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
     }
 
+
+
+
+
+
+
+
+    //                                  [!] METHODS [!]
     private void hookPos(){
 
         FinalBot bot = new FinalBot(hardwareMap);
