@@ -39,6 +39,7 @@ public class BotArm {
     public Servo wristServo;
     public Servo handServo;
     private ModernRoboticsI2cRangeSensor range;
+    public Servo capDrop;
 
     public BotArm(DcMotor base, Servo wrist, Servo hand, ModernRoboticsI2cRangeSensor range){
         baseMotor = base;
