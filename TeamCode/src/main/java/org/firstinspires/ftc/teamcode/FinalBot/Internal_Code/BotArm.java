@@ -19,6 +19,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 public class BotArm {
 
     /* For BaseRotateDegreeTo method
@@ -93,13 +95,27 @@ public class BotArm {
 
     }//rotates base degrees to l/r
 
+    public  void baseRotateTo(double distance, double power){
+
+        baseMotor.setPower(power);
+
+        while(range.getDistance(DistanceUnit.INCH) < distance/2);
+
+        baseMotor.setPower(power * 0.75);//avoid overshoot by decreasing power
+
+        while(range.getDistance(DistanceUnit.INCH) < distance);
+
+        baseMotor.setPower(0);
+
+    }//rotates base
+
     public void wristOut(){
         wristServo.setPosition(0);
 
     }//moves wrist to outpos
 
     public void wristIn(){
-        wristServo.setPosition(0);
+        wristServo.setPosition(1);
 
     }
 

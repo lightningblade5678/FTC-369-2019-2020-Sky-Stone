@@ -345,10 +345,14 @@ public class FinalBot {
 
     public void init(){
 
+        arm.baseRotateTo(8, 1);//moves to position
+
+        arm.baseMotor.setPower(0.25);//holds position
+
     }
 
     public void stopInit(){
-
+        arm.baseMotor.setPower(0);
     }
 
     private void sleep(int ms){
