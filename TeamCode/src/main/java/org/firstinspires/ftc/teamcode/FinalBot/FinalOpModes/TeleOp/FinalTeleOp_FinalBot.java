@@ -70,7 +70,8 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
 
             if (ifStick('x', 2, 'l', .5)) {
-                arm.wristServo.setPower(gamepad2.left_stick_x / 10); //divides by 10 to account for sensitive servo
+
+
 
             }//wrist movement
 
