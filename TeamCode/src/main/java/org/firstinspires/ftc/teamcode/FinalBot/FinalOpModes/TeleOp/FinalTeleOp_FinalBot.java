@@ -87,9 +87,9 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
                 hookPos();
             }//hook toggle
 
-            if(gamepad1.x && gamepad1.y && gamepad1.left_trigger > .5 && gamepad1.right_trigger > .5){
-
-            }
+            if(gamepad1.x && gamepad1.y && gamepad1.left_trigger > .5 && gamepad1.right_trigger > .5){ //hard to do accidentally
+            arm.dropCap.setPosition(1); //check pos
+            } //drops capstone
 
 
 
