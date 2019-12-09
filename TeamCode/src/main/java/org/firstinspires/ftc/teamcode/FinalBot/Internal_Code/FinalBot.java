@@ -24,7 +24,7 @@ public class FinalBot {
     public BotIntake intake;
     public BotArm arm;
     public BotHook hook;
-
+    public CapDrop cap;
     //sensors
 
     private ColorSensor colors;
@@ -54,6 +54,8 @@ public class FinalBot {
         //gyro = map.get(GyroSensor.class, "gyroscope");
 
         hook = new BotHook(map.get(Servo.class, "hook"), map.get(Servo.class, "hook2"));
+
+        cap = new CapDrop(map.get(Servo.class, "dropCap"));
 
     }//basic constructor for initializing from a HardwareMap, use this in implementations of this class
 
