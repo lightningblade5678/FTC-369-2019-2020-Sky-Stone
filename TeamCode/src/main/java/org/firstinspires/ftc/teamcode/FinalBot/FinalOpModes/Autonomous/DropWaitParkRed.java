@@ -20,11 +20,11 @@ public class DropWaitParkRed extends LinearOpMode {
         telemetry.addData("Readjustment: ","Wrist");
         telemetry.update();
 
-        bot.arm.wristServo.setPower(1);
+        bot.arm.wristServo.setPosition(100); //change
 
         sleep(60); //originally 40
 
-        bot.arm.wristServo.setPower(0);
+        bot.arm.wristServo.setPosition(100);//change
 
         telemetry.addData("Readjustment: ","Drop Arm");
         telemetry.update();

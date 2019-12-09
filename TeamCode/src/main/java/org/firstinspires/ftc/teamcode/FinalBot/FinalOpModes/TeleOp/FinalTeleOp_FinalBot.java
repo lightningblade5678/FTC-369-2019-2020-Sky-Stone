@@ -1,3 +1,39 @@
+/*
+Gamepad 1 (movement):
+
+    -Left Joystick
+        -Forwards and Backwards (y-axis)
+        -Strafing (x-axis)
+
+    -Right Joystick
+        - Turning (x-axis)
+
+    -Button A/B
+        -Toggles hook position (0/1)
+
+    -Button X + Y + Triggers
+        -Drops capstone
+
+
+Gamepad 2 (arm, intake, claw):
+
+    -Right Joystick
+        -Base Motor movement (y-axis)
+
+    -Triggers
+        -Finger Movement
+
+    -Left Joystick
+        -Wrist Movement (x-axis)
+
+    -Button A/B/Y
+        -Hand Movement
+            - A = Up
+            - B = Down
+    -D-Pad
+         -Intake
+ */
+
 package org.firstinspires.ftc.teamcode.FinalBot.FinalOpModes.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -38,7 +74,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
             }//Strafing
 
-            if (ifStick('x', 1, 'r', .5)) {
+            else if (ifStick('x', 1, 'r', .5)) {
 
                 wheels.setPower(0, gamepad1.right_stick_x);
                 wheels.setPower(1, -gamepad1.right_stick_x);
@@ -51,7 +87,9 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
                 hookPos();
             }//hook toggle
 
+            if(gamepad1.x && gamepad1.y && gamepad1.left_trigger > .5 && gamepad1.right_trigger > .5){
 
+            }
 
 
 
@@ -70,7 +108,13 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
 
             if (ifStick('x', 2, 'l', .5)) {
+                double pos = arm.wristServo.getPosition();
 
+                if(gamepad2.left_stick_x < 0){
+                    arm.wristServo.setPosition(pos - .05);
+                }else if(gamepad2.left_stick_x > 0){
+                    arm.wristServo.setPosition(pos + .05);
+                }
 
 
             }//wrist movement
@@ -88,6 +132,9 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
             intakeMovement(); //intake movement
 
+
+            wheels.setPower(0); //sets all wheel power to 0
+            arm.baseMotor.setPower(0);
         }
 
 
@@ -338,5 +385,53 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
         }
         return false;
+    }
+
+    private char domAxis(int gamepad, char side){
+        if(gamepad == 1){
+            if(side == 'l' || side == 'L'){
+                if(Math.abs(gamepad1.left_stick_x) > Math.abs(gamepad1.left_stick_y)){
+                    return 'x';
+                }else if (Math.abs(gamepad1.left_stick_x) < Math.abs(gamepad1.left_stick_y)){
+                    return 'y';
+                }else{
+                    return '-';
+                }
+            }
+            if(side == 'r' || side == 'R'){
+                if(Math.abs(gamepad1.right_stick_x) > Math.abs(gamepad1.right_stick_y)){
+                    return 'x';
+                }else if (Math.abs(gamepad1.right_stick_x) < Math.abs(gamepad1.right_stick_y)){
+                    return 'y';
+                }else{
+                    return '-';
+                }
+            }
+        }
+
+        if(gamepad == 2){
+            if(side == 'l' || side == 'L'){
+
+                if(Math.abs(gamepad2.left_stick_x) > Math.abs(gamepad2.left_stick_y)){
+                    return 'x';
+                }else if (Math.abs(gamepad2.left_stick_x) < Math.abs(gamepad2.left_stick_y)){
+                    return 'y';
+                }else{
+                    return '-';
+                }
+
+            }else if(side == 'r' || side == 'R') {
+
+                if (Math.abs(gamepad2.right_stick_x) > Math.abs(gamepad2.right_stick_y)) {
+                    return 'x';
+                } else if (Math.abs(gamepad2.right_stick_x) < Math.abs(gamepad2.right_stick_y)) {
+                    return 'y';
+                } else {
+                    return '-';
+                }
+            }
+        }
+
+        return '-';
     }
 }
