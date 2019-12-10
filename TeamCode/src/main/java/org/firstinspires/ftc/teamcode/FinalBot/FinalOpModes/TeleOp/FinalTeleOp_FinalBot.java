@@ -52,13 +52,23 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         FinalBot bot = new FinalBot(hardwareMap);
         BotArm arm = bot.arm;
         BotWheels wheels = bot.getWheels();
         BotHook hook = bot.hook;
         BotIntake intake = bot.intake;
-
+/*
+        //initializes to average pos
+        arm.dropCap.setPosition(.5);
+        intake.finger.setPower(0);
+        arm.wristServo.setPosition(.5);
+        wheels.setPower(0);
+        arm.baseMotor.setPower(0);
+        arm.handGrab(false);
+*/
         waitForStart();
+
         while (opModeIsActive()) {
             //                  [!] CONTROLLER 1 [!]
             if (ifStick('y', 1, 'l', .5)) {
@@ -133,8 +143,12 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
             intakeMovement(); //intake movement
 
 
-            wheels.setPower(0); //sets all wheel power to 0
-            arm.baseMotor.setPower(0);
+            if(!ifStick('x', 1, 'l', .5) && !ifStick('y', 1, 'l', .5)){
+                wheels.setPower(0);
+            }else if(!ifStick('x', 1, 'r', .5)){
+                wheels.setPower(0);
+            }//sets wheel power to 0 if joystick is at resting pos
+
         }
 
 
