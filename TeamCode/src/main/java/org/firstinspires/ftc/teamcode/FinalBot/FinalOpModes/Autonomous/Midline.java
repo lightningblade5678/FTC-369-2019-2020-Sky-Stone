@@ -12,8 +12,6 @@ public class Midline extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         FinalBot bot = new FinalBot(hardwareMap);
-        BotArm arm = bot.arm;
-
         bot.init();
 
         waitForStart();
