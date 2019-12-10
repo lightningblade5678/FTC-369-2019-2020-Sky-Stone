@@ -99,7 +99,7 @@ public class BotArm {
 
         baseMotor.setPower(power);
 
-        while(range.getDistance(DistanceUnit.INCH) < distance);
+        while(range.getDistance(DistanceUnit.CM) < distance);
 
         baseMotor.setPower(0);
 
