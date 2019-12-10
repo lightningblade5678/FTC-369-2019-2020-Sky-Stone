@@ -97,9 +97,11 @@ public class BotArm {
 
     public  void baseRotateTo(double distance, double power){
 
+        double init = range.getDistance(DistanceUnit.INCH);
+
         baseMotor.setPower(power);
 
-        while(range.getDistance(DistanceUnit.INCH) < distance/2);
+        while(range.getDistance(DistanceUnit.INCH) < distance-init/2);
 
         baseMotor.setPower(power * 0.75);//avoid overshoot by decreasing power
 
