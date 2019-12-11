@@ -100,11 +100,11 @@ public class BotArm {
 
         baseMotor.setPower(power);
 
-        while(range.rawUltrasonic() < distance);
+        while(range.rawUltrasonic() < distance);//use rawUL b/c light sensor is extremely unreliable NOTE: distance is not a tangible value
 
         baseMotor.setPower(0);
 
-    }//rotates base
+    }//rotates base using distance sensor
 
     public void wristOut(){
         wristServo.setPosition(0);
