@@ -34,7 +34,7 @@ public class InitTest extends LinearOpMode {
 
         telemetry.addData("Done: ","INIT");
         telemetry.update();
-        sleep(5000);
+        waitForStart();
         base.setPower(0);
 
 
