@@ -12,6 +12,8 @@ public class HookTest2 extends LinearOpMode {
 
         FinalBot bot = new FinalBot(hardwareMap);
 
+        sleep(1000);
+
         bot.hook.dropHook();
 
         sleep(1000);
@@ -19,11 +21,6 @@ public class HookTest2 extends LinearOpMode {
         bot.hook.raiseHook();
 
         sleep(2000);
-
-        bot.move(-12,0);
-        bot.move(12,0);
-        bot.move(0,-12);
-        bot.move(0,12);
 
     }
 
