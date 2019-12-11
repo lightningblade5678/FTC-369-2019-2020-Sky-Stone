@@ -41,11 +41,12 @@ public class BotArm {
     private ModernRoboticsI2cRangeSensor range;
     public Servo dropCap;
 
-    public BotArm(DcMotor base, Servo wrist, Servo hand, ModernRoboticsI2cRangeSensor range){
+    public BotArm(DcMotor base, Servo wrist, Servo hand, ModernRoboticsI2cRangeSensor range, Servo dropCap){
         baseMotor = base;
         wristServo = wrist;
         wristServo.setPosition(0);
         handServo = hand;
+        dropCap = dropCap;
 
         this.range = range;
         //set servos and motors to 0
@@ -131,4 +132,14 @@ public class BotArm {
         baseRotateDegree(-50, .1);
 
     }//sets all motors to pos to grab stored stone
+
+    public boolean isCapDropped(){
+        if(dropCap.getPosition() > .5){
+            return true;
+        }else if(dropCap.getPosition() <= .5){
+            return false;
+        }
+       return false;
+    }
+
 }

@@ -69,13 +69,17 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 */
         waitForStart();
 
+
+
         while (opModeIsActive()) {
+            
+
             //                  [!] CONTROLLER 1 [!]
             if (ifStick('y', 1, 'l', .5)) {
                 wheels.setPower(gamepad1.left_stick_y);
             }//Forwards and backwards
 
-            if (ifStick('x', 1, 'l', .5)) {
+            else if (ifStick('x', 1, 'l', .5)) {
 
                 wheels.setPower(0, gamepad1.left_stick_x);
                 wheels.setPower(1, gamepad1.left_stick_x);
@@ -198,7 +202,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
                 if (side == 'l' || side == 'L') {
 
-                    if (Math.abs(gamepad1.left_stick_x) >= Math.abs(deadzone)) {
+                    if (Math.abs(gamepad1.left_stick_x) >= deadzone) {
                         return true;
                     } else {
                         return false;
@@ -206,7 +210,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
                 }
                 if (side == 'r' || side == 'R') {
-                    if (Math.abs(gamepad1.right_stick_x) >= Math.abs(deadzone)) {
+                    if (Math.abs(gamepad1.right_stick_x) >= deadzone) {
                         return true;
                     } else {
                         return false;
