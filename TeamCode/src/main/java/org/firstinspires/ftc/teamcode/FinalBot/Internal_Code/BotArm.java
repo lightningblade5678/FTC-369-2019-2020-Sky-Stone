@@ -46,7 +46,7 @@ public class BotArm {
         wristServo = wrist;
         wristServo.setPosition(0);
         handServo = hand;
-        dropCap = dropCap;
+        this.dropCap = dropCap;
 
         this.range = range;
         //set servos and motors to 0
