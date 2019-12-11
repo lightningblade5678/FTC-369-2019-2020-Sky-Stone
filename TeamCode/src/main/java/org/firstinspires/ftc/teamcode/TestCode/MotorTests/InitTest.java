@@ -14,8 +14,6 @@ public class InitTest extends LinearOpMode {
 
     public void runOpMode(){
 
-        /*
-
         DcMotor base = hardwareMap.get(DcMotor.class, "baseMotor");
         ModernRoboticsI2cRangeSensor range = (ModernRoboticsI2cRangeSensor) hardwareMap.get("armDistance");
 
@@ -40,14 +38,13 @@ public class InitTest extends LinearOpMode {
         base.setPower(0);
 
 
-         */
-
+        /*
         FinalBot bot = new FinalBot(hardwareMap);
         sleep(1000);
         bot.init();
         sleep(5000);
         bot.stopInit();
-
+        */
     }
 
 }
