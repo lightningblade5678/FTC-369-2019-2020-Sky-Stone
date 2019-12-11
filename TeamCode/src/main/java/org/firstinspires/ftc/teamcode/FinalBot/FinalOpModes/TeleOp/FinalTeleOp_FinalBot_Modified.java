@@ -45,7 +45,7 @@ import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotIntake;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotWheels;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
-@TeleOp(name="!!MainTeleOp_FinalBot")
+@TeleOp(name="!!MainTeleOp_FinalBot_Modified")
 public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
 
     private static final double MOVE_DEADZONE = 0.5;
@@ -62,27 +62,24 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
         BotHook hook = bot.hook;
         BotIntake intake = bot.intake;
 
-        gamepad1.joystickDeadzone = MOVE_DEADZONE;
-        gamepad2.joystickDeadzone = MOVE_DEADZONE;
-
         Move previousAction = Move.NO_MOVE;
         double previousPower = 0.0;
 
-/*
+
         //initializes to average pos
-        arm.dropCap.setPosition(.5);
+        //arm.dropCap.setPosition(.5);
         intake.finger.setPower(0);
-        arm.wristServo.setPosition(.5);
+        arm.wristServo.setPosition(1);
         wheels.setPower(0);
         arm.baseMotor.setPower(0);
         arm.handGrab(false);
-*/
+
 
         waitForStart();
 
         while (opModeIsActive()) {
             switch (determineMove()) {
-                case Move.FB:
+                case FB:
                     double power = gamepad1.left_stick_y;
                     if (previousAction == Move.FB
                             && Math.abs(power - previousPower) < MIN_ACTIVATION)
@@ -91,8 +88,8 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.FB;
                     previousPower = power;
                     break;
-                case Move.STRAFING:
-                    double power = gamepad1.left_stick_x;
+                case STRAFING:
+                    power = gamepad1.left_stick_x;
                     if (previousAction == Move.STRAFING
                             && Math.abs(power - previousPower) < MIN_ACTIVATION)
                         break;
@@ -103,8 +100,8 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.STRAFING;
                     previousPower = power;
                     break;
-                case Move.TURNING:
-                    double power = gamepad1.right_stick_x;
+                case TURNING:
+                    power = gamepad1.right_stick_x;
                     if (previousAction == Move.TURNING)
                         break;
                     wheels.setPower(0, power);
@@ -114,8 +111,8 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.TURNING;
                     previousPower = power;
                     break;
-                case Move.SLOW_FB:
-                    double power;
+                case SLOW_FB:
+
                     if (gamepad1.right_stick_y > 0)
                         power = 0.1;
                     else
@@ -126,20 +123,20 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.SLOW_FB;
                     previousPower = power;
                     break;
-                case Move.TOGGLE_HOOK:
+                case TOGGLE_HOOK:
                     hookPos(hook);
                     previousAction = Move.TOGGLE_HOOK;
                     previousPower = 0.0;
                     break;
-                case Move.DROP_CAPSTONE:
+                case DROP_CAPSTONE:
                     arm.dropCap.setPosition(1.0); //check pos
                     sleep(500);
                     arm.dropCap.setPosition(0.0); //check pos
                     previousAction = Move.DROP_CAPSTONE;
                     previousPower = 0.0;
                     break;
-                case Move.ARM_MOVE:
-                    double power = gamepad2.right_stick_y;
+                case ARM_MOVE:
+                    power = gamepad2.right_stick_y;
                     if (previousAction == Move.ARM_MOVE
                             && Math.abs(power - previousPower) < MIN_ACTIVATION)
                         break;
@@ -150,7 +147,7 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.ARM_MOVE;
                     previousPower = power;
                     break;
-                case Move.WRIST_MOVE:
+                case WRIST_MOVE:
                     double pos = arm.wristServo.getPosition();
                     if (gamepad2.left_stick_x < 0) {
                         pos -= 0.05;
@@ -165,26 +162,26 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.WRIST_MOVE;
                     previousPower = 0.0;
                     break;
-                case Move.FINGER_MOVE_L:
+                case FINGER_MOVE_L:
                     if (previousAction == Move.FINGER_MOVE_L)
                         break;
                     intake.finger.setPower(-0.5);
                     previousAction = Move.FINGER_MOVE_L;
                     previousPower = 0.0;
                     break;
-                case Move.FINGER_MOVE_R:
+                case FINGER_MOVE_R:
                     if (previousAction == Move.FINGER_MOVE_R)
                         break;
                     intake.finger.setPower(0.5);
                     previousAction = Move.FINGER_MOVE_R;
                     previousPower = 0.0;
                     break;
-                case Move.HAND_MOVE:
+                case HAND_MOVE:
                     handPos(arm);
                     previousAction = Move.HAND_MOVE;
                     previousPower = 0.0;
                     break;
-                case Move.INTAKE:
+                case INTAKE:
                     if (gamepad2.dpad_up) {
                         intakePower(intake,0.3);
                     } else if (gamepad2.dpad_down) {
@@ -195,37 +192,21 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     previousAction = Move.INTAKE;
                     previousPower = 0.0;
                     break;
-                case Move.CANCEL:
+                case CANCEL:
                     wheels.setPower(0.0);
                     arm.baseMotor.setPower(0.0);
                     intake.finger.setPower(0.0);
                     previousAction = Move.CANCEL;
                     previousPower = 0.0;
                     break;
-                case Move.NO_MOVE:
+                case NO_MOVE:
                 default:
-                    switch (previousAction) {
-                        case Move.FB:
-                        case Move.STRAFING:
-                        case Move.TURNING:
-                            wheels.setPower(0.0);
-                            break;
-                        case Move.ARM_MOVE:
-                            arm.baseMotor.setPower(0.0);
-                            break;
-                        case Move.FINGER_MOVE_L:
-                        case Move.FINGER_MOVE_R:
-                            intake.finger.setPower(0.0);
-                            break;
-                        case Move.TOGGLE_HOOK:
-                        case Move.DROP_CAPSTONE:
-                        case Move.WRIST_MOVE:
-                        case Move.HAND_MOVE:
-                        case Move.INTAKE:
-                        case Move.CANCEL:
-                        case Move.NO_MOVE:
-                        default:
-                            break;
+                    if(previousAction == Move.FB || previousAction == Move.STRAFING || previousAction == Move.TURNING){
+                        wheels.setPower(0.0);
+                    }else if(previousAction == Move.ARM_MOVE){
+                        arm.baseMotor.setPower(0.0);
+                    }else if(previousAction == Move.FINGER_MOVE_L || previousAction == Move.FINGER_MOVE_R){
+                        intake.finger.setPower(0);
                     }
                     previousAction = Move.NO_MOVE;
                     previousPower = 0.0;
