@@ -67,7 +67,7 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
 
 
         //initializes to average pos
-        //arm.dropCap.setPosition(.5);
+        arm.dropCap.setPosition(0);
         intake.finger.setPower(0);
         arm.wristServo.setPosition(1);
         wheels.setPower(0);
