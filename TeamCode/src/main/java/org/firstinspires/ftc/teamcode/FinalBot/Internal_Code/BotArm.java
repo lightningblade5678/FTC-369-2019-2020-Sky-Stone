@@ -99,7 +99,7 @@ public class BotArm {
 
         baseMotor.setPower(power);
 
-        while(range.getDistance(DistanceUnit.CM) < distance);
+        while(range.rawUltrasonic() < distance);
 
         baseMotor.setPower(0);
 

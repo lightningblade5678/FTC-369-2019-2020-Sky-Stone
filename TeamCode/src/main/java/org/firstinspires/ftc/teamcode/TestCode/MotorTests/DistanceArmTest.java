@@ -27,7 +27,7 @@ public class DistanceArmTest extends LinearOpMode {
         range.enableLed(false);
 
         while(time.seconds() < 15){
-            telemetry.addData("Dist: ", range.getDistance(DistanceUnit.CM));
+            telemetry.addData("Dist: ", range.cmUltrasonic());
             telemetry.update();
             sleep(100);
         }

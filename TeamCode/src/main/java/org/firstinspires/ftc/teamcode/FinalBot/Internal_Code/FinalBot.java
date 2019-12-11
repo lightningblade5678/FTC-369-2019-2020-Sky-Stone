@@ -345,7 +345,7 @@ public class FinalBot {
 
     public void init(){
 
-        arm.baseRotateTo(8, 1);//moves to position
+        arm.baseRotateTo(5, 1);//moves to position
 
         arm.baseMotor.setPower(0.25);//holds position
 
