@@ -43,6 +43,7 @@ public class InitTest extends LinearOpMode {
          */
 
         FinalBot bot = new FinalBot(hardwareMap);
+        sleep(1000);
         bot.init();
         sleep(5000);
         bot.stopInit();
