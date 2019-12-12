@@ -82,6 +82,17 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
 
                 case ForwardTurn:
 
+                    double basePower = gamepad1.left_stick_y;
+                    double altPower = gamepad1.left_stick_x;
+
+                    wheels.setPower(0, basePower + altPower);
+                    wheels.setPower(1, basePower - altPower);
+                    wheels.setPower(2, basePower + altPower);
+                    wheels.setPower(3, basePower - altPower);
+
+
+
+                    /*
                     double turnPower;
 
                     //sets overall basepower to minimum of .5
@@ -101,10 +112,15 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                         wheels.setPower(1, turnPower);
                         wheels.setPower(3, turnPower);
                     }
+                    break;
 
-
+*/
                 case BackwardTurn:
 
+
+
+
+                    /*
                     //sets overall basepower to minimum of -.5
                     basePower = gamepad1.left_stick_y;
                     if(gamepad1.left_stick_y > -.2){
@@ -115,14 +131,16 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
 
                     if(gamepad1.left_stick_x > .2){
                         turnPower = basePower - Math.abs(gamepad1.left_stick_x);
-                        wheels.setPower(0, turnPower);
-                        wheels.setPower(2, turnPower);
+                        wheels.setPower(1, turnPower);
+                        wheels.setPower(3, turnPower);
                     }else if(gamepad1.left_stick_x < -.2){
                         turnPower = basePower - Math.abs(gamepad1.left_stick_x);
                         wheels.setPower(0, turnPower);
                         wheels.setPower(2, turnPower);
                     }
-                /*
+                    break;
+ */
+                    /*
                 case FB:
                     double power = gamepad1.left_stick_y;
                     if (previousAction == Move.FB
@@ -313,7 +331,7 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
         else if (Math.abs(gamepad1.right_stick_x) >= MOVE_DEADZONE)
             return Move.TURNING;
         */
-        else if (Math.abs(gamepad1.left_stick_x) >= MOVE_DEADZONE)
+        else if (Math.abs(gamepad1.right_stick_x) >= MOVE_DEADZONE)
             return Move.STRAFING;
 
         else if (Math.abs(gamepad1.right_stick_y) >= MOVE_DEADZONE)
