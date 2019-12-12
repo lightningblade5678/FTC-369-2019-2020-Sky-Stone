@@ -67,7 +67,7 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
 
 
         //initializes to average pos
-        arm.dropCap.setPosition(0);
+        arm.dropCap.setPosition(1);
         intake.finger.setPower(0);
         arm.wristServo.setPosition(1);
         wheels.setPower(0);
@@ -79,44 +79,96 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
 
         while (opModeIsActive()) {
             switch (determineMove()) {
+
+                case ForwardTurn:
+
+                    double turnPower;
+
+                    //sets overall basepower to minimum of .5
+                    double basePower = gamepad1.left_stick_y;
+                    if(gamepad1.left_stick_y < .2){
+                        basePower = .2;
+                    }
+
+                    wheels.setPower(basePower);
+
+                    if(gamepad1.left_stick_x > .2){
+                        turnPower = gamepad1.left_stick_x + basePower;
+                        wheels.setPower(0, turnPower);
+                        wheels.setPower(2, turnPower);
+                    }else if(gamepad1.left_stick_x < -.2){
+                        turnPower = Math.abs(gamepad1.left_stick_x) + basePower;
+                        wheels.setPower(1, turnPower);
+                        wheels.setPower(3, turnPower);
+                    }
+
+
+                case BackwardTurn:
+
+                    //sets overall basepower to minimum of -.5
+                    basePower = gamepad1.left_stick_y;
+                    if(gamepad1.left_stick_y > -.2){
+                        basePower = -.2;
+                    }
+
+                    wheels.setPower(basePower);
+
+                    if(gamepad1.left_stick_x > .2){
+                        turnPower = basePower - Math.abs(gamepad1.left_stick_x);
+                        wheels.setPower(0, turnPower);
+                        wheels.setPower(2, turnPower);
+                    }else if(gamepad1.left_stick_x < -.2){
+                        turnPower = basePower - Math.abs(gamepad1.left_stick_x);
+                        wheels.setPower(0, turnPower);
+                        wheels.setPower(2, turnPower);
+                    }
+                /*
                 case FB:
                     double power = gamepad1.left_stick_y;
                     if (previousAction == Move.FB
                             && Math.abs(power - previousPower) < MIN_ACTIVATION)
                         break;
-                    wheels.setPower(power);
+
+                    wheels.setPower(0, -power);
+                    wheels.setPower(1, -power);
+                    wheels.setPower(2, -power * .95);
+                    wheels.setPower(3, -power * .95);
+
                     previousAction = Move.FB;
                     previousPower = power;
                     break;
-                case STRAFING:
-                    power = gamepad1.left_stick_x;
-                    if (previousAction == Move.STRAFING
-                            && Math.abs(power - previousPower) < MIN_ACTIVATION)
-                        break;
-                    wheels.setPower(0, power);
-                    wheels.setPower(1, power);
-                    wheels.setPower(2, -power);
-                    wheels.setPower(3, -power);
-                    previousAction = Move.STRAFING;
-                    previousPower = power;
-                    break;
+
                 case TURNING:
                     power = gamepad1.right_stick_x;
                     if (previousAction == Move.TURNING)
                         break;
                     wheels.setPower(0, power);
                     wheels.setPower(1, -power);
-                    wheels.setPower(2, power);
-                    wheels.setPower(3, -power);
+                    wheels.setPower(2, power * .95);
+                    wheels.setPower(3, -power * .95);
                     previousAction = Move.TURNING;
                     previousPower = power;
                     break;
-                case SLOW_FB:
+                    */
 
+                case STRAFING:
+                    double power = gamepad1.right_stick_x;
+                    if (previousAction == Move.STRAFING
+                            && Math.abs(power - previousPower) < MIN_ACTIVATION) // [???]
+                        break;
+                    wheels.setPower(0, power);
+                    wheels.setPower(1, -power);
+                    wheels.setPower(2, -power * .95);
+                    wheels.setPower(3, power * .95);
+
+                    previousAction = Move.STRAFING;
+                    previousPower = power;
+                    break;
+                case SLOW_FB:
                     if (gamepad1.right_stick_y > 0)
-                        power = 0.1;
+                        power = 0.05;
                     else
-                        power = -0.1;
+                        power = -0.05;
                     if (previousAction == Move.SLOW_FB && power == previousPower)
                         break;
                     wheels.setPower(power);
@@ -125,13 +177,15 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
                     break;
                 case TOGGLE_HOOK:
                     hookPos(hook);
+                    while(gamepad1.a || gamepad1.b)
                     previousAction = Move.TOGGLE_HOOK;
                     previousPower = 0.0;
                     break;
                 case DROP_CAPSTONE:
-                    arm.dropCap.setPosition(1.0); //check pos
-                    sleep(500);
                     arm.dropCap.setPosition(0.0); //check pos
+                    while(gamepad1.x || gamepad1.y || gamepad1.left_trigger > .2 || gamepad1.right_trigger > .2)
+                    sleep(500);
+                    arm.dropCap.setPosition(1.0); //check pos
                     previousAction = Move.DROP_CAPSTONE;
                     previousPower = 0.0;
                     break;
@@ -245,38 +299,58 @@ public class FinalTeleOp_FinalBot_Modified extends LinearOpMode {
     private Move determineMove() {
         if (gamepad1.back || gamepad2.back)
             return Move.CANCEL;
+
+        else if(gamepad1.left_stick_y > .2){
+            return Move.ForwardTurn;
+        }
+        else if(gamepad1.left_stick_y < -.2){
+            return Move.BackwardTurn;
+        }
+/*
         else if (Math.abs(gamepad1.left_stick_y) >= MOVE_DEADZONE)
             return Move.FB;
-        else if (Math.abs(gamepad1.left_stick_x) >= MOVE_DEADZONE)
-            return Move.STRAFING;
+
         else if (Math.abs(gamepad1.right_stick_x) >= MOVE_DEADZONE)
             return Move.TURNING;
+        */
+        else if (Math.abs(gamepad1.left_stick_x) >= MOVE_DEADZONE)
+            return Move.STRAFING;
+
         else if (Math.abs(gamepad1.right_stick_y) >= MOVE_DEADZONE)
             return Move.SLOW_FB;
+
         else if (gamepad1.a || gamepad1.b)
             return Move.TOGGLE_HOOK;
+
         else if (gamepad1.x && gamepad1.y
                 && Math.abs(gamepad1.left_trigger) >= MOVE_DEADZONE
                 && Math.abs(gamepad1.right_trigger) >= MOVE_DEADZONE)
             return Move.DROP_CAPSTONE;
+
         else if (Math.abs(gamepad2.right_stick_y) >= MOVE_DEADZONE)
             return Move.ARM_MOVE;
+
         else if (Math.abs(gamepad2.left_stick_x) >= MOVE_DEADZONE)
             return Move.WRIST_MOVE;
+
         else if (Math.abs(gamepad2.left_trigger) >= MOVE_DEADZONE)
             return Move.FINGER_MOVE_L;
+
         else if (Math.abs(gamepad2.right_trigger) >= MOVE_DEADZONE)
             return Move.FINGER_MOVE_R;
+
         else if (gamepad2.a)
             return Move.HAND_MOVE;
+
         else if (gamepad2.dpad_up || gamepad2.dpad_down || gamepad2.dpad_left || gamepad2.dpad_right)
             return Move.INTAKE;
+
         else
             return Move.NO_MOVE;
     }
 
     private enum Move {
-        FB, STRAFING, TURNING, SLOW_FB, TOGGLE_HOOK, DROP_CAPSTONE,
+        ForwardTurn, BackwardTurn, FB, STRAFING, TURNING, SLOW_FB, TOGGLE_HOOK, DROP_CAPSTONE,
         ARM_MOVE, WRIST_MOVE, FINGER_MOVE_L, FINGER_MOVE_R,
         HAND_MOVE, INTAKE, CANCEL, NO_MOVE
     }
