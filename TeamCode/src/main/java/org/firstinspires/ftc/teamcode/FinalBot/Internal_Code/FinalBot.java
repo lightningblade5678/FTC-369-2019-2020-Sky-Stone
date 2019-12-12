@@ -186,6 +186,9 @@ public class FinalBot {
 
 
     public void placeBlock(){// (!)WIP(!)
+
+        intake.openFinger();
+
         arm.handGrab(true);
 
         ElapsedTime time = new ElapsedTime(0);
@@ -193,7 +196,7 @@ public class FinalBot {
 
         while(time.milliseconds() < 300);
 
-        arm.baseRotateDegree(260, 1); //Original deg = 170
+        arm.baseRotateTo(7,1); //Original deg = 170
         //arm.toggleWrist might be the problem
         arm.baseMotor.setPower(0.25);
 
@@ -210,7 +213,10 @@ public class FinalBot {
     }//places block from internal storage onto tower
 
     public void resetArm(){
-        arm.baseRotateDegree(260, 1); //Original deg = 170
+
+        arm.handGrab(false);
+
+        arm.baseRotateTo(7, 1); //Original deg = 170
         //arm.toggleWrist might be the problem
         arm.baseMotor.setPower(0.25);
 
