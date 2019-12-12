@@ -17,15 +17,24 @@ public class InitTest extends LinearOpMode {
         DcMotor base = hardwareMap.get(DcMotor.class, "baseMotor");
         ModernRoboticsI2cRangeSensor range = (ModernRoboticsI2cRangeSensor) hardwareMap.get("armDistance");
 
-        telemetry.addData("Distance: ",range.rawUltrasonic()+" - "+(5-range.rawUltrasonic()));
+        telemetry.addData("Distance: ",range.rawUltrasonic()+" - "+(5.25-range.rawUltrasonic()));
         telemetry.update();
         sleep(1000);
 
         base.setPower(1);
 
-        while(range.rawUltrasonic() < 5){
+        while(range.rawUltrasonic() < 5.25/2){//12v ideal
 
-            telemetry.addData("Distance: ",range.rawUltrasonic()+" - "+(-range.rawUltrasonic()));
+            telemetry.addData("Distance: ",range.rawUltrasonic()+" - "+(5.25-range.rawUltrasonic()));
+            telemetry.update();
+
+        }
+
+        base.setPower(0.5);//slowdown
+
+        while(range.rawUltrasonic() < 5.25){//12v ideal
+
+            telemetry.addData("Distance: ",range.rawUltrasonic()+" - "+(5.25-range.rawUltrasonic()));
             telemetry.update();
 
         }
