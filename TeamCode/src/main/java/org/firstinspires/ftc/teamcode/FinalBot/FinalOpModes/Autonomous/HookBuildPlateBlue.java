@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotArm;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotWheels;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
@@ -19,8 +20,12 @@ public class HookBuildPlateBlue extends LinearOpMode {
         //wait
         FinalBot bot = new FinalBot(hardwareMap);
         BotWheels wheels = bot.getWheels();
-        bot.arm.baseRotateDegree(45, 1);
-        bot.arm.baseMotor.setPower(.25);
+
+        BotArm arm = bot.arm;
+        bot.init();
+
+        //bot.arm.baseRotateDegree(45, 1);
+        //bot.arm.baseMotor.setPower(.25);
 
         waitForStart();
 
