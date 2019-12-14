@@ -47,7 +47,7 @@ public class FinalBot {
         //initializes intake motors and touch sensor(can replace with distance sensor in the future)
 
         /*[!]*/arm = new BotArm(map.get(DcMotor.class, "baseMotor"),map.get(Servo.class, "wristServo"), map.get(Servo.class, "handServo"), (ModernRoboticsI2cRangeSensor) map.get("armDistance"), (Servo) map.get("dropCap")); //change motor names
-        //arm.wristServo.setPower(0);
+        arm.wristServo.setPosition(1);
 
         //colors = map.get(ColorSensor.class, "colorSensor");//initializes color sensor
 
@@ -198,10 +198,10 @@ public class FinalBot {
 
         while(time.milliseconds() < 300);
 
-        arm.baseRotateTo(7,1); //Original deg = 170
+        arm.baseRotateTo(9,1); //Original deg = 170
         //arm.toggleWrist might be the problem
         arm.baseMotor.setPower(0.25);
-
+        sleep(400);
         arm.wristOut();
 
         time.reset();
@@ -352,10 +352,9 @@ public class FinalBot {
 
     public void init(){
 
-        arm.baseRotateTo(5, 1);//moves to position
+        arm.baseRotateDegree(20, .8);
 
-        arm.baseMotor.setPower(0.25);//holds position
-
+        arm.baseMotor.setPower(.2);
     }
 
     public void stopInit(){

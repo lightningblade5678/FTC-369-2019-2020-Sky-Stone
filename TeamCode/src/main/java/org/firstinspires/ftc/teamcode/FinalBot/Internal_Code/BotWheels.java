@@ -38,17 +38,18 @@ public class BotWheels {
    */
 
    public BotWheels(DcMotor frontLeft,DcMotor frontRight, DcMotor backLeft, DcMotor backRight){
+
+
       wheels[0] = frontLeft;
       wheels[1] = frontRight;
       wheels[2] = backLeft;
       wheels[3] = backRight;
 
+
       //sets wheel power to 0
 
-      wheels[0].setPower(0);
-      wheels[1].setPower(0);
-      wheels[2].setPower(0);
-      wheels[3].setPower(0);
+      setPower(0);
+
 
    }//main constructor, sets vals of all DcMotors
 
@@ -76,11 +77,14 @@ public class BotWheels {
    }//sets the power of all motors
 
    public void setPower(int i, double power){
-      wheels[i].setPower(power);
+      //wheels[i].setPower(power);
    
       if(i == 1 || i == 3){
-         wheels[i].setPower(wheels[i].getPower()*-1);
+         wheels[i].setPower(power*-1);
       }//compensates for back wheels rotating backwards
+      else{
+         wheels[i].setPower(power);
+      }
    
    }//sets the power of an individual motor
 

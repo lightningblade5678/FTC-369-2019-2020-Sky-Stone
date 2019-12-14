@@ -38,7 +38,7 @@ public class BotArm {
     public DcMotor baseMotor;
     public Servo wristServo;
     public Servo handServo;
-    private ModernRoboticsI2cRangeSensor range;
+    public ModernRoboticsI2cRangeSensor range;
     public Servo dropCap;
 
 
@@ -98,15 +98,28 @@ public class BotArm {
 
     }//rotates base degrees to l/r
 
-    public  void baseRotateTo(double distance, double power){
+    public  void baseRotateTo(int  distance, double power){
 
         baseMotor.setPower(power);
 
-        while(range.rawUltrasonic() < distance);//use rawUL b/c light sensor is extremely unreliable NOTE: distance is not a tangible value
+        while(range.rawUltrasonic() < distance);
 
-        baseMotor.setPower(0);
+        baseMotor.setPower(.2);
+
+//        if(range.rawUltrasonic() > distance){
+//            while(range.rawUltrasonic() > distance){
+//                baseMotor.setPower(.1);
+//            }
+//            baseMotor.setPower(.2);
+//        }//if overshot, realigns
+
+
 
     }//rotates base using distance sensor
+
+    public float returnDistance(ModernRoboticsI2cRangeSensor range){
+        return range.rawUltrasonic();
+    }
 
     public void wristOut(){
         wristServo.setPosition(0);

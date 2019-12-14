@@ -38,6 +38,7 @@ package org.firstinspires.ftc.teamcode.FinalBot.FinalOpModes.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotArm;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotHook;
@@ -51,6 +52,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
     public boolean hookPos = true;
     public boolean handPos = true;
+    public boolean recieve = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -61,8 +63,6 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
         BotHook hook = bot.hook;
         BotIntake intake = bot.intake;
 
-        arm.wristServo.setPosition(0);
-        hook.dropHook();
         //initializes to average pos
         /*intake.finger.setPower(0);
         wheels.setPower(0);
@@ -72,11 +72,14 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
         waitForStart();
 
 
+
         while (opModeIsActive()) {
-            
+            telemetry.addData("Distance", arm.range.rawOptical());
+            telemetry.update();
+
 
             //                  [!] CONTROLLER 1 [!]
-            if (ifStick('y', 1, 'l', .5)) {
+            if (gamepad1.left_stick_y < -.3 || gamepad1.left_stick_y > .3) { //  ifStick('y', 1, 'l', .3)
                 wheels.setPower(0, -gamepad1.left_stick_y);
                 wheels.setPower(1, -gamepad1.left_stick_y);
                 wheels.setPower(2, -gamepad1.left_stick_y*.95);
@@ -84,7 +87,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
             }//Forwards and backwards
 
-            else if (ifStick('x', 1, 'l', .5)) {
+            else if (gamepad1.left_stick_x < -.3 || gamepad1.left_stick_x > .3) { //   ifStick('x', 1, 'l', .3)
 
                 wheels.setPower(0, gamepad1.left_stick_x);
                 wheels.setPower(1, -gamepad1.left_stick_x);
@@ -93,7 +96,7 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
             }//Strafing
 
-            else if (ifStick('x', 1, 'r', .5)) {
+            if (gamepad1.right_stick_x > .5 || gamepad1.right_stick_x < -.5) { //  ifStick('x', 1, 'r', .5)
 
                 wheels.setPower(0, gamepad1.right_stick_x);
                 wheels.setPower(1, -gamepad1.right_stick_x);
@@ -102,28 +105,27 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
             }//rotating
 
-            else if(ifDPad(1, 'n')){
+            if(gamepad1.dpad_up){ //    ifDPad(1, 'n')
                 wheels.setPower(0, .2);
                 wheels.setPower(1, .2);
-                wheels.setPower(2, .2*.95);
-                wheels.setPower(3, .2*.95);
-            }else if(ifDPad(1, 's')){
+                wheels.setPower(2, .2);
+                wheels.setPower(3, .2);
+            }else if(gamepad1.dpad_down){ //  ifDPad(1, 's')
                 wheels.setPower(0, -.2);
                 wheels.setPower(1, -.2);
-                wheels.setPower(2, -.2*.95);
-                wheels.setPower(3, -.2*.95);
-            }/*else if(ifDPad(1, 'w')) {
+                wheels.setPower(2, -.2);
+                wheels.setPower(3, -.2);
+            }else if(gamepad1.dpad_left) {//  ifDPad(1, 'w')
                 wheels.setPower(0, -.2);
                 wheels.setPower(1, .2);
-                wheels.setPower(2, .2 * .95);
-                wheels.setPower(3, -.2 * .95);
-            }else if(ifDPad(1, 'e')) {
+                wheels.setPower(2, .2);
+                wheels.setPower(3, -.2);
+            }else if(gamepad1.dpad_right) {//  ifDPad(1, 'e')
                 wheels.setPower(0, .2);
                 wheels.setPower(1, -.2);
-                wheels.setPower(2, -.2 * .95);
-                wheels.setPower(3, .2 * .95);
-            }*/ //slow move omnidirectional
-            telemetry.update();
+                wheels.setPower(2, -.2);
+                wheels.setPower(3, .2);
+            } //slow move 4 directions
 
             if (gamepad1.a) {
             hookPos(bot.hook);
@@ -136,21 +138,20 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
 
             //                  [!] CONTROLLER 2 [!]
-            if (ifStick('y', 2, 'r', .5)) {
-
+            if (gamepad2.right_stick_y > .3 || gamepad2.right_stick_y < -.3) {//   ifStick('y', 2, 'r', .5)
                 double power = gamepad2.right_stick_y;
-                if (power > .5){
-                    power = .5;
-                }
-                if (power < -.1) {
-                    power = -.1;
-                }//failsafe (doesn't slam arm down)
+
+                if(power < -.1){
+                    power = -0.1;
+                }else if(power > .7){
+                    power = .7;
+                }//failsafe
 
                 arm.baseMotor.setPower(power);
             }//arm power
 
 
-            else if (ifStick('x', 2, 'l', .5)) {
+            else if (gamepad2.left_stick_x < -.5 || gamepad2.left_stick_x > .5) { // ifStick('x', 2, 'l', .5)
                 double pos = arm.wristServo.getPosition();
 
                 if(gamepad2.left_stick_x < 0){
@@ -162,13 +163,13 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
             }//wrist movement
 
 
-            if(ifTrig(2, 'l')){
+            if(gamepad2.left_trigger > .2){ //    ifTrig(2, 'l')
                 intake.finger.setPower(1);
-                while(ifTrig(2, 'l'));
+                while(gamepad2.left_trigger > .2); //   ifTrig(2, 'l')
                 intake.finger.setPower(0);
-            }else if(ifTrig(2, 'r')){
+            }else if(gamepad2.right_trigger > .2){ //  ifTrig(2, 'r')
                 intake.finger.setPower(-1);
-                while(ifTrig(2, 'r'));
+                while(gamepad2.right_trigger > .2);//  ifTrig(2, 'r')
                 intake.finger.setPower(0);
             }//finger movement
 
@@ -187,9 +188,26 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
                 while(gamepad1.left_bumper || gamepad1.right_bumper);
             }//DropCap toggle
 
+            if(gamepad2.y){
+                bot.placeBlock();
+            }
+
+            else if(gamepad2.x){
+                recieveBlock(bot.arm);
+                telemetry.addData("Running", "X");
+                telemetry.update();
+                while(gamepad2.x);
+            }
+            telemetry.addData("Running", "null");
+            telemetry.update();
             if(gamepad1.left_stick_x == 0 && gamepad1.left_stick_y == 0 && gamepad1.right_stick_x == 0 && gamepad1.right_stick_y == 0 && !gamepad1.dpad_up && !gamepad1.dpad_down && !gamepad1.dpad_right && !gamepad1.dpad_left){
                 wheels.setPower(0);
             }
+            if(gamepad2.right_stick_y == 0){
+                arm.baseMotor.setPower(0);
+            }
+            telemetry.addData("Distance", arm.returnDistance(arm.range));
+            telemetry.update();
 
         }
 
@@ -352,7 +370,6 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
     private void intakeMovement(BotIntake intake){
         if(gamepad2.dpad_up){
-
             intakePower(.3, intake);
         }else if(gamepad2.dpad_down){
             intakePower(0, intake);
@@ -476,4 +493,12 @@ public class FinalTeleOp_FinalBot extends LinearOpMode {
 
         return '-';
     }
+
+    private void recieveBlock(BotArm arm){
+        if(recieve) {
+            arm.baseRotateTo(2, .6);
+        }else if(!recieve){
+            arm.baseMotor.setPower(0);
+        }
+    }//sets arm into intake position
 }
