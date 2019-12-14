@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.BotWheels;
 import org.firstinspires.ftc.teamcode.FinalBot.Internal_Code.FinalBot;
 
 /*
@@ -17,7 +18,7 @@ public class HookBuildPlateBlue extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         //wait
         FinalBot bot = new FinalBot(hardwareMap);
-
+        BotWheels wheels = bot.getWheels();
         bot.arm.baseRotateDegree(45, 1);
         bot.arm.baseMotor.setPower(.25);
 
@@ -42,19 +43,17 @@ public class HookBuildPlateBlue extends LinearOpMode {
         //telemetry.addData("Move: ","To Tray");
         //telemetry.update();
         bot.move(0, -1);
-        bot.move(10,0);
+        bot.move(7,0);
         //move towards tray
         bot.move(0,-29);//back into tray
         bot.getWheels().moveRelativeY(-10,0.2, 20);
 
-        //telemetry.addData("Action: ","Block");
-        //telemetry.update();
-
+        wheels.setPower(-.05);
+        sleep(1000);
         bot.hook.dropHook();//drops hook onto block
-        //bot.placeBlock();//places block
+        sleep(500);
+        wheels.setPower(0);
 
-        //telemetry.addData("Move: ","Block");
-        //telemetry.update();
 
         for(int i = 0; i < 5; i++) {
             bot.getWheels().moveRelativeY(8, 0.2, 20);
