@@ -41,12 +41,14 @@ public class BotArm {
     private ModernRoboticsI2cRangeSensor range;
     public Servo dropCap;
 
+
     public BotArm(DcMotor base, Servo wrist, Servo hand, ModernRoboticsI2cRangeSensor range, Servo dropCap){
         baseMotor = base;
         wristServo = wrist;
         wristServo.setPosition(0);
         handServo = hand;
         this.dropCap = dropCap;
+        dropCap.setPosition(1);
 
         this.range = range;
         //set servos and motors to 0

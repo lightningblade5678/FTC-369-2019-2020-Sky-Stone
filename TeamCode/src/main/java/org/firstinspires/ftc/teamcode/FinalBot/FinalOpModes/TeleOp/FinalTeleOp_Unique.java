@@ -59,7 +59,7 @@ public class FinalTeleOp_Unique extends OpMode{
     private CRServo finger;
 
     private DcMotor arm;
-    private CRServo wrist;
+    private Servo wrist;
     private Servo hand;
     private Servo hook;
 
@@ -92,7 +92,7 @@ public class FinalTeleOp_Unique extends OpMode{
         arm = hardwareMap.get(DcMotor.class,"baseMotor");
         arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        wrist = hardwareMap.get(CRServo.class,"wristServo");
+        wrist = hardwareMap.get(Servo.class,"wristServo");
         hand = hardwareMap.get(Servo.class,"handServo");
 
         finger.setPower(1);
@@ -261,16 +261,15 @@ public class FinalTeleOp_Unique extends OpMode{
             finger.setPower(0);
         }
 
-        // uses joystick to move wrist
-
+        // uses joystick
         if(gamepad2.left_stick_x < 0){
-            wrist.setPower(.15);
+            wrist.setPosition(0);
 
         }else if(gamepad2.left_stick_x > 0){
-            wrist.setPower(-.15);
+            wrist.setPosition(1);
 
         }else{
-            wrist.setPower(0);
+            wrist.setPosition(.5);
         }
 
 
